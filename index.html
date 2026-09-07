@@ -138,17 +138,39 @@
 
   /* ===== HERO ===== */
   .hero{
-    padding:88px 0 96px;
+    padding:0;
     border-bottom:1px solid var(--line);
     position:relative;
     overflow:hidden;
+    min-height:580px;
+    display:flex;
+    align-items:center;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(20, 31, 43, 0.92) 0%,
+        rgba(20, 31, 43, 0.78) 35%,
+        rgba(20, 31, 43, 0.45) 65%,
+        rgba(20, 31, 43, 0.20) 85%,
+        rgba(20, 31, 43, 0.08) 100%
+      ),
+      url("assets/img/wallpaper-sakti.jpg");
+    background-size: cover;
+    background-position: center;
   }
 
   .hero-content{
     display:grid;
-    grid-template-columns:1.05fr 0.85fr;
-    gap:64px;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:48px;
     align-items:center;
+    padding:80px 0 88px;
+    width:100%;
+  }
+
+  .hero-text{
+    position:relative;
+    z-index:2;
   }
 
   .file-tag{
@@ -156,70 +178,152 @@
     align-items:center;
     gap:8px;
     font-size:13px;
-    color:var(--ledger);
+    color:#D4CFC0;
     font-weight:600;
-    border:1px solid var(--ledger);
-    padding:5px 12px 5px 10px;
+    border:1px solid rgba(255,255,255,0.25);
+    padding:5px 14px 5px 12px;
     border-radius:20px;
     margin-bottom:28px;
+    background:rgba(31,46,61,0.30);
+    backdrop-filter:blur(2px);
+    letter-spacing:0.03em;
   }
   .file-tag::before{
     content:"";
     width:6px;
     height:6px;
-    background:var(--ledger);
+    background:#D4CFC0;
     border-radius:50%;
     display:inline-block;
   }
 
   .hero h2{
-    font-size:52px;
+    font-size:50px;
     line-height:1.08;
-    margin-bottom:22px;
+    margin-bottom:18px;
     max-width:520px;
+    color:#F0EDE3;
   }
 
   .hero h2 em{
     font-style:italic;
-    color:var(--seal);
+    color:#D4A58A;
   }
 
   .hero p{
     font-size:17px;
-    color:var(--ink-soft);
+    color:rgba(240,237,227,0.85);
     max-width:440px;
     margin-bottom:36px;
+    line-height:1.6;
   }
 
   .btn-primary{
     display:inline-flex;
     align-items:center;
     gap:10px;
-    background:var(--ink);
-    color:var(--paper);
+    background:#F0EDE3;
+    color:var(--ink);
     font-size:15px;
     font-weight:600;
-    padding:14px 26px;
+    padding:14px 28px;
     border-radius:var(--radius);
     transition:background 0.18s ease, transform 0.18s ease;
+    border:none;
+    cursor:pointer;
+    font-family:'Public Sans', sans-serif;
   }
-  .btn-primary:hover{ background:var(--seal); }
-  .btn-primary:focus-visible{ outline:2px solid var(--seal); outline-offset:3px; }
-  .btn-primary svg{ transition:transform 0.18s ease; }
-  .btn-primary:hover svg{ transform:translateX(3px); }
+  .btn-primary:hover{
+    background:#FFFFFF;
+    transform:translateY(-1px);
+  }
+  .btn-primary:focus-visible{
+    outline:2px solid var(--seal);
+    outline-offset:3px;
+  }
+  .btn-primary svg{
+    transition:transform 0.18s ease;
+    flex-shrink:0;
+  }
+  .btn-primary:hover svg{
+    transform:translateX(3px);
+  }
 
-  /* Seal illustration */
-  .seal-wrap{
+  /* Right side - empty/visual area for wallpaper to show through */
+  .hero-visual{
+    position:relative;
+    z-index:2;
     display:flex;
     justify-content:center;
     align-items:center;
-    position:relative;
+    min-height:200px;
   }
 
-  .seal-wrap svg{
+  /* Decorative subtle seal on right */
+  .hero-seal{
+    opacity:0.20;
+    max-width:180px;
     width:100%;
-    max-width:340px;
     height:auto;
+  }
+
+  @media (max-width:860px){
+    .hero{
+      min-height:480px;
+    }
+    .hero-content{
+      grid-template-columns:1fr;
+      padding:56px 0 64px;
+      gap:12px;
+    }
+    .hero-visual{
+      display:none;
+    }
+    .hero h2{
+      font-size:34px;
+      max-width:100%;
+    }
+    .hero p{
+      font-size:15.5px;
+      max-width:100%;
+    }
+    .file-tag{
+      font-size:12px;
+      padding:4px 12px 4px 10px;
+      margin-bottom:20px;
+    }
+    .hero-content{
+      background:
+        linear-gradient(
+          180deg,
+          rgba(20,31,43,0.88) 0%,
+          rgba(20,31,43,0.75) 50%,
+          rgba(20,31,43,0.65) 100%
+        );
+      border-radius:0;
+    }
+    .btn-primary{
+      padding:13px 24px;
+      font-size:14px;
+    }
+  }
+
+  @media (max-width:480px){
+    .hero h2{
+      font-size:28px;
+    }
+    .hero p{
+      font-size:14px;
+    }
+    .btn-primary{
+      padding:12px 20px;
+      font-size:13px;
+      width:100%;
+      justify-content:center;
+    }
+    .hero-content{
+      padding:40px 0 48px;
+    }
   }
 
   /* ===== ABOUT ===== */
@@ -278,6 +382,17 @@
     margin-top:4px;
   }
 
+  @media (max-width:860px){
+    .about-grid{
+      grid-template-columns:1fr;
+      gap:32px;
+    }
+    .about-stats{
+      grid-template-columns:repeat(3, 1fr);
+      gap:20px;
+    }
+  }
+
   /* ===== PORTAL ===== */
   .portal-section{
     padding:96px 0 110px;
@@ -330,7 +445,9 @@
     padding:5px 14px 4px;
   }
 
-  .folder:nth-child(2) .folder-tab{ background:var(--seal); }
+  .folder:nth-child(2) .folder-tab{
+    background:var(--seal);
+  }
 
   .folder h3{
     font-size:24px;
@@ -361,7 +478,19 @@
     border-color:var(--seal);
     gap:12px;
   }
-  .folder-link:focus-visible{ outline:2px solid var(--seal); outline-offset:4px; }
+  .folder-link:focus-visible{
+    outline:2px solid var(--seal);
+    outline-offset:4px;
+  }
+
+  @media (max-width:860px){
+    .portal-cards{
+      grid-template-columns:1fr;
+    }
+    .section-heading h2{
+      font-size:28px;
+    }
+  }
 
   /* ===== FOOTER ===== */
   footer{
@@ -383,17 +512,12 @@
     font-size:15px;
   }
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 860px){
-    .hero-content{ grid-template-columns:1fr; }
-    .seal-wrap{ order:-1; margin-bottom:8px; }
-    .seal-wrap svg{ max-width:220px; }
-    .hero h2{ font-size:38px; }
-    .about-grid{ grid-template-columns:1fr; }
-    .about-stats{ grid-template-columns:repeat(3, 1fr); gap:20px; }
-    .portal-cards{ grid-template-columns:1fr; }
-    nav.links{ display:none; }
-    .footer-content{ flex-direction:column; gap:10px; align-items:flex-start; }
+  @media (max-width:860px){
+    .footer-content{
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-start;
+    }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -437,23 +561,8 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
-
-        <div class="seal-wrap">
-          <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="150" cy="150" r="128" stroke="#1F2E3D" stroke-width="1.5" stroke-dasharray="2 6"/>
-            <circle cx="150" cy="150" r="108" stroke="#1F2E3D" stroke-width="1.5"/>
-            <circle cx="150" cy="150" r="86" fill="#EDEAE0" stroke="#B08D3E" stroke-width="1.2"/>
-            <path id="topArc" d="M 72 150 A 78 78 0 0 1 228 150" fill="none"/>
-            <path id="botArc" d="M 228 150 A 78 78 0 0 1 72 150" fill="none"/>
-            <text font-family="Public Sans, sans-serif" font-size="12.5" font-weight="700" letter-spacing="3" fill="#1F2E3D">
-              <textPath href="#topArc" startOffset="50%" text-anchor="middle">DIVERIFIKASI · TERSIMPAN</textPath>
-            </text>
-            <text font-family="Public Sans, sans-serif" font-size="12.5" font-weight="700" letter-spacing="3" fill="#1F2E3D">
-              <textPath href="#botArc" startOffset="50%" text-anchor="middle">TERPADU · TERAWASI</textPath>
-            </text>
-            <circle cx="150" cy="150" r="58" fill="none" stroke="#A73B2E" stroke-width="1.5"/>
-            <path d="M124 152l16 16 34-36" stroke="#A73B2E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="hero-visual">
+          <!-- Empty area where wallpaper shows through -->
         </div>
       </div>
     </section>
