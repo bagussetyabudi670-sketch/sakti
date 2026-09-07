@@ -47,6 +47,38 @@
     padding:0 32px;
   }
 
+  /* ===== ANNOUNCEMENT BAR ===== */
+  .announcement{
+    background:var(--ink);
+    color:var(--paper);
+    z-index:21;
+  }
+
+  .announcement-content{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:11px 32px;
+    font-size:13.5px;
+    line-height:1.4;
+    text-align:center;
+  }
+
+  .announcement-content .icon{
+    flex-shrink:0;
+    font-size:14px;
+  }
+
+  .announcement-content strong{
+    color:var(--brass);
+    font-weight:600;
+  }
+
+  @media (max-width:640px){
+    .announcement-content{ font-size:12.5px; padding:10px 20px; }
+  }
+
   /* ===== NAVBAR ===== */
   .navbar{
     border-bottom:1px solid var(--line);
@@ -370,6 +402,13 @@
 </style>
 </head>
 <body>
+
+  <div class="announcement">
+    <div class="container announcement-content">
+      <span class="icon">📢</span>
+      <span>Bagi OPD yang telah divisitasi: format <strong>"(REVISI) ASKI UP/UK - Nama OPD - 2026"</strong> menandakan ASKI telah di-update sesuai hasil sementara Tim Pengawas.</span>
+    </div>
+  </div>
 
   <header class="navbar">
     <div class="container nav-content">
