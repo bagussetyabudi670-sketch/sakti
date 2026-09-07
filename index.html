@@ -489,15 +489,34 @@
   /* ===== FOOTER ===== */
   footer{
     border-top:1px solid var(--line);
-    padding:34px 0;
+    padding:40px 0;
   }
 
   .footer-content{
     display:flex;
-    justify-content:space-between;
-    align-items:center;
+    flex-direction:column;
+    gap:8px;
     font-size:13.5px;
     color:var(--ink-soft);
+  }
+
+  .footer-content .footer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .footer-content .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    padding-top:12px;
+    border-top:1px solid var(--line);
+    font-size:13px;
   }
 
   .footer-content strong{
@@ -506,10 +525,28 @@
     font-size:15px;
   }
 
+  .footer-address{
+    font-size:13px;
+    color:var(--ink-soft);
+    max-width:500px;
+  }
+
+  .footer-address a{
+    color:var(--ledger);
+    transition:color 0.15s ease;
+  }
+
+  .footer-address a:hover{
+    color:var(--seal);
+  }
+
   @media (max-width:860px){
-    .footer-content{
+    .footer-content .footer-top{
       flex-direction:column;
-      gap:10px;
+      align-items:flex-start;
+    }
+    .footer-content .footer-bottom{
+      flex-direction:column;
       align-items:flex-start;
     }
   }
@@ -524,7 +561,7 @@
   <header class="navbar">
     <div class="container nav-content">
       <div class="logo">
-        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi">
+        <img class="logo-seal" src="assets/img/logoAS.jpg" alt="Logo SAKTi">
         <div class="logo-text">
           <h1>SAKTi</h1>
           <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
@@ -618,10 +655,19 @@
 
   <footer>
     <div class="container footer-content">
-      <div>
-        <strong>SAKTi</strong> — Sistem Pengawasan Kearsipan Terintegrasi
+      <div class="footer-top">
+        <div>
+          <strong>SAKTi</strong> — Sistem Pengawasan Kearsipan Terintegrasi
+        </div>
+        <div class="footer-address">
+          Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br>
+          Jl. Janti, Banguntapan, Bantul, DIY 55198
+        </div>
       </div>
-      <div>© 2026 SAKTi</div>
+      <div class="footer-bottom">
+        <div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div>
+        <div>© 2025 SAKTi — Sistem Audit Kearsipan Terintegrasi</div>
+      </div>
     </div>
   </footer>
 
