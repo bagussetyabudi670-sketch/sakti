@@ -1,230 +1,498 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAKTi | Sistem Pengawasan Kearsipan Terintegrasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EDEAE0;
+    --paper-deep: #E3DECD;
+    --ink: #1F2E3D;
+    --ink-soft: #445362;
+    --ledger: #35553E;
+    --seal: #A73B2E;
+    --brass: #B08D3E;
+    --line: rgba(31,46,61,0.16);
+    --radius: 2px;
+  }
 
-    <title>SAKTi | Sistem Pengawasan Kearsipan Terintegrasi</title>
+  *{ margin:0; padding:0; box-sizing:border-box; }
 
-    <link rel="stylesheet" href="style.css">
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Public Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1, h2, h3{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .container{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ===== NAVBAR ===== */
+  .navbar{
+    border-bottom:1px solid var(--line);
+    background:var(--paper);
+    position:sticky;
+    top:0;
+    z-index:20;
+  }
+
+  .nav-content{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:76px;
+  }
+
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+
+  .logo-seal{
+    width:40px;
+    height:40px;
+    flex-shrink:0;
+  }
+
+  .logo-text h1{
+    font-size:19px;
+    line-height:1;
+    letter-spacing:0.02em;
+  }
+
+  .logo-text span{
+    display:block;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-top:3px;
+  }
+
+  nav.links{
+    display:flex;
+    gap:36px;
+    font-size:14.5px;
+    font-weight:500;
+  }
+
+  nav.links a{
+    position:relative;
+    padding-bottom:4px;
+    color:var(--ink-soft);
+    transition:color 0.15s ease;
+  }
+  nav.links a:hover{ color:var(--ink); }
+  nav.links a:focus-visible{ outline:2px solid var(--seal); outline-offset:4px; }
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:88px 0 96px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero-content{
+    display:grid;
+    grid-template-columns:1.05fr 0.85fr;
+    gap:64px;
+    align-items:center;
+  }
+
+  .file-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--ledger);
+    font-weight:600;
+    border:1px solid var(--ledger);
+    padding:5px 12px 5px 10px;
+    border-radius:20px;
+    margin-bottom:28px;
+  }
+  .file-tag::before{
+    content:"";
+    width:6px;
+    height:6px;
+    background:var(--ledger);
+    border-radius:50%;
+    display:inline-block;
+  }
+
+  .hero h2{
+    font-size:52px;
+    line-height:1.08;
+    margin-bottom:22px;
+    max-width:520px;
+  }
+
+  .hero h2 em{
+    font-style:italic;
+    color:var(--seal);
+  }
+
+  .hero p{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:440px;
+    margin-bottom:36px;
+  }
+
+  .btn-primary{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--ink);
+    color:var(--paper);
+    font-size:15px;
+    font-weight:600;
+    padding:14px 26px;
+    border-radius:var(--radius);
+    transition:background 0.18s ease, transform 0.18s ease;
+  }
+  .btn-primary:hover{ background:var(--seal); }
+  .btn-primary:focus-visible{ outline:2px solid var(--seal); outline-offset:3px; }
+  .btn-primary svg{ transition:transform 0.18s ease; }
+  .btn-primary:hover svg{ transform:translateX(3px); }
+
+  /* Seal illustration */
+  .seal-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+  }
+
+  .seal-wrap svg{
+    width:100%;
+    max-width:340px;
+    height:auto;
+  }
+
+  /* ===== ABOUT ===== */
+  .about{
+    padding:88px 0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.42fr 0.58fr;
+    gap:56px;
+  }
+
+  .ledger-label{
+    font-size:13px;
+    font-weight:600;
+    color:var(--brass);
+    border-left:2px solid var(--brass);
+    padding-left:12px;
+    letter-spacing:0.02em;
+    height:fit-content;
+  }
+
+  .about-body h3{
+    font-size:30px;
+    margin-bottom:18px;
+    max-width:460px;
+  }
+
+  .about-body p{
+    color:var(--ink-soft);
+    font-size:16px;
+    max-width:560px;
+    margin-bottom:28px;
+  }
+
+  .about-stats{
+    display:grid;
+    grid-template-columns:repeat(3, auto);
+    gap:40px;
+    margin-top:8px;
+    border-top:1px solid var(--line);
+    padding-top:28px;
+  }
+
+  .about-stats dt{
+    font-family:'Newsreader', serif;
+    font-size:30px;
+    color:var(--ink);
+  }
+
+  .about-stats dd{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+
+  /* ===== PORTAL ===== */
+  .portal-section{
+    padding:96px 0 110px;
+  }
+
+  .section-heading{
+    max-width:560px;
+    margin-bottom:52px;
+  }
+
+  .section-heading h2{
+    font-size:34px;
+    margin-bottom:14px;
+  }
+
+  .section-heading p{
+    color:var(--ink-soft);
+    font-size:16px;
+  }
+
+  .portal-cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+
+  .folder{
+    position:relative;
+    background:var(--paper-deep);
+    border:1px solid var(--line);
+    padding:40px 36px 36px;
+    clip-path:polygon(0 0, 62% 0, 70% 22px, 100% 22px, 100% 100%, 0 100%);
+    transition:border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .folder:hover{
+    border-color:var(--ink);
+    transform:translateY(-3px);
+  }
+
+  .folder-tab{
+    position:absolute;
+    top:-1px;
+    left:0;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    color:var(--paper);
+    background:var(--ledger);
+    padding:5px 14px 4px;
+  }
+
+  .folder:nth-child(2) .folder-tab{ background:var(--seal); }
+
+  .folder h3{
+    font-size:24px;
+    margin:26px 0 14px;
+  }
+
+  .folder p{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin-bottom:30px;
+    max-width:340px;
+  }
+
+  .folder-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--ink);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:3px;
+    transition:color 0.15s ease, border-color 0.15s ease, gap 0.15s ease;
+  }
+
+  .folder-link:hover{
+    color:var(--seal);
+    border-color:var(--seal);
+    gap:12px;
+  }
+  .folder-link:focus-visible{ outline:2px solid var(--seal); outline-offset:4px; }
+
+  /* ===== FOOTER ===== */
+  footer{
+    border-top:1px solid var(--line);
+    padding:34px 0;
+  }
+
+  .footer-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+
+  .footer-content strong{
+    color:var(--ink);
+    font-family:'Newsreader', serif;
+    font-size:15px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 860px){
+    .hero-content{ grid-template-columns:1fr; }
+    .seal-wrap{ order:-1; margin-bottom:8px; }
+    .seal-wrap svg{ max-width:220px; }
+    .hero h2{ font-size:38px; }
+    .about-grid{ grid-template-columns:1fr; }
+    .about-stats{ grid-template-columns:repeat(3, 1fr); gap:20px; }
+    .portal-cards{ grid-template-columns:1fr; }
+    nav.links{ display:none; }
+    .footer-content{ flex-direction:column; gap:10px; align-items:flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; scroll-behavior:auto !important; }
+  }
+</style>
 </head>
-
 <body>
 
-    <!-- NAVBAR -->
-    <header class="navbar">
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">
+        <svg class="logo-seal" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="19" stroke="#1F2E3D" stroke-width="1.4"/>
+          <circle cx="20" cy="20" r="14.5" stroke="#1F2E3D" stroke-width="1"/>
+          <path d="M13 21.5l4.5 4.5L27 15" stroke="#A73B2E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="logo-text">
+          <h1>SAKTi</h1>
+          <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
+        </div>
+      </div>
+      <nav class="links">
+        <a href="#beranda">Beranda</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#portal">Portal</a>
+      </nav>
+    </div>
+  </header>
 
-        <div class="container nav-content">
+  <main>
 
-            <div class="logo">
-                <div class="logo-icon">B</div>
-
-                <div>
-                    <h1>SAKTi</h1>
-                    <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
-                </div>
-            </div>
-
-            <nav>
-                <a href="#beranda">Beranda</a>
-                <a href="#tentang">Tentang</a>
-                <a href="#portal">Portal</a>
-            </nav>
-
+    <section class="hero" id="beranda">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <span class="file-tag">Sistem resmi pengawasan kearsipan</span>
+          <h2>Satu portal untuk<br>seluruh proses <em>pengawasan arsip</em>.</h2>
+          <p>SAKTi menyatukan pengisian data, unggah bukti dukung, dan verifikasi lapangan dalam satu alur — dari lembaga kearsipan sampai tim pengawas.</p>
+          <a href="#portal" class="btn-primary">
+            Masuk ke Portal
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
 
-    </header>
+        <div class="seal-wrap">
+          <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="150" r="128" stroke="#1F2E3D" stroke-width="1.5" stroke-dasharray="2 6"/>
+            <circle cx="150" cy="150" r="108" stroke="#1F2E3D" stroke-width="1.5"/>
+            <circle cx="150" cy="150" r="86" fill="#EDEAE0" stroke="#B08D3E" stroke-width="1.2"/>
+            <path id="topArc" d="M 72 150 A 78 78 0 0 1 228 150" fill="none"/>
+            <path id="botArc" d="M 228 150 A 78 78 0 0 1 72 150" fill="none"/>
+            <text font-family="Public Sans, sans-serif" font-size="12.5" font-weight="700" letter-spacing="3" fill="#1F2E3D">
+              <textPath href="#topArc" startOffset="50%" text-anchor="middle">DIVERIFIKASI · TERSIMPAN</textPath>
+            </text>
+            <text font-family="Public Sans, sans-serif" font-size="12.5" font-weight="700" letter-spacing="3" fill="#1F2E3D">
+              <textPath href="#botArc" startOffset="50%" text-anchor="middle">TERPADU · TERAWASI</textPath>
+            </text>
+            <circle cx="150" cy="150" r="58" fill="none" stroke="#A73B2E" stroke-width="1.5"/>
+            <path d="M124 152l16 16 34-36" stroke="#A73B2E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
 
-
-    <!-- HERO -->
-    <main>
-
-        <section class="hero" id="beranda">
-
-            <div class="container hero-content">
-
-                <div class="hero-text">
-
-                    <span class="badge">
-                        SISTEM PENGAWASAN KEARSIPAN
-                    </span>
-
-                    <h2>
-                        Selamat Datang di<br>
-                        <strong>SEPAKAT</strong>
-                    </h2>
-
-                    <p>
-                        Sistem Pengawasan Kearsipan Terintegrasi yang
-                        membantu proses pengawasan, pengisian data,
-                        dan pengelolaan bukti dukung secara terintegrasi.
-                    </p>
-
-                    <a href="#portal" class="hero-button">
-                        Masuk ke Portal
-                        <span>→</span>
-                    </a>
-
-                </div>
-
-                <div class="hero-illustration">
-
-                    <div class="document-card">
-
-                        <div class="document-header"></div>
-
-                        <div class="document-line large"></div>
-                        <div class="document-line"></div>
-                        <div class="document-line"></div>
-
-                        <div class="document-check">
-                            ✓
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- TENTANG -->
-        <section class="about" id="tentang">
-
-            <div class="container">
-
-                <div class="section-title">
-
-                    <span>TENTANG SAKTi</span>
-
-                    <h2>
-                        Pengawasan Kearsipan<br>
-                        yang Terintegrasi
-                    </h2>
-
-                    <p>
-                        SAKTi menjadi pintu masuk bagi objek pengawasan
-                        dan tim pengawas dalam mendukung pelaksanaan
-                        pengawasan kearsipan.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- PORTAL -->
-        <section class="portal-section" id="portal">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <span>PORTAL SAKTi</span>
-
-                    <h2>Pilih Akses Anda</h2>
-
-                    <p>
-                        Silakan pilih jenis akses untuk melanjutkan.
-                    </p>
-
-                </div>
-
-
-                <div class="portal-cards">
-
-
-                    <!-- INSTANSI -->
-                    <div class="portal-card">
-
-                        <div class="card-icon">
-                            🏢
-                        </div>
-
-                        <span class="card-label">
-                            OBJEK PENGAWASAN
-                        </span>
-
-                        <h3>
-                            Lembaga Kearsipan
-                        </h3>
-
-                        <p>
-                            Akses bagi Lembaga Kearsipan
-                            atau Perangkat Daerah Provinsi
-                            yang menjadi objek pengawasan.
-                        </p>
-
-                        <a href="instansi.html" class="card-button">
-                            Masuk Instansi
-                            <span>→</span>
-                        </a>
-
-                    </div>
-
-
-                    <!-- PENGAWAS -->
-                    <div class="portal-card">
-
-                        <div class="card-icon">
-                            📋
-                        </div>
-
-                        <span class="card-label">
-                            TIM PENGAWAS
-                        </span>
-
-                        <h3>
-                            Pengawas / Verifikator
-                        </h3>
-
-                        <p>
-                            Akses bagi tim pengawas dan
-                            verifikator dalam melaksanakan
-                            proses pengawasan.
-                        </p>
-
-                        <a href="pengawas.html" class="card-button">
-                            Masuk Pengawas
-                            <span>→</span>
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-    <footer>
-
-        <div class="container footer-content">
-
+    <section class="about" id="tentang">
+      <div class="container about-grid">
+        <div class="ledger-label">Tentang SAKTi</div>
+        <div class="about-body">
+          <h3>Pintu masuk bagi objek pengawasan dan tim pengawas.</h3>
+          <p>Setiap tahap pengawasan kearsipan — dari pengisian data mandiri, unggah bukti dukung, sampai verifikasi oleh tim pengawas — tercatat di satu tempat yang sama, sehingga statusnya bisa dipantau kedua belah pihak secara langsung.</p>
+          <dl class="about-stats">
             <div>
-                <strong>SAKTi</strong>
-                <p>
-                    Sistem Pengawasan Kearsipan Terintegrasi
-                </p>
+              <dt>2</dt>
+              <dd>Jalur akses portal</dd>
             </div>
-
             <div>
-                <p>
-                    © 2026 SAKTi
-                </p>
+              <dt>1</dt>
+              <dd>Alur pengawasan terpadu</dd>
             </div>
+            <div>
+              <dt>34</dt>
+              <dd>Provinsi tercakup</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
 
+    <section class="portal-section" id="portal">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Pilih akses Anda</h2>
+          <p>Portal berbeda untuk peran berbeda — pilih sesuai posisi Anda dalam proses pengawasan.</p>
         </div>
 
-    </footer>
+        <div class="portal-cards">
+
+          <div class="folder">
+            <span class="folder-tab">OBJEK PENGAWASAN</span>
+            <h3>Lembaga Kearsipan</h3>
+            <p>Untuk Lembaga Kearsipan atau Perangkat Daerah Provinsi yang menjadi objek pengawasan — isi data dan unggah bukti dukung di sini.</p>
+            <a href="instansi.html" class="folder-link">
+              Masuk sebagai Instansi
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+
+          <div class="folder">
+            <span class="folder-tab">TIM PENGAWAS</span>
+            <h3>Pengawas / Verifikator</h3>
+            <p>Untuk tim pengawas dan verifikator yang menjalankan proses pengawasan dan memeriksa bukti dukung yang masuk.</p>
+            <a href="pengawas.html" class="folder-link">
+              Masuk sebagai Pengawas
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <strong>SAKTi</strong> — Sistem Pengawasan Kearsipan Terintegrasi
+      </div>
+      <div>© 2026 SAKTi</div>
+    </div>
+  </footer>
 
 </body>
 </html>
