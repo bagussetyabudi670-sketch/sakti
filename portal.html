@@ -1,306 +1,351 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal · SAKTi</title>
 
-  <title>Portal | SAKTi</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (Free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
   <style>
-    :root{
-      --paper: #EDEAE0;
-      --paper-deep: #E3DECD;
-      --ink: #1F2E3D;
-      --ink-soft: #445362;
-      --ledger: #35553E;
-      --seal: #A73B2E;
-      --brass: #B08D3E;
-      --line: rgba(31,46,61,0.16);
-      --radius: 2px;
+    :root {
+      --paper: #f6f4f0;
+      --paper-deep: #e8e3d9;
+      --ink: #1a2632;
+      --ink-soft: #4a5a68;
+      --ledger: #2a4b3a;
+      --seal: #a73b2e;
+      --brass: #b08d3e;
+      --line: rgba(26, 38, 50, 0.12);
+      --radius: 8px;
+      --shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
     }
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    html{
-      scroll-behavior:smooth;
+    html {
+      scroll-behavior: smooth;
     }
 
-    body{
-      background:var(--paper);
-      color:var(--ink);
-      font-family:'Public Sans', sans-serif;
-      line-height:1.55;
-      -webkit-font-smoothing:antialiased;
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a{
-      color:inherit;
-      text-decoration:none;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .container{
-      max-width:1120px;
-      margin:0 auto;
-      padding:0 32px;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
     }
 
     /* ===== NAVBAR ===== */
-
-    .navbar{
-      border-bottom:1px solid var(--line);
-      background:var(--paper);
-      position:sticky;
-      top:0;
-      z-index:20;
+    .navbar {
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(6px);
+      background: rgba(246, 244, 240, 0.92);
     }
 
-    .nav-content{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      height:76px;
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
     }
 
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:14px;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
-    .logo-seal{
-      width:44px;
-      height:44px;
-      flex-shrink:0;
-      object-fit:contain;
-      border-radius:4px;
+    .logo-seal {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #e8e3d9;
+      padding: 4px;
     }
 
-    .logo-text h1{
-      font-family:'Newsreader', serif;
-      font-size:19px;
-      line-height:1;
-      font-weight:500;
-      letter-spacing:0.02em;
+    .logo-text h1 {
+      font-family: 'Newsreader', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
     }
 
-    .logo-text span{
-      display:block;
-      font-size:11.5px;
-      color:var(--ink-soft);
-      margin-top:3px;
+    .logo-text span {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      letter-spacing: 0.3px;
+      margin-top: 2px;
     }
 
-    .back-link{
-      font-size:14px;
-      font-weight:500;
-      color:var(--ink-soft);
-      border-bottom:1px solid transparent;
-      padding-bottom:3px;
-      transition:color 0.15s ease, border-color 0.15s ease;
+    .back-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      border-bottom: 2px solid transparent;
+      padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
     }
 
-    .back-link:hover{
-      color:var(--ink);
-      border-color:var(--ink);
+    .back-link:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .back-link i {
+      margin-right: 6px;
     }
 
     /* ===== PAGE HEADER ===== */
-
-    .portal-header{
-      padding:86px 0 64px;
-      border-bottom:1px solid var(--line);
+    .portal-header {
+      padding: 80px 0 56px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .label{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size:13px;
-      color:var(--ledger);
-      font-weight:600;
-      border:1px solid var(--ledger);
-      padding:5px 12px 5px 10px;
-      border-radius:20px;
-      margin-bottom:24px;
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ledger);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid var(--ledger);
+      padding: 5px 16px 5px 14px;
+      border-radius: 40px;
+      margin-bottom: 24px;
     }
 
-    .label::before{
-      content:"";
-      width:6px;
-      height:6px;
-      background:var(--ledger);
-      border-radius:50%;
-      display:inline-block;
+    .label i {
+      font-size: 12px;
+      color: var(--ledger);
     }
 
-    .portal-header h2{
-      font-family:'Newsreader', serif;
-      font-size:48px;
-      line-height:1.08;
-      font-weight:500;
-      margin-bottom:18px;
-      max-width:620px;
+    .portal-header h2 {
+      font-family: 'Newsreader', serif;
+      font-size: 44px;
+      line-height: 1.08;
+      font-weight: 500;
+      margin-bottom: 16px;
+      max-width: 600px;
     }
 
-    .portal-header p{
-      color:var(--ink-soft);
-      font-size:16px;
-      max-width:600px;
+    .portal-header p {
+      color: var(--ink-soft);
+      font-size: 17px;
+      max-width: 560px;
     }
 
-    /* ===== PORTAL OPTIONS ===== */
-
-    .portal{
-      padding:70px 0 100px;
+    /* ===== PORTAL CARDS ===== */
+    .portal-section {
+      padding: 72px 0 100px;
     }
 
-    .portal-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:28px;
+    .portal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
     }
 
-    .portal-card{
-      background:var(--paper-deep);
-      border:1px solid var(--line);
-      padding:36px;
-      min-height:300px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      transition:
-        border-color 0.18s ease,
-        transform 0.18s ease;
+    .portal-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 40px 36px 36px;
+      border: 1px solid #e2dbd0;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s, box-shadow 0.3s, border-color 0.25s;
     }
 
-    .portal-card:hover{
-      border-color:var(--ink);
-      transform:translateY(-3px);
+    .portal-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 44px rgba(0,0,0,0.06), 0 6px 18px rgba(0,0,0,0.04);
+      border-color: #b8aa98;
     }
 
-    .card-number{
-      font-family:'Newsreader', serif;
-      font-size:14px;
-      color:var(--brass);
-      margin-bottom:22px;
+    .card-top {
+      display: flex;
+      flex-direction: column;
     }
 
-    .card-icon{
-      width:46px;
-      height:46px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border:1px solid var(--line);
-      background:var(--paper);
-      margin-bottom:24px;
-      font-size:21px;
+    .card-number {
+      font-family: 'Newsreader', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brass);
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
     }
 
-    .portal-card h3{
-      font-family:'Newsreader', serif;
-      font-size:27px;
-      font-weight:500;
-      margin-bottom:12px;
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 22px;
+      margin-bottom: 24px;
+      transition: background 0.2s, color 0.2s;
     }
 
-    .portal-card p{
-      color:var(--ink-soft);
-      font-size:15px;
-      max-width:410px;
+    .portal-card:hover .card-icon {
+      background: var(--ink);
+      color: #f2efe7;
     }
 
-    .card-bottom{
-      margin-top:32px;
+    .portal-card h3 {
+      font-family: 'Newsreader', serif;
+      font-size: 26px;
+      font-weight: 500;
+      margin-bottom: 12px;
     }
 
-    .portal-link{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size:14.5px;
-      font-weight:600;
-      color:var(--ink);
-      border-bottom:1px solid var(--ink);
-      padding-bottom:4px;
-      transition:
-        color 0.15s ease,
-        border-color 0.15s ease,
-        gap 0.15s ease;
+    .portal-card p {
+      color: var(--ink-soft);
+      font-size: 16px;
+      max-width: 400px;
+      line-height: 1.7;
     }
 
-    .portal-link:hover{
-      color:var(--seal);
-      border-color:var(--seal);
-      gap:12px;
+    .card-bottom {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .portal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink);
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 4px;
+      transition: gap 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .portal-link:hover {
+      gap: 16px;
+      color: var(--seal);
+      border-color: var(--seal);
+    }
+
+    .portal-link i {
+      font-size: 14px;
+      transition: transform 0.2s;
+    }
+
+    .portal-link:hover i {
+      transform: translateX(3px);
     }
 
     /* ===== FOOTER ===== */
-
-    footer{
-      border-top:1px solid var(--line);
-      padding:34px 0;
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 36px 0;
+      background: #fcfaf7;
     }
 
-    .footer-content{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      font-size:13.5px;
-      color:var(--ink-soft);
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--ink-soft);
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .footer-content strong{
-      color:var(--ink);
-      font-family:'Newsreader', serif;
-      font-size:15px;
+    .footer-content strong {
+      color: var(--ink);
+      font-family: 'Newsreader', serif;
+      font-size: 16px;
+      font-weight: 600;
     }
 
     /* ===== RESPONSIVE ===== */
-
-    @media (max-width:700px){
-
-      .container{
-        padding:0 20px;
+    @media (max-width: 860px) {
+      .container {
+        padding: 0 24px;
       }
 
-      .nav-content{
-        height:68px;
+      .portal-grid {
+        grid-template-columns: 1fr;
       }
 
-      .logo-text span{
-        display:none;
+      .portal-header h2 {
+        font-size: 34px;
       }
 
-      .portal-header{
-        padding:60px 0 48px;
+      .portal-card {
+        padding: 32px 28px;
       }
 
-      .portal-header h2{
-        font-size:38px;
+      .nav-content {
+        height: 68px;
       }
 
-      .portal-grid{
-        grid-template-columns:1fr;
+      .logo-text span {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 18px;
       }
 
-      .portal-card{
-        min-height:280px;
+      .portal-header {
+        padding: 56px 0 40px;
       }
 
-      .footer-content{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:10px;
+      .portal-header h2 {
+        font-size: 28px;
+      }
+
+      .portal-card {
+        padding: 24px 20px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
       }
     }
   </style>
@@ -309,187 +354,90 @@
 <body>
 
   <!-- ===== NAVBAR ===== -->
-
   <header class="navbar">
     <div class="container nav-content">
-
       <a href="index.html" class="logo">
-
-        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi">
-
+        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi" />
         <div class="logo-text">
           <h1>SAKTi</h1>
           <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
         </div>
-
       </a>
-
       <a href="index.html" class="back-link">
-        ← Kembali ke Beranda
+        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
       </a>
-
     </div>
   </header>
-
 
   <main>
 
     <!-- ===== HEADER ===== -->
-
     <section class="portal-header">
       <div class="container">
-
         <span class="label">
-          PORTAL SAKTi
+          <i class="fas fa-folder-open"></i> PORTAL SAKTi
         </span>
-
-        <h2>
-          Pilih jalur akses Anda.
-        </h2>
-
-        <p>
-          Pilih sesuai peran Anda dalam proses pengawasan kearsipan.
-        </p>
-
+        <h2>Pilih jalur akses Anda.</h2>
+        <p>Pilih sesuai peran Anda dalam proses pengawasan kearsipan.</p>
       </div>
     </section>
 
-
-    <!-- ===== OPTIONS ===== -->
-
-    <section class="portal">
+    <!-- ===== PORTAL CARDS ===== -->
+    <section class="portal-section">
       <div class="container">
-
         <div class="portal-grid">
 
           <!-- INSTANSI -->
-
           <div class="portal-card">
-
-            <div>
-
-              <div class="card-number">
-                01 / OBJEK PENGAWASAN
-              </div>
-
+            <div class="card-top">
+              <div class="card-number">01 / OBJEK PENGAWASAN</div>
               <div class="card-icon">
-                🗂️
+                <i class="fas fa-building"></i>
               </div>
-
-              <h3>
-                Lembaga Kearsipan
-              </h3>
-
-              <p>
-                Akses untuk Lembaga Kearsipan atau Perangkat Daerah
-                yang menjadi objek pengawasan.
-              </p>
-
+              <h3>Lembaga Kearsipan</h3>
+              <p>Akses untuk Lembaga Kearsipan atau Perangkat Daerah yang menjadi objek pengawasan.</p>
             </div>
-
             <div class="card-bottom">
-
               <a href="instansi.html" class="portal-link">
                 Masuk sebagai Instansi
-
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 16 16"
-                  fill="none">
-
-                  <path
-                    d="M3 8h10M9 4l4 4-4 4"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"/>
-
-                </svg>
-
+                <i class="fas fa-chevron-right"></i>
               </a>
-
             </div>
-
           </div>
 
-
           <!-- PENGAWAS -->
-
           <div class="portal-card">
-
-            <div>
-
-              <div class="card-number">
-                02 / TIM PENGAWAS
-              </div>
-
+            <div class="card-top">
+              <div class="card-number">02 / TIM PENGAWAS</div>
               <div class="card-icon">
-                ✓
+                <i class="fas fa-clipboard-check"></i>
               </div>
-
-              <h3>
-                Pengawas / Verifikator
-              </h3>
-
-              <p>
-                Akses untuk tim pengawas dan verifikator
-                dalam menjalankan proses pengawasan.
-              </p>
-
+              <h3>Pengawas / Verifikator</h3>
+              <p>Akses untuk tim pengawas dan verifikator dalam menjalankan proses pengawasan.</p>
             </div>
-
             <div class="card-bottom">
-
               <a href="pengawas.html" class="portal-link">
                 Masuk sebagai Pengawas
-
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 16 16"
-                  fill="none">
-
-                  <path
-                    d="M3 8h10M9 4l4 4-4 4"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"/>
-
-                </svg>
-
+                <i class="fas fa-chevron-right"></i>
               </a>
-
             </div>
-
           </div>
 
         </div>
-
       </div>
     </section>
 
   </main>
 
-
   <!-- ===== FOOTER ===== -->
-
   <footer>
-
     <div class="container footer-content">
-
       <div>
         <strong>SAKTi</strong>
         — Sistem Pengawasan Kearsipan Terintegrasi
       </div>
-
-      <div>
-        © 2026 SAKTi
-      </div>
-
+      <div>© 2026 SAKTi</div>
     </div>
-
   </footer>
 
 </body>
