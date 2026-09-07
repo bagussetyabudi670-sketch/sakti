@@ -10,9 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
 
-  <!-- Font Awesome 6 (Free) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
   <style>
     :root {
       --paper: #f6f4f0;
@@ -59,7 +56,7 @@
     /* ===== NAVBAR ===== */
     .navbar {
       background: var(--paper);
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid #e2dbd0;
       position: sticky;
       top: 0;
       z-index: 30;
@@ -164,9 +161,10 @@
       max-width: 560px;
     }
 
-    /* ===== PORTAL CARDS ===== */
+    /* ===== PORTAL CARDS - SAME AS HOME PAGE ===== */
     .portal-section {
       padding: 72px 0 100px;
+      background: #f6f4f0;
     }
 
     .portal-grid {
@@ -179,52 +177,32 @@
       background: #ffffff;
       border-radius: 20px;
       padding: 40px 36px 36px;
-      border: 1px solid #e2dbd0;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.25s, box-shadow 0.3s, border-color 0.25s;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
+      border: 1px solid #e8e1d6;
+      transition: transform 0.2s, box-shadow 0.25s, border-color 0.2s;
     }
 
     .portal-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 44px rgba(0,0,0,0.06), 0 6px 18px rgba(0,0,0,0.04);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 6px 16px rgba(0,0,0,0.04);
       border-color: #b8aa98;
     }
 
-    .card-top {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-number {
-      font-family: 'Newsreader', serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--brass);
+    .card-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
       letter-spacing: 0.5px;
-      margin-bottom: 20px;
-    }
-
-    .card-icon {
-      width: 52px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--paper);
-      color: var(--ink);
-      font-size: 22px;
-      margin-bottom: 24px;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .portal-card:hover .card-icon {
-      background: var(--ink);
+      text-transform: uppercase;
+      background: #2a4b3a;
       color: #f2efe7;
+      padding: 4px 16px 3px;
+      border-radius: 40px;
+      margin-bottom: 24px;
+    }
+
+    .portal-card:nth-child(2) .card-tag {
+      background: #a73b2e;
     }
 
     .portal-card h3 {
@@ -235,48 +213,47 @@
     }
 
     .portal-card p {
-      color: var(--ink-soft);
+      color: #3a4a58;
       font-size: 16px;
-      max-width: 400px;
+      margin-bottom: 32px;
+      max-width: 340px;
       line-height: 1.7;
     }
 
-    .card-bottom {
-      margin-top: 36px;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
-    }
-
-    .portal-link {
+    .card-link {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       font-weight: 600;
       font-size: 15px;
-      color: var(--ink);
-      border-bottom: 2px solid var(--ink);
+      color: #0f1a24;
+      border-bottom: 2px solid #0f1a24;
       padding-bottom: 4px;
       transition: gap 0.2s, color 0.2s, border-color 0.2s;
     }
 
-    .portal-link:hover {
+    .card-link:hover {
       gap: 16px;
-      color: var(--seal);
-      border-color: var(--seal);
+      color: #a73b2e;
+      border-color: #a73b2e;
     }
 
-    .portal-link i {
-      font-size: 14px;
+    .card-link:focus-visible {
+      outline: 2px solid #a73b2e;
+      outline-offset: 4px;
+    }
+
+    .card-link svg {
       transition: transform 0.2s;
     }
 
-    .portal-link:hover i {
+    .card-link:hover svg {
       transform: translateX(3px);
     }
 
     /* ===== FOOTER ===== */
     footer {
-      border-top: 1px solid var(--line);
+      border-top: 1px solid #e2dbd0;
       padding: 36px 0;
       background: #fcfaf7;
     }
@@ -382,45 +359,35 @@
       </div>
     </section>
 
-    <!-- ===== PORTAL CARDS ===== -->
+    <!-- ===== PORTAL CARDS - SAME STYLE AS HOME PAGE ===== -->
     <section class="portal-section">
       <div class="container">
         <div class="portal-grid">
 
           <!-- INSTANSI -->
           <div class="portal-card">
-            <div class="card-top">
-              <div class="card-number">01 / OBJEK PENGAWASAN</div>
-              <div class="card-icon">
-                <i class="fas fa-building"></i>
-              </div>
-              <h3>Lembaga Kearsipan</h3>
-              <p>Akses untuk Lembaga Kearsipan atau Perangkat Daerah yang menjadi objek pengawasan.</p>
-            </div>
-            <div class="card-bottom">
-              <a href="instansi.html" class="portal-link">
-                Masuk sebagai Instansi
-                <i class="fas fa-chevron-right"></i>
-              </a>
-            </div>
+            <span class="card-tag">Objek Pengawasan</span>
+            <h3>Lembaga Kearsipan</h3>
+            <p>Untuk Lembaga Kearsipan atau Perangkat Daerah Provinsi yang menjadi objek pengawasan — isi data dan unggah bukti dukung di sini.</p>
+            <a href="instansi.html" class="card-link">
+              Masuk sebagai Instansi
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
           </div>
 
           <!-- PENGAWAS -->
           <div class="portal-card">
-            <div class="card-top">
-              <div class="card-number">02 / TIM PENGAWAS</div>
-              <div class="card-icon">
-                <i class="fas fa-clipboard-check"></i>
-              </div>
-              <h3>Pengawas / Verifikator</h3>
-              <p>Akses untuk tim pengawas dan verifikator dalam menjalankan proses pengawasan.</p>
-            </div>
-            <div class="card-bottom">
-              <a href="pengawas.html" class="portal-link">
-                Masuk sebagai Pengawas
-                <i class="fas fa-chevron-right"></i>
-              </a>
-            </div>
+            <span class="card-tag">Tim Pengawas</span>
+            <h3>Pengawas / Verifikator</h3>
+            <p>Untuk tim pengawas dan verifikator yang menjalankan proses pengawasan dan memeriksa bukti dukung yang masuk.</p>
+            <a href="pengawas.html" class="card-link">
+              Masuk sebagai Pengawas
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
           </div>
 
         </div>
@@ -439,6 +406,9 @@
       <div>© 2026 SAKTi</div>
     </div>
   </footer>
+
+  <!-- Font Awesome untuk icon back link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
 </body>
 </html>
