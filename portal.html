@@ -54,6 +54,83 @@
       padding: 0 32px;
     }
 
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-on-load {
+      opacity: 0;
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    }
+
+    .animate-delay-1 {
+      animation-delay: 0.15s;
+    }
+
+    .animate-delay-2 {
+      animation-delay: 0.3s;
+    }
+
+    .animate-delay-3 {
+      animation-delay: 0.45s;
+    }
+
+    .animate-delay-4 {
+      animation-delay: 0.6s;
+    }
+
     /* ===== NAVBAR ===== */
     .navbar {
       background: var(--paper);
@@ -63,6 +140,7 @@
       z-index: 30;
       backdrop-filter: blur(6px);
       background: rgba(246, 244, 240, 0.92);
+      animation: slideDown 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
     }
 
     .nav-content {
@@ -85,6 +163,11 @@
       border-radius: 8px;
       background: transparent;
       padding: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover .logo-seal {
+      transform: rotate(-8deg) scale(1.05);
     }
 
     .logo-text {
@@ -100,6 +183,11 @@
       font-weight: 600;
       letter-spacing: -0.3px;
       line-height: 1.1;
+      transition: color 0.3s ease;
+    }
+
+    .logo:hover .logo-text h1 {
+      color: var(--ledger);
     }
 
     .logo-text span {
@@ -118,16 +206,24 @@
       color: var(--ink-soft);
       border-bottom: 2px solid transparent;
       padding-bottom: 3px;
-      transition: color 0.2s, border-color 0.2s;
+      transition: color 0.2s, border-color 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .back-link:hover {
       color: var(--ink);
       border-color: var(--ink);
+      transform: translateX(-3px);
     }
 
     .back-link i {
-      margin-right: 6px;
+      transition: transform 0.2s;
+    }
+
+    .back-link:hover i {
+      transform: translateX(-4px);
     }
 
     /* ===== PAGE HEADER ===== */
@@ -149,11 +245,24 @@
       padding: 5px 16px 5px 14px;
       border-radius: 40px;
       margin-bottom: 24px;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    .label:hover {
+      background: var(--ledger);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(42, 75, 58, 0.2);
+    }
+
+    .label:hover i {
+      color: #ffffff;
     }
 
     .label i {
       font-size: 12px;
       color: var(--ledger);
+      transition: color 0.3s ease;
     }
 
     .portal-header h2 {
@@ -165,13 +274,23 @@
       max-width: 600px;
     }
 
+    .portal-header h2 span {
+      display: inline-block;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .portal-header h2 span:hover {
+      transform: scale(1.02);
+      color: var(--ledger);
+    }
+
     .portal-header p {
       color: var(--ink-soft);
       font-size: 17px;
       max-width: 560px;
     }
 
-    /* ===== PORTAL CARDS - SAME AS HOME PAGE ===== */
+    /* ===== PORTAL CARDS ===== */
     .portal-section {
       padding: 72px 0 100px;
       background: #f6f4f0;
@@ -189,13 +308,26 @@
       padding: 40px 36px 36px;
       box-shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
       border: 1px solid #e8e1d6;
-      transition: transform 0.2s, box-shadow 0.25s, border-color 0.2s;
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  box-shadow 0.3s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  border-color 0.3s ease;
+      cursor: default;
     }
 
     .portal-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 6px 16px rgba(0,0,0,0.04);
+      transform: translateY(-8px) scale(1.005);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.08), 0 8px 20px rgba(0,0,0,0.04);
       border-color: #b8aa98;
+    }
+
+    .portal-card:nth-child(1) {
+      animation: fadeInLeft 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.3s forwards;
+      opacity: 0;
+    }
+
+    .portal-card:nth-child(2) {
+      animation: fadeInRight 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.4s forwards;
+      opacity: 0;
     }
 
     .card-tag {
@@ -209,10 +341,20 @@
       padding: 4px 16px 3px;
       border-radius: 40px;
       margin-bottom: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .portal-card:hover .card-tag {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 4px 12px rgba(42, 75, 58, 0.2);
     }
 
     .portal-card:nth-child(2) .card-tag {
       background: #a73b2e;
+    }
+
+    .portal-card:nth-child(2):hover .card-tag {
+      box-shadow: 0 4px 12px rgba(167, 59, 46, 0.25);
     }
 
     .portal-card h3 {
@@ -220,6 +362,16 @@
       font-size: 26px;
       font-weight: 500;
       margin-bottom: 12px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .portal-card:hover h3 {
+      color: var(--ledger);
+      transform: translateX(4px);
+    }
+
+    .portal-card:nth-child(2):hover h3 {
+      color: var(--seal);
     }
 
     .portal-card p {
@@ -228,6 +380,11 @@
       margin-bottom: 32px;
       max-width: 340px;
       line-height: 1.7;
+      transition: color 0.3s ease;
+    }
+
+    .portal-card:hover p {
+      color: var(--ink);
     }
 
     .card-link {
@@ -239,7 +396,26 @@
       color: #0f1a24;
       border-bottom: 2px solid #0f1a24;
       padding-bottom: 4px;
-      transition: gap 0.2s, color 0.2s, border-color 0.2s;
+      transition: gap 0.3s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  color 0.3s ease,
+                  border-color 0.3s ease,
+                  transform 0.3s ease;
+      position: relative;
+    }
+
+    .card-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--ledger);
+      transition: width 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .portal-card:nth-child(2) .card-link::after {
+      background: var(--seal);
     }
 
     .card-link:hover {
@@ -248,17 +424,26 @@
       border-color: #a73b2e;
     }
 
+    .card-link:hover::after {
+      width: 100%;
+    }
+
+    .portal-card:nth-child(2) .card-link:hover {
+      color: var(--seal);
+      border-color: var(--seal);
+    }
+
     .card-link:focus-visible {
       outline: 2px solid #a73b2e;
       outline-offset: 4px;
     }
 
     .card-link svg {
-      transition: transform 0.2s;
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
     }
 
     .card-link:hover svg {
-      transform: translateX(3px);
+      transform: translateX(6px);
     }
 
     /* ===== FOOTER ===== */
@@ -266,6 +451,8 @@
       border-top: 1px solid #e2dbd0;
       padding: 36px 0;
       background: #fcfaf7;
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.6s forwards;
+      opacity: 0;
     }
 
     .footer-content {
@@ -283,6 +470,20 @@
       font-family: 'Newsreader', serif;
       font-size: 16px;
       font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .footer-content strong:hover {
+      color: var(--ledger);
+    }
+
+    .footer-content div:last-child {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .footer-content div:last-child:hover {
+      transform: translateY(-2px);
+      color: var(--ink);
     }
 
     /* ===== RESPONSIVE ===== */
@@ -301,6 +502,20 @@
 
       .portal-card {
         padding: 32px 28px;
+      }
+
+      .portal-card:nth-child(1),
+      .portal-card:nth-child(2) {
+        animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+        opacity: 0;
+      }
+
+      .portal-card:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+
+      .portal-card:nth-child(2) {
+        animation-delay: 0.35s;
       }
 
       .nav-content {
@@ -361,15 +576,17 @@
     <!-- ===== HEADER ===== -->
     <section class="portal-header">
       <div class="container">
-        <span class="label">
+        <span class="label animate-on-load animate-delay-1">
           <i class="fas fa-folder-open"></i> PORTAL SAKTi
         </span>
-        <h2>Pilih jalur akses Anda.</h2>
-        <p>Pilih sesuai peran Anda dalam proses pengawasan kearsipan.</p>
+        <h2 class="animate-on-load animate-delay-2">
+          <span>Pilih</span> <span>jalur</span> <span>akses</span> <span>Anda.</span>
+        </h2>
+        <p class="animate-on-load animate-delay-3">Pilih sesuai peran Anda dalam proses pengawasan kearsipan.</p>
       </div>
     </section>
 
-    <!-- ===== PORTAL CARDS - SAME STYLE AS HOME PAGE ===== -->
+    <!-- ===== PORTAL CARDS ===== -->
     <section class="portal-section">
       <div class="container">
         <div class="portal-grid">
