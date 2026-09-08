@@ -8,28 +8,23 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --paper: #f6f4f0;
-            --paper-deep: #e8e3d9;
             --ink: #1a2632;
-            --ink-soft: #4a5a68;
-            --ledger: #2a4b3a;
-            --seal: #a73b2e;
-            --brass: #b08d3e;
-            --blue-accent: #1e5ba4; /* Warna biru untuk judul dan tombol Internal */
-            --green-accent: #2e7d32; /* Warna hijau untuk tombol Eksternal */
-            --bg-blue-light: #e8f0fe;
-            --bg-green-light: #e8f5e9;
-            --line: rgba(26, 38, 50, 0.12);
-            --radius: 8px;
-            --shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
-            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --ink-soft: #64748b;
+            --blue-accent: #1e5ba4; 
+            --blue-icon: #3b82f6;
+            --blue-bg: #eff6ff;
+            --green-icon: #22c55e;
+            --green-bg: #f0fdf4;
+            --gray-btn: #f1f5f9;
+            --gray-btn-hover: #e2e8f0;
+            --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.06);
         }
 
         * {
@@ -38,12 +33,8 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            background: #ffffff; /* Background putih sesuai gambar */
+            background: #ffffff;
             color: var(--ink);
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
@@ -80,7 +71,7 @@
 
         /* ===== NAVBAR ===== */
         .navbar {
-            background: #2a2a2a; /* Navbar hitam abu-abu gelap */
+            background: #2a2a2a;
             color: white;
             position: sticky;
             top: 0;
@@ -120,13 +111,13 @@
             font-weight: 500;
         }
 
-        /* ===== HERO SECTION (Sketsa Background) ===== */
+        /* ===== HERO SECTION ===== */
         .hero-section {
-            /* Ganti URL dengan gambar sketsa gedung yang kamu miliki */
+            /* Ganti URL dengan gambar sketsa gedung kamu */
             background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 1)), url('https://via.placeholder.com/1920x600?text=Background+Gedung');
             background-size: cover;
             background-position: center top;
-            padding: 80px 0;
+            padding: 80px 0 40px;
             text-align: center;
             position: relative;
         }
@@ -153,7 +144,6 @@
             display: inline-block;
         }
 
-        /* Garis orange di bawah judul */
         .hero-title::after {
             content: '';
             position: absolute;
@@ -179,137 +169,102 @@
             color: var(--blue-accent);
         }
 
-        /* ===== TYPE SELECTOR (Tombol Pil yang mengambang) ===== */
-        .type-selector-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-top: -30px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .type-selector-btn {
-            background: white;
-            border-radius: 40px;
-            padding: 12px 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            box-shadow: 0 10px 30px rgba(0, 80, 200, 0.1);
-            border: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .type-selector-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(0, 80, 200, 0.15);
-        }
-
-        .icon-circle {
-            background: var(--bg-blue-light);
-            color: var(--blue-accent);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .selector-text {
-            font-weight: 700;
-            color: var(--ink);
-            letter-spacing: 0.5px;
-        }
-
-        .arrow-icon {
-            color: #999;
-            font-size: 14px;
-        }
-
         /* ===== MAIN CHOICES SECTION ===== */
         .choices-section {
-            padding: 60px 0 100px;
+            padding: 40px 0 100px;
             text-align: center;
-            flex: 1; /* Mendorong footer ke bawah */
+            flex: 1;
         }
 
         .choices-title {
             font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 40px;
+            font-weight: 800;
+            color: #000;
+            margin-bottom: 50px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cursor {
+            font-weight: 400;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
         }
 
         .choices-grid {
             display: flex;
             justify-content: center;
-            gap: 32px;
+            gap: 40px;
             max-width: 800px;
             margin: 0 auto;
         }
 
         .choice-card {
             background: white;
-            border-radius: 20px;
-            padding: 48px 32px;
+            border-radius: 24px;
+            padding: 50px 32px;
             width: 100%;
-            max-width: 340px;
+            max-width: 320px;
             box-shadow: var(--shadow-card);
-            border: 1px solid #f0f0f0;
+            border: 1px solid #f8f9fa;
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
         }
 
         .choice-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-            border-color: #e0e0e0;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
         }
 
-        .choice-icon {
-            width: 72px;
-            height: 72px;
+        .choice-icon-wrapper {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 28px;
             margin-bottom: 24px;
         }
 
-        .choice-card.internal .choice-icon {
-            background-color: var(--bg-blue-light);
-            color: var(--blue-accent);
+        .choice-card.internal .choice-icon-wrapper {
+            background-color: var(--blue-bg);
+            color: var(--blue-icon);
         }
 
-        .choice-card.eksternal .choice-icon {
-            background-color: var(--bg-green-light);
-            color: var(--green-accent);
+        .choice-card.eksternal .choice-icon-wrapper {
+            background-color: var(--green-bg);
+            color: var(--green-icon);
         }
 
         .choice-card h3 {
             font-size: 20px;
             font-weight: 700;
             margin-bottom: 16px;
-            letter-spacing: 1px;
+            color: #1e293b;
+            letter-spacing: 0.5px;
         }
 
         .choice-card p {
             color: var(--ink-soft);
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.6;
-            margin-bottom: 32px;
+            margin-bottom: 40px;
             flex-grow: 1;
         }
 
         .btn-pilih {
+            background-color: var(--gray-btn);
+            color: #334155;
             padding: 10px 24px;
-            border-radius: 30px;
-            font-size: 14px;
+            border-radius: 50px; /* Bentuk Pill */
+            font-size: 13px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -317,24 +272,9 @@
             transition: all 0.2s;
         }
 
-        .choice-card.internal .btn-pilih {
-            background-color: #f5f7fa;
-            color: var(--ink);
-        }
-        
-        .choice-card.internal .btn-pilih:hover {
-            background-color: var(--bg-blue-light);
-            color: var(--blue-accent);
-        }
-
-        .choice-card.eksternal .btn-pilih {
-            background-color: #f5f7fa;
-            color: var(--ink);
-        }
-        
-        .choice-card.eksternal .btn-pilih:hover {
-            background-color: var(--bg-green-light);
-            color: var(--green-accent);
+        .btn-pilih:hover {
+            background-color: var(--gray-btn-hover);
+            color: #0f172a;
         }
 
         /* ===== FOOTER ===== */
@@ -344,7 +284,6 @@
             background: white;
         }
 
-        /* Garis orange pendek di atas footer */
         .footer-line {
             width: 40px;
             height: 3px;
@@ -379,7 +318,7 @@
 
         .footer-system {
             font-size: 12px;
-            color: #999;
+            color: #94a3b8;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -391,10 +330,6 @@
             
             .hero-title {
                 font-size: 32px;
-            }
-            
-            .type-selector-btn {
-                margin-bottom: 20px;
             }
         }
     </style>
@@ -413,7 +348,7 @@
         <div class="container nav-content">
             <a href="portal.html" class="logo">
                 <div class="logo-icon">
-                    <i class="fas fa-folder-search"></i> <!-- Menggunakan icon folder search sebagai representasi SAKTI -->
+                    <i class="fas fa-folder-search"></i>
                 </div>
                 <div class="logo-text">
                     Objek Pengawasan SAKTI
@@ -436,43 +371,34 @@
             </div>
         </section>
 
-        <!-- ===== TYPE SELECTOR BUTTON ===== -->
-        <!-- Tombol ini muncul di gambar image_cb8f19.jpg -->
-        <!-- <div class="type-selector-wrapper">
-            <div class="type-selector-btn">
-                <div class="icon-circle">
-                    <i class="fas fa-list-ul"></i>
-                </div>
-                <span class="selector-text">JENIS PENGAWASAN</span>
-                <i class="fas fa-arrow-right arrow-icon"></i>
-            </div>
-        </div> -->
-
         <!-- ===== MAIN CHOICES SECTION ===== -->
         <section class="choices-section">
             <div class="container">
-                <h2 class="choices-title">SILAKAN PILIH JENIS PENGAWASAN! |</h2>
+                <!-- Judul dengan efek kursor -->
+                <h2 class="choices-title">SILAKAN PILIH JENIS PENGAWASAN!<span class="cursor">|</span></h2>
                 
                 <div class="choices-grid">
                     
                     <!-- INTERNAL CARD -->
                     <div class="choice-card internal">
-                        <div class="choice-icon">
+                        <div class="choice-icon-wrapper">
+                            <!-- Icon masuk (login) -->
                             <i class="fas fa-sign-in-alt"></i>
                         </div>
                         <h3>INTERNAL</h3>
-                        <p>Diperuntukkan bagi Perangkat Daerah di lingkungan Pemda D.I. Yogyakarta</p>
-                        <a href="#" class="btn-pilih">Pilih Internal <i class="fas fa-arrow-right"></i></a>
+                        <p>Diperuntukkan bagi Perangkat<br>Daerah di lingkungan Pemda<br>D.I. Yogyakarta</p>
+                        <a href="#" class="btn-pilih">Pilih Internal &rarr;</a>
                     </div>
 
                     <!-- EKSTERNAL CARD -->
                     <div class="choice-card eksternal">
-                        <div class="choice-icon">
+                        <div class="choice-icon-wrapper">
+                            <!-- Icon keluar (logout) -->
                             <i class="fas fa-sign-out-alt"></i>
                         </div>
                         <h3>EKSTERNAL</h3>
-                        <p>Diperuntukkan bagi Lembaga Kearsipan Daerah di lingkungan Pemda D.I. Yogyakarta</p>
-                        <a href="#" class="btn-pilih">Pilih Eksternal <i class="fas fa-arrow-right"></i></a>
+                        <p>Diperuntukkan bagi Lembaga<br>Kearsipan Daerah di lingkungan<br>Pemda D.I. Yogyakarta</p>
+                        <a href="#" class="btn-pilih">Pilih Eksternal &rarr;</a>
                     </div>
 
                 </div>
