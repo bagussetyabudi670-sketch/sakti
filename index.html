@@ -140,6 +140,57 @@
     .nav-links a:hover::after { width: 100%; }
     .nav-links a:focus-visible { outline: 2px solid #a73b2e; outline-offset: 4px; }
 
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 40;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #0f1a24;
+      border-radius: 2px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 860px) {
+      .nav-content { height: 68px; }
+      .logo-text span { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: #f6f4f0;
+        border-bottom: 1px solid #e2dbd0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      .nav-links.open { max-height: 260px; }
+      .nav-links a {
+        padding: 16px 24px;
+        border-bottom: 1px solid #e8e1d6;
+      }
+      .nav-links a::after { display: none; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 20px; }
+    }
+
     /* ----- hero (modern, clean overlay) ----- */
     .hero {
       border-bottom: 1px solid #e2dbd0;
@@ -514,11 +565,14 @@
           <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
         </div>
       </div>
-      <nav class="nav-links">
+      <nav class="nav-links" id="navLinks">
         <a href="#beranda">Beranda</a>
         <a href="#tentang">Tentang</a>
         <a href="portal.html">Portal</a>
       </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -634,6 +688,27 @@
       });
 
       revealElements.forEach(el => revealObserver.observe(el));
+    })();
+
+    // mobile hamburger menu
+    (function() {
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+      if (!navToggle || !navLinks) return;
+
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        navToggle.classList.toggle('active', isOpen);
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          navToggle.classList.remove('active');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
     })();
   </script>
 
