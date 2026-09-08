@@ -1,423 +1,498 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal · SAKTi</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Objek Pengawasan · SAKTi</title>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    :root {
-      --paper: #f6f4f0;
-      --paper-deep: #e8e3d9;
-      --ink: #1a2632;
-      --ink-soft: #4a5a68;
-      --ledger: #2a4b3a;
-      --seal: #a73b2e;
-      --brass: #b08d3e;
-      --line: rgba(26, 38, 50, 0.12);
-      --radius: 8px;
-      --shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
-    }
+    <style>
+        :root {
+            --paper: #f6f4f0;
+            --paper-deep: #e8e3d9;
+            --ink: #1a2632;
+            --ink-soft: #4a5a68;
+            --ledger: #2a4b3a;
+            --seal: #a73b2e;
+            --brass: #b08d3e;
+            --blue-accent: #1e5ba4; /* Warna biru untuk judul dan tombol Internal */
+            --green-accent: #2e7d32; /* Warna hijau untuk tombol Eksternal */
+            --bg-blue-light: #e8f0fe;
+            --bg-green-light: #e8f5e9;
+            --line: rgba(26, 38, 50, 0.12);
+            --radius: 8px;
+            --shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    html {
-      scroll-behavior: smooth;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+        body {
+            background: #ffffff; /* Background putih sesuai gambar */
+            color: var(--ink);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
 
-    /* ===== NAVBAR ===== */
-    .navbar {
-      background: var(--paper);
-      border-bottom: 1px solid #e2dbd0;
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      backdrop-filter: blur(6px);
-      background: rgba(246, 244, 240, 0.92);
-    }
+        /* ===== TOP ALERT BANNER ===== */
+        .alert-banner {
+            background-color: #4A8CFF;
+            color: white;
+            text-align: center;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .alert-banner i {
+            margin-right: 6px;
+        }
 
-    .nav-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
-    }
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: #2a2a2a; /* Navbar hitam abu-abu gelap */
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+        .nav-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
 
-    .logo-seal {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      border-radius: 8px;
-      background: transparent;
-      padding: 0;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-      line-height: 1.1;
-    }
+        .logo-icon {
+            background: white;
+            color: #2a2a2a;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
 
-    .logo-text h1 {
-      font-family: 'Newsreader', serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      line-height: 1.1;
-    }
+        .logo-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
 
-    .logo-text span {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      letter-spacing: 0.3px;
-      margin-top: -1px;
-      line-height: 1.2;
-    }
+        /* ===== HERO SECTION (Sketsa Background) ===== */
+        .hero-section {
+            /* Ganti URL dengan gambar sketsa gedung yang kamu miliki */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 1)), url('https://via.placeholder.com/1920x600?text=Background+Gedung');
+            background-size: cover;
+            background-position: center top;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
 
-    .back-link {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      border-bottom: 2px solid transparent;
-      padding-bottom: 3px;
-      transition: color 0.2s, border-color 0.2s;
-    }
+        .hero-greeting {
+            font-size: 16px;
+            color: var(--ink-soft);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
 
-    .back-link:hover {
-      color: var(--ink);
-      border-color: var(--ink);
-    }
+        .hero-title {
+            font-family: 'Newsreader', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--blue-accent);
+            margin-bottom: 24px;
+            position: relative;
+            display: inline-block;
+        }
 
-    .back-link i {
-      margin-right: 6px;
-    }
+        /* Garis orange di bawah judul */
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: #f39c12;
+            border-radius: 2px;
+        }
 
-    /* ===== PAGE HEADER ===== */
-    .portal-header {
-      padding: 80px 0 56px;
-      border-bottom: 1px solid var(--line);
-    }
+        .hero-subtitle {
+            margin-top: 40px;
+            color: var(--ink-soft);
+            font-size: 16px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    .label {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--ledger);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border: 1px solid var(--ledger);
-      padding: 5px 16px 5px 14px;
-      border-radius: 40px;
-      margin-bottom: 24px;
-    }
+        .hero-subtitle strong {
+            color: var(--blue-accent);
+        }
 
-    .label i {
-      font-size: 12px;
-      color: var(--ledger);
-    }
+        /* ===== TYPE SELECTOR (Tombol Pil yang mengambang) ===== */
+        .type-selector-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+        }
 
-    .portal-header h2 {
-      font-family: 'Newsreader', serif;
-      font-size: 44px;
-      line-height: 1.08;
-      font-weight: 500;
-      margin-bottom: 16px;
-      max-width: 600px;
-    }
+        .type-selector-btn {
+            background: white;
+            border-radius: 40px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 10px 30px rgba(0, 80, 200, 0.1);
+            border: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .type-selector-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 80, 200, 0.15);
+        }
 
-    .portal-header p {
-      color: var(--ink-soft);
-      font-size: 17px;
-      max-width: 560px;
-    }
+        .icon-circle {
+            background: var(--bg-blue-light);
+            color: var(--blue-accent);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    /* ===== PORTAL CARDS - SAME AS HOME PAGE ===== */
-    .portal-section {
-      padding: 72px 0 100px;
-      background: #f6f4f0;
-    }
+        .selector-text {
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: 0.5px;
+        }
 
-    .portal-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
+        .arrow-icon {
+            color: #999;
+            font-size: 14px;
+        }
 
-    .portal-card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 40px 36px 36px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
-      border: 1px solid #e8e1d6;
-      transition: transform 0.2s, box-shadow 0.25s, border-color 0.2s;
-    }
+        /* ===== MAIN CHOICES SECTION ===== */
+        .choices-section {
+            padding: 60px 0 100px;
+            text-align: center;
+            flex: 1; /* Mendorong footer ke bawah */
+        }
 
-    .portal-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 6px 16px rgba(0,0,0,0.04);
-      border-color: #b8aa98;
-    }
+        .choices-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
 
-    .card-tag {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      background: #2a4b3a;
-      color: #f2efe7;
-      padding: 4px 16px 3px;
-      border-radius: 40px;
-      margin-bottom: 24px;
-    }
+        .choices-grid {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .portal-card:nth-child(2) .card-tag {
-      background: #a73b2e;
-    }
+        .choice-card {
+            background: white;
+            border-radius: 20px;
+            padding: 48px 32px;
+            width: 100%;
+            max-width: 340px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .portal-card h3 {
-      font-family: 'Newsreader', serif;
-      font-size: 26px;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
+        .choice-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            border-color: #e0e0e0;
+        }
 
-    .portal-card p {
-      color: #3a4a58;
-      font-size: 16px;
-      margin-bottom: 32px;
-      max-width: 340px;
-      line-height: 1.7;
-    }
+        .choice-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
 
-    .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      font-size: 15px;
-      color: #0f1a24;
-      border-bottom: 2px solid #0f1a24;
-      padding-bottom: 4px;
-      transition: gap 0.2s, color 0.2s, border-color 0.2s;
-    }
+        .choice-card.internal .choice-icon {
+            background-color: var(--bg-blue-light);
+            color: var(--blue-accent);
+        }
 
-    .card-link:hover {
-      gap: 16px;
-      color: #a73b2e;
-      border-color: #a73b2e;
-    }
+        .choice-card.eksternal .choice-icon {
+            background-color: var(--bg-green-light);
+            color: var(--green-accent);
+        }
 
-    .card-link:focus-visible {
-      outline: 2px solid #a73b2e;
-      outline-offset: 4px;
-    }
+        .choice-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
 
-    .card-link svg {
-      transition: transform 0.2s;
-    }
+        .choice-card p {
+            color: var(--ink-soft);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            flex-grow: 1;
+        }
 
-    .card-link:hover svg {
-      transform: translateX(3px);
-    }
+        .btn-pilih {
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
 
-    /* ===== FOOTER ===== */
-    footer {
-      border-top: 1px solid #e2dbd0;
-      padding: 36px 0;
-      background: #fcfaf7;
-    }
+        .choice-card.internal .btn-pilih {
+            background-color: #f5f7fa;
+            color: var(--ink);
+        }
+        
+        .choice-card.internal .btn-pilih:hover {
+            background-color: var(--bg-blue-light);
+            color: var(--blue-accent);
+        }
 
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 14px;
-      color: var(--ink-soft);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+        .choice-card.eksternal .btn-pilih {
+            background-color: #f5f7fa;
+            color: var(--ink);
+        }
+        
+        .choice-card.eksternal .btn-pilih:hover {
+            background-color: var(--bg-green-light);
+            color: var(--green-accent);
+        }
 
-    .footer-content strong {
-      color: var(--ink);
-      font-family: 'Newsreader', serif;
-      font-size: 16px;
-      font-weight: 600;
-    }
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: white;
+        }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 860px) {
-      .container {
-        padding: 0 24px;
-      }
+        /* Garis orange pendek di atas footer */
+        .footer-line {
+            width: 40px;
+            height: 3px;
+            background-color: #f39c12;
+            margin: 0 auto 20px;
+            border-radius: 2px;
+        }
 
-      .portal-grid {
-        grid-template-columns: 1fr;
-      }
+        .footer-title {
+            color: var(--blue-accent);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
 
-      .portal-header h2 {
-        font-size: 34px;
-      }
+        .footer-contact {
+            font-size: 13px;
+            color: var(--ink-soft);
+            margin-bottom: 16px;
+        }
+        
+        .footer-contact a {
+            color: var(--ink-soft);
+            text-decoration: none;
+        }
 
-      .portal-card {
-        padding: 32px 28px;
-      }
+        .footer-copyright {
+            font-size: 12px;
+            color: var(--ink-soft);
+            margin-bottom: 4px;
+        }
 
-      .nav-content {
-        height: 68px;
-      }
+        .footer-system {
+            font-size: 12px;
+            color: #999;
+        }
 
-      .logo-text span {
-        display: none;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 0 18px;
-      }
-
-      .portal-header {
-        padding: 56px 0 40px;
-      }
-
-      .portal-header h2 {
-        font-size: 28px;
-      }
-
-      .portal-card {
-        padding: 24px 20px;
-      }
-
-      .footer-content {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-    }
-  </style>
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .choices-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .type-selector-btn {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <header class="navbar">
-    <div class="container nav-content">
-      <a href="index.html" class="logo">
-        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi" />
-        <div class="logo-text">
-          <h1>SAKTi</h1>
-          <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
-        </div>
-      </a>
-      <a href="index.html" class="back-link">
-        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
-      </a>
+    <!-- ===== TOP ALERT BANNER ===== -->
+    <div class="alert-banner">
+        <i class="fas fa-bullhorn"></i>
+        Bagi OPD yang telah divisitasi: Format "(REVISI) ASKI UP/UK - Nama OPD - 2026" menandakan ASKI telah di-update sesuai hasil sementara Tim Pengawas.
     </div>
-  </header>
 
-  <main>
-
-    <!-- ===== HEADER ===== -->
-    <section class="portal-header">
-      <div class="container">
-        <span class="label">
-          <i class="fas fa-folder-open"></i> PORTAL SAKTi
-        </span>
-        <h2>Pilih jalur akses Anda.</h2>
-        <p>Pilih sesuai peran Anda dalam proses pengawasan kearsipan.</p>
-      </div>
-    </section>
-
-    <!-- ===== PORTAL CARDS - SAME STYLE AS HOME PAGE ===== -->
-    <section class="portal-section">
-      <div class="container">
-        <div class="portal-grid">
-
-          <!-- INSTANSI -->
-          <div class="portal-card">
-            <span class="card-tag">Objek Pengawasan</span>
-            <h3>Lembaga Kearsipan</h3>
-            <p>Untuk Lembaga Kearsipan atau Perangkat Daerah Provinsi yang menjadi objek pengawasan — isi data dan unggah bukti dukung di sini.</p>
-            <a href="lembaga.html" class="card-link">
-              Masuk sebagai Instansi
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar">
+        <div class="container nav-content">
+            <a href="portal.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-folder-search"></i> <!-- Menggunakan icon folder search sebagai representasi SAKTI -->
+                </div>
+                <div class="logo-text">
+                    Objek Pengawasan SAKTI
+                </div>
             </a>
-          </div>
-
-          <!-- PENGAWAS -->
-          <div class="portal-card">
-            <span class="card-tag">Tim Pengawas</span>
-            <h3>Pengawas / Verifikator</h3>
-            <p>Untuk tim pengawas dan verifikator yang menjalankan proses pengawasan dan memeriksa bukti dukung yang masuk.</p>
-            <a href="pengawas.html" class="card-link">
-              Masuk sebagai Pengawas
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-
         </div>
-      </div>
-    </section>
+    </header>
 
-  </main>
+    <main>
+        <!-- ===== HERO SECTION ===== -->
+        <section class="hero-section">
+            <div class="container hero-content">
+                <p class="hero-greeting">Selamat datang di</p>
+                <h1 class="hero-title">Portal Objek Pengawasan</h1>
+                
+                <p class="hero-subtitle">
+                    Silakan memilih <strong>jenis pengawasan</strong> dan <strong>instansi Anda</strong>, lalu mulai mengisi formulir<br>
+                    serta mengunggah bukti dukung.
+                </p>
+            </div>
+        </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="container footer-content">
-      <div>
-        <strong>SAKTi</strong>
-        — Sistem Pengawasan Kearsipan Terintegrasi
-      </div>
-      <div>© 2025 SAKTi</div>
-    </div>
-  </footer>
+        <!-- ===== TYPE SELECTOR BUTTON ===== -->
+        <!-- Tombol ini muncul di gambar image_cb8f19.jpg -->
+        <!-- <div class="type-selector-wrapper">
+            <div class="type-selector-btn">
+                <div class="icon-circle">
+                    <i class="fas fa-list-ul"></i>
+                </div>
+                <span class="selector-text">JENIS PENGAWASAN</span>
+                <i class="fas fa-arrow-right arrow-icon"></i>
+            </div>
+        </div> -->
 
-  <!-- Font Awesome untuk icon back link -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <!-- ===== MAIN CHOICES SECTION ===== -->
+        <section class="choices-section">
+            <div class="container">
+                <h2 class="choices-title">SILAKAN PILIH JENIS PENGAWASAN! |</h2>
+                
+                <div class="choices-grid">
+                    
+                    <!-- INTERNAL CARD -->
+                    <div class="choice-card internal">
+                        <div class="choice-icon">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                        <h3>INTERNAL</h3>
+                        <p>Diperuntukkan bagi Perangkat Daerah di lingkungan Pemda D.I. Yogyakarta</p>
+                        <a href="#" class="btn-pilih">Pilih Internal <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <!-- EKSTERNAL CARD -->
+                    <div class="choice-card eksternal">
+                        <div class="choice-icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <h3>EKSTERNAL</h3>
+                        <p>Diperuntukkan bagi Lembaga Kearsipan Daerah di lingkungan Pemda D.I. Yogyakarta</p>
+                        <a href="#" class="btn-pilih">Pilih Eksternal <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-line"></div>
+            <h4 class="footer-title">Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta</h4>
+            <p class="footer-contact">
+                Jl. Janti, Banguntapan, Bantul, DIY 55198 | Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a>
+            </p>
+            <p class="footer-copyright">© 2026 SAKTI</p>
+            <p class="footer-system">Sistem Audit Kearsipan Terintegrasi</p>
+        </div>
+    </footer>
 
 </body>
 </html>
