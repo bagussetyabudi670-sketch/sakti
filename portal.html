@@ -17,14 +17,14 @@
         :root {
             --ink: #1a2632;
             --ink-soft: #64748b;
-            --blue-accent: #1e5ba4; 
-            --blue-icon: #3b82f6;
+            --blue-accent: #0056b3; 
+            --blue-icon: #1d74d2;
             --blue-bg: #eff6ff;
-            --green-icon: #22c55e;
+            --green-icon: #2a8a3a;
             --green-bg: #f0fdf4;
-            --gray-btn: #f1f5f9;
+            --gray-btn: #f4f5f7;
             --gray-btn-hover: #e2e8f0;
-            --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.06);
+            --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.04);
         }
 
         * {
@@ -71,8 +71,9 @@
 
         /* ===== NAVBAR ===== */
         .navbar {
-            background: #2a2a2a;
-            color: white;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e5e7eb;
+            color: #333;
             position: sticky;
             top: 0;
             z-index: 30;
@@ -91,102 +92,55 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: white;
+            color: #333;
         }
 
         .logo-icon {
-            background: white;
-            color: #2a2a2a;
+            color: #333;
             width: 32px;
             height: 32px;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 20px;
         }
 
         .logo-text {
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 400;
+            color: #666;
         }
 
         /* ===== HERO SECTION ===== */
         .hero-section {
-            /* Ganti URL dengan gambar sketsa gedung kamu */
-            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 1)), url('https://via.placeholder.com/1920x600?text=Background+Gedung');
-            background-size: cover;
-            background-position: center top;
-            padding: 80px 0 40px;
+            /* Background sketsa tipis */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 1)), url('https://www.transparenttextures.com/patterns/cubes.png');
+            padding: 60px 0 20px;
             text-align: center;
             position: relative;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-greeting {
-            font-size: 16px;
-            color: var(--ink-soft);
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .hero-title {
-            font-family: 'Newsreader', serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--blue-accent);
-            margin-bottom: 24px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero-title::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background-color: #f39c12;
-            border-radius: 2px;
-        }
-
-        .hero-subtitle {
-            margin-top: 40px;
-            color: var(--ink-soft);
-            font-size: 16px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-subtitle strong {
-            color: var(--blue-accent);
         }
 
         /* ===== MAIN CHOICES SECTION ===== */
         .choices-section {
-            padding: 40px 0 100px;
+            padding: 20px 0 80px;
             text-align: center;
             flex: 1;
         }
 
         .choices-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
             color: #000;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
+        /* Animasi Kursor Berkedip */
         .cursor {
-            font-weight: 400;
+            font-weight: 300;
+            color: #94a3b8;
             animation: blink 1s step-end infinite;
         }
 
@@ -204,11 +158,11 @@
 
         .choice-card {
             background: white;
-            border-radius: 24px;
+            border-radius: 20px;
             padding: 50px 32px;
             width: 100%;
-            max-width: 320px;
-            box-shadow: var(--shadow-card);
+            max-width: 300px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
             border: 1px solid #f8f9fa;
             transition: all 0.3s ease;
             display: flex;
@@ -219,32 +173,32 @@
 
         .choice-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.08);
         }
 
         .choice-icon-wrapper {
-            width: 80px;
-            height: 80px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 26px;
             margin-bottom: 24px;
         }
 
         .choice-card.internal .choice-icon-wrapper {
-            background-color: var(--blue-bg);
-            color: var(--blue-icon);
+            background-color: #eef4ff;
+            color: #1d74d2;
         }
 
         .choice-card.eksternal .choice-icon-wrapper {
-            background-color: var(--green-bg);
-            color: var(--green-icon);
+            background-color: #f0fdf4;
+            color: #2a8a3a;
         }
 
         .choice-card h3 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             margin-bottom: 16px;
             color: #1e293b;
@@ -261,20 +215,18 @@
 
         .btn-pilih {
             background-color: var(--gray-btn);
-            color: #334155;
-            padding: 10px 24px;
-            border-radius: 50px; /* Bentuk Pill */
+            color: #475569;
+            padding: 8px 20px;
+            border-radius: 50px; /* Bentuk Pill seperti di gambar */
             font-size: 13px;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-block;
             transition: all 0.2s;
         }
 
         .btn-pilih:hover {
             background-color: var(--gray-btn-hover);
-            color: #0f172a;
+            color: #1e293b;
         }
 
         /* ===== FOOTER ===== */
@@ -282,12 +234,13 @@
             text-align: center;
             padding: 40px 0;
             background: white;
+            border-top: 1px solid transparent;
         }
 
         .footer-line {
-            width: 40px;
+            width: 30px;
             height: 3px;
-            background-color: #f39c12;
+            background-color: #f59e0b;
             margin: 0 auto 20px;
             border-radius: 2px;
         }
@@ -295,14 +248,14 @@
         .footer-title {
             color: var(--blue-accent);
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
             margin-bottom: 8px;
         }
 
         .footer-contact {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--ink-soft);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         
         .footer-contact a {
@@ -312,7 +265,8 @@
 
         .footer-copyright {
             font-size: 12px;
-            color: var(--ink-soft);
+            color: #64748b;
+            font-weight: 600;
             margin-bottom: 4px;
         }
 
@@ -327,26 +281,16 @@
                 flex-direction: column;
                 align-items: center;
             }
-            
-            .hero-title {
-                font-size: 32px;
-            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- ===== TOP ALERT BANNER ===== -->
-    <div class="alert-banner">
-        <i class="fas fa-bullhorn"></i>
-        Bagi OPD yang telah divisitasi: Format "(REVISI) ASKI UP/UK - Nama OPD - 2026" menandakan ASKI telah di-update sesuai hasil sementara Tim Pengawas.
-    </div>
-
     <!-- ===== NAVBAR ===== -->
     <header class="navbar">
         <div class="container nav-content">
-            <a href="portal.html" class="logo">
+            <a href="#" class="logo">
                 <div class="logo-icon">
                     <i class="fas fa-folder-search"></i>
                 </div>
@@ -358,16 +302,11 @@
     </header>
 
     <main>
-        <!-- ===== HERO SECTION ===== -->
+        <!-- ===== HERO SECTION (Background Sketsa) ===== -->
         <section class="hero-section">
-            <div class="container hero-content">
-                <p class="hero-greeting">Selamat datang di</p>
-                <h1 class="hero-title">Portal Objek Pengawasan</h1>
-                
-                <p class="hero-subtitle">
-                    Silakan memilih <strong>jenis pengawasan</strong> dan <strong>instansi Anda</strong>, lalu mulai mengisi formulir<br>
-                    serta mengunggah bukti dukung.
-                </p>
+            <div class="container">
+                <!-- Ruang kosong ini bisa diisi elemen lain jika diperlukan nanti, 
+                     saat ini difokuskan sebagai ruang bernapas untuk background sketsa -->
             </div>
         </section>
 
@@ -382,7 +321,7 @@
                     <!-- INTERNAL CARD -->
                     <div class="choice-card internal">
                         <div class="choice-icon-wrapper">
-                            <!-- Icon masuk (login) -->
+                            <!-- Icon panah masuk -->
                             <i class="fas fa-sign-in-alt"></i>
                         </div>
                         <h3>INTERNAL</h3>
@@ -393,7 +332,7 @@
                     <!-- EKSTERNAL CARD -->
                     <div class="choice-card eksternal">
                         <div class="choice-icon-wrapper">
-                            <!-- Icon keluar (logout) -->
+                            <!-- Icon panah keluar -->
                             <i class="fas fa-sign-out-alt"></i>
                         </div>
                         <h3>EKSTERNAL</h3>
@@ -404,7 +343,6 @@
                 </div>
             </div>
         </section>
-
     </main>
 
     <!-- ===== FOOTER ===== -->
@@ -413,9 +351,9 @@
             <div class="footer-line"></div>
             <h4 class="footer-title">Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta</h4>
             <p class="footer-contact">
-                Jl. Janti, Banguntapan, Bantul, DIY 55198 | Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a>
+                Jl. Janti, Banguntapan, Bantul, DIY 55198 &nbsp;|&nbsp; Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a>
             </p>
-            <p class="footer-copyright">© 2026 SAKTI</p>
+            <p class="footer-copyright">&copy; 2025 SAKTI</p>
             <p class="footer-system">Sistem Audit Kearsipan Terintegrasi</p>
         </div>
     </footer>
