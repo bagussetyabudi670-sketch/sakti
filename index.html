@@ -8,13 +8,555 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="shared.css" />
   <style>
-    /* existing page styles stay here */
+    /* ----- reset & base ----- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #f6f4f0;
+      color: #1a2632;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 {
+      font-family: 'Newsreader', 'Inter', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ----- announcement bar (modern) ----- */
+    .announcement {
+      background: #0f1a24;
+      color: #f0ede7;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .announcement .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .announcement strong {
+      color: #cdb28b;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .announcement .badge {
+      background: #2c3e4b;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #d6d2c8;
+    }
+
+    /* ----- navbar (modern, clean) ----- */
+    .navbar {
+      background: #f6f4f0;
+      border-bottom: 1px solid #e2dbd0;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(6px);
+      background: rgba(246, 244, 240, 0.92);
+    }
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-seal {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: transparent;
+      padding: 0;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      line-height: 1.1;
+    }
+    .logo-text h1 {
+      font-size: 22px;
+      letter-spacing: -0.3px;
+      font-weight: 600;
+      font-family: 'Newsreader', serif;
+      line-height: 1.1;
+    }
+    .logo-text span {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: #4a5a68;
+      letter-spacing: 0.3px;
+      margin-top: -1px;
+      line-height: 1.2;
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #2e3d4b;
+    }
+    .nav-links a {
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #a73b2e;
+      transition: width 0.2s;
+    }
+    .nav-links a:hover { color: #0f1a24; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:focus-visible { outline: 2px solid #a73b2e; outline-offset: 4px; }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 40;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #0f1a24;
+      border-radius: 2px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 860px) {
+      .nav-content { height: 68px; }
+      .logo-text span { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: #f6f4f0;
+        border-bottom: 1px solid #e2dbd0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      .nav-links.open { max-height: 260px; }
+      .nav-links a {
+        padding: 16px 24px;
+        border-bottom: 1px solid #e8e1d6;
+      }
+      .nav-links a::after { display: none; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 20px; }
+    }
+
+    /* ----- hero (modern, clean overlay) ----- */
+    .hero {
+      border-bottom: 1px solid #e2dbd0;
+      background:
+        linear-gradient(105deg, rgba(15, 26, 36, 0.88) 0%, rgba(15, 26, 36, 0.60) 50%, rgba(15, 26, 36, 0.25) 80%, rgba(15, 26, 36, 0.05) 100%),
+        url("assets/img/wallpaper-sakti.jpg") center / cover no-repeat;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 48px;
+      padding: 72px 0 84px;
+      width: 100%;
+    }
+    .hero-text {
+      z-index: 2;
+    }
+
+    /* Hero animations - fade up with staggered delay */
+    .hero-tag {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.2s forwards;
+    }
+    .hero-title {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.4s forwards;
+    }
+    .hero-desc {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.6s forwards;
+    }
+    .hero-btn {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.8s forwards;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 18px 6px 16px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e4dfd6;
+      letter-spacing: 0.3px;
+      margin-bottom: 28px;
+    }
+    .tag::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: #cdb28b;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .hero h2 {
+      font-size: 52px;
+      line-height: 1.08;
+      color: #f2efe7;
+      max-width: 560px;
+      margin-bottom: 20px;
+    }
+    .hero h2 em {
+      font-style: italic;
+      color: #dbb594;
+    }
+    .hero p {
+      font-size: 18px;
+      color: rgba(240, 237, 227, 0.85);
+      max-width: 480px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #f2efe7;
+      color: #0f1a24;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 16px 34px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-primary:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    }
+    .btn-primary:focus-visible {
+      outline: 2px solid #a73b2e;
+      outline-offset: 4px;
+    }
+    .btn-primary svg {
+      transition: transform 0.2s;
+    }
+    .btn-primary:hover svg {
+      transform: translateX(4px);
+    }
+
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+    }
+
+    @media (max-width: 860px) {
+      .hero-content { grid-template-columns: 1fr; padding: 48px 0 56px; }
+      .hero-visual { display: none; }
+      .hero h2 { font-size: 36px; }
+      .hero p { font-size: 16px; }
+      .hero {
+        background:
+          linear-gradient(180deg, rgba(15,26,36,0.92) 0%, rgba(15,26,36,0.75) 70%, rgba(15,26,36,0.65) 100%),
+          url("assets/img/wallpaper-sakti.jpg") center / cover no-repeat;
+      }
+      .btn-primary { padding: 14px 28px; font-size: 15px; width: 100%; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .hero h2 { font-size: 28px; }
+      .container { padding: 0 20px; }
+    }
+
+    /* ----- about section (modern, balanced layout with scroll animation) ----- */
+    .about {
+      padding: 96px 0 88px;
+      border-bottom: 1px solid #e2dbd0;
+      background: #fcfaf7;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.3fr 0.7fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .ledger-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #a73b2e;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-left: 4px solid #a73b2e;
+      padding-left: 16px;
+    }
+    .about-body h3 {
+      font-size: 34px;
+      margin-bottom: 16px;
+      max-width: 520px;
+    }
+    .about-body p {
+      color: #3a4a58;
+      font-size: 17px;
+      max-width: 540px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 48px 60px;
+      border-top: 1px solid #d6cec0;
+      padding-top: 32px;
+    }
+    .stats-grid dt {
+      font-family: 'Newsreader', serif;
+      font-size: 34px;
+      font-weight: 600;
+      color: #0f1a24;
+      letter-spacing: -0.3px;
+    }
+    .stats-grid dd {
+      font-size: 14px;
+      color: #4a5a68;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    /* ----- scroll reveal animation (fade-up) - repeatable ----- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+      .about-body h3 { font-size: 28px; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+    }
+
+    /* ----- portal cards (modern, elevated) ----- */
+    .portal-section {
+      padding: 100px 0 120px;
+      background: #f6f4f0;
+    }
+    .section-heading {
+      max-width: 600px;
+      margin-bottom: 56px;
+    }
+    .section-heading h2 {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+    .section-heading p {
+      color: #3a4a58;
+      font-size: 17px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 40px 36px 36px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
+      border: 1px solid #e8e1d6;
+      transition: transform 0.2s, box-shadow 0.25s, border-color 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 6px 16px rgba(0,0,0,0.04);
+      border-color: #b8aa98;
+    }
+    .card-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #2a4b3a;
+      color: #f2efe7;
+      padding: 4px 16px 3px;
+      border-radius: 40px;
+      margin-bottom: 24px;
+    }
+    .card:nth-child(2) .card-tag {
+      background: #a73b2e;
+    }
+    .card h3 {
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+    .card p {
+      color: #3a4a58;
+      font-size: 16px;
+      margin-bottom: 32px;
+      max-width: 340px;
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      color: #0f1a24;
+      border-bottom: 2px solid #0f1a24;
+      padding-bottom: 4px;
+      transition: gap 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .card-link:hover {
+      gap: 16px;
+      color: #a73b2e;
+      border-color: #a73b2e;
+    }
+    .card-link:focus-visible {
+      outline: 2px solid #a73b2e;
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 860px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .section-heading h2 { font-size: 30px; }
+    }
+    @media (max-width: 480px) {
+      .card { padding: 28px 20px; }
+    }
+
+    /* ----- footer (clean, modern) ----- */
+    footer {
+      border-top: 1px solid #e2dbd0;
+      padding: 44px 0 32px;
+      background: #fcfaf7;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand {
+      font-family: 'Newsreader', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f1a24;
+    }
+    .footer-address {
+      font-size: 14px;
+      color: #4a5a68;
+      line-height: 1.6;
+    }
+    .footer-address a {
+      color: #2a4b3a;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .footer-address a:hover { color: #a73b2e; }
+    .footer-bottom {
+      border-top: 1px solid #d6cec0;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 14px;
+      color: #4a5a68;
+    }
+    @media (max-width: 680px) {
+      .footer-row { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    .text-muted { color: #4a5a68; }
+    .fw-600 { font-weight: 600; }
   </style>
 </head>
 <body>
-  <header class="site-header navbar">
+
+  <!-- navbar -->
+  <header class="navbar">
     <div class="container nav-content">
       <div class="logo">
         <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi" />
@@ -34,7 +576,81 @@
     </div>
   </header>
 
-  <footer class="site-footer">
+  <main>
+    <!-- hero with animations -->
+    <section class="hero" id="beranda">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <span class="tag hero-tag">Sistem resmi pengawasan kearsipan</span>
+          <h2 class="hero-title">Satu portal untuk <br /><em>seluruh proses pengawasan</em>.</h2>
+          <p class="hero-desc">SAKTi menyatukan pengisian data, unggah bukti dukung, dan verifikasi lapangan dalam satu alur — dari lembaga kearsipan sampai tim pengawas.</p>
+          <a href="portal.html" class="btn-primary hero-btn">
+            Masuk ke Portal
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="hero-visual"></div>
+      </div>
+    </section>
+
+    <!-- about with scroll animation (repeatable) -->
+    <section class="about" id="tentang">
+      <div class="container about-grid">
+        <div class="ledger-label reveal">Tentang SAKTi</div>
+        <div class="about-body">
+          <h3 class="reveal">Pintu masuk bagi objek pengawasan dan tim pengawas.</h3>
+          <p class="reveal">Setiap tahap pengawasan kearsipan — dari pengisian data mandiri, unggah bukti dukung, sampai verifikasi oleh tim pengawas — tercatat di satu tempat yang sama, sehingga statusnya bisa dipantau kedua belah pihak secara langsung.</p>
+          <dl class="stats-grid">
+            <div class="reveal">
+              <dt>2</dt>
+              <dd>Jalur akses portal</dd>
+            </div>
+            <div class="reveal">
+              <dt>1</dt>
+              <dd>Alur pengawasan terpadu</dd>
+            </div>
+            <div class="reveal">
+              <dt>34</dt>
+              <dd>Provinsi tercakup</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- portal cards -->
+    <section class="portal-section" id="portal">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Pilih akses Anda</h2>
+          <p>Portal berbeda untuk peran berbeda — pilih sesuai posisi Anda dalam proses pengawasan.</p>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <span class="card-tag">Objek Pengawasan</span>
+            <h3>Lembaga Kearsipan</h3>
+            <p>Untuk Lembaga Kearsipan atau Perangkat Daerah Provinsi yang menjadi objek pengawasan — isi data dan unggah bukti dukung di sini.</p>
+            <a href="lembaga.html" class="card-link">
+              Masuk sebagai Instansi
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+          <div class="card">
+            <span class="card-tag">Tim Pengawas</span>
+            <h3>Pengawas / Verifikator</h3>
+            <p>Untuk tim pengawas dan verifikator yang menjalankan proses pengawasan dan memeriksa bukti dukung yang masuk.</p>
+            <a href="pengawas.html" class="card-link">
+              Masuk sebagai Pengawas
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- footer -->
+  <footer>
     <div class="container footer-inner">
       <div class="footer-row">
         <div>
@@ -52,5 +668,49 @@
       </div>
     </div>
   </footer>
+
+  <!-- scroll reveal script - repeatable animation -->
+  <script>
+    (function() {
+      const revealElements = document.querySelectorAll('.reveal');
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+    })();
+
+    // mobile hamburger menu
+    (function() {
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+      if (!navToggle || !navLinks) return;
+
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        navToggle.classList.toggle('active', isOpen);
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          navToggle.classList.remove('active');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+  </script>
+
 </body>
 </html>
