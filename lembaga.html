@@ -460,42 +460,57 @@
     /* ===== FOOTER ===== */
     footer {
       border-top: 1px solid #e2dbd0;
-      padding: 36px 0;
+      padding: 44px 0 32px;
       background: #fcfaf7;
       margin-top: auto;
-      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.6s forwards;
-      opacity: 0;
     }
-
-    .footer-content {
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand {
+      font-family: 'Newsreader', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f1a24;
+    }
+    .footer-tagline {
+      color: #4a5a68;
+      margin-left: 8px;
+    }
+    .footer-address {
       font-size: 14px;
-      color: var(--ink-soft);
+      color: #4a5a68;
+      line-height: 1.6;
+    }
+    .footer-address a {
+      color: #2a4b3a;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .footer-address a:hover { color: #a73b2e; }
+    .footer-bottom {
+      border-top: 1px solid #d6cec0;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
+      font-size: 14px;
+      color: #4a5a68;
     }
-
-    .footer-content strong {
-      color: var(--ink);
-      font-family: 'Newsreader', serif;
-      font-size: 16px;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    .footer-content strong:hover {
-      color: var(--ledger);
-    }
-
-    .footer-content div:last-child {
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    .footer-content div:last-child:hover {
-      transform: translateY(-2px);
-      color: var(--ink);
+    @media (max-width: 680px) {
+      .footer-row { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .footer-tagline { margin-left: 0; }
     }
 
     /* ===== RESPONSIVE ===== */
@@ -628,12 +643,21 @@
 
   <!-- ===== FOOTER ===== -->
   <footer>
-    <div class="container footer-content">
-      <div>
-        <strong>SAKTi</strong>
-        — Sistem Pengawasan Kearsipan Terintegrasi
+    <div class="container footer-inner">
+      <div class="footer-row">
+        <div>
+          <span class="footer-brand">SAKTi</span>
+          <span class="footer-tagline">— Sistem Pengawasan Kearsipan Terintegrasi</span>
+        </div>
+        <div class="footer-address">
+          Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br />
+          Jl. Janti, Banguntapan, Bantul, DIY 55198
+        </div>
       </div>
-      <div>© 2025 SAKTi</div>
+      <div class="footer-bottom">
+        <div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div>
+        <div>© 2025 SAKTi — Sistem Audit Kearsipan Terintegrasi</div>
+      </div>
     </div>
   </footer>
 

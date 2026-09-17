@@ -282,14 +282,13 @@
       padding: 64px 0 88px;
     }
 
-    /* Kartu Putih Besar */
     .option-card {
       text-align: center;
       max-width: 520px;
       width: 100%;
       background: #ffffff;
       border: 1px solid var(--line);
-      border-radius: 24px; /* Sudut lebih membulat seperti gambar */
+      border-radius: 24px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.05), 0 2px 10px rgba(0,0,0,0.02);
       padding: 64px 48px;
       animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.3s forwards;
@@ -305,12 +304,11 @@
       transform: translateY(-4px);
     }
 
-    /* Lingkaran Ikon Biru Muda */
     .icon-circle {
       width: 96px;
       height: 96px;
       border-radius: 50%;
-      background: #E3F2FD; /* Biru sangat muda sesuai gambar */
+      background: #E3F2FD;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -325,7 +323,7 @@
 
     .icon-circle i {
       font-size: 42px;
-      color: #1976D2; /* Biru tua untuk ikon */
+      color: #1976D2;
       transition: color 0.3s ease, transform 0.3s ease;
     }
 
@@ -333,9 +331,8 @@
       transform: translateX(4px);
     }
 
-    /* Judul INTERNAL */
     .option-card h3 {
-      font-family: 'Inter', sans-serif; /* Font sans-serif tebal sesuai gambar */
+      font-family: 'Inter', sans-serif;
       font-size: 26px;
       font-weight: 800;
       letter-spacing: 1px;
@@ -344,7 +341,6 @@
       text-transform: uppercase;
     }
 
-    /* Deskripsi */
     .option-card p {
       color: var(--ink-soft);
       font-size: 16px;
@@ -353,18 +349,17 @@
       max-width: 320px;
     }
 
-    /* Tombol Pilih Internal */
     .btn-option {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      background: #F0F0F0; /* Abu-abu sangat muda sesuai gambar */
+      background: #F0F0F0;
       color: var(--ink);
       font-weight: 700;
       font-size: 16px;
       padding: 16px 40px;
-      border-radius: 50px; /* Tombol pill */
+      border-radius: 50px;
       border: none;
       cursor: pointer;
       font-family: 'Inter', sans-serif;
@@ -392,33 +387,57 @@
     /* ===== FOOTER ===== */
     footer {
       border-top: 1px solid #e2dbd0;
-      padding: 36px 0;
+      padding: 44px 0 32px;
       background: #fcfaf7;
       margin-top: auto;
-      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.6s forwards;
-      opacity: 0;
     }
-
-    .footer-content {
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand {
+      font-family: 'Newsreader', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f1a24;
+    }
+    .footer-tagline {
+      color: #4a5a68;
+      margin-left: 8px;
+    }
+    .footer-address {
       font-size: 14px;
-      color: var(--ink-soft);
+      color: #4a5a68;
+      line-height: 1.6;
+    }
+    .footer-address a {
+      color: #2a4b3a;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .footer-address a:hover { color: #a73b2e; }
+    .footer-bottom {
+      border-top: 1px solid #d6cec0;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
+      font-size: 14px;
+      color: #4a5a68;
     }
-
-    .footer-content strong {
-      color: var(--ink);
-      font-family: 'Newsreader', serif;
-      font-size: 16px;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    .footer-content strong:hover {
-      color: var(--ledger);
+    @media (max-width: 680px) {
+      .footer-row { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .footer-tagline { margin-left: 0; }
     }
 
     /* ===== RESPONSIVE ===== */
@@ -535,27 +554,20 @@
     <!-- ===== MAIN CARD (TENGAH) ===== -->
     <section class="main-section">
       <div class="container" style="display: flex; justify-content: center;">
-        
-        <!-- KARTU INTERNAL -->
         <div class="option-card">
-          
           <div class="icon-circle">
-            <!-- Ikon panah masuk ke dalam bracket (sesuai gambar) -->
             <i class="fas fa-sign-in-alt"></i>
           </div>
-          
+
           <h3>INTERNAL</h3>
-          
+
           <p>Diperuntukkan bagi Perangkat Daerah di lingkungan Pemda D.I. Yogyakarta</p>
 
-          <!-- Ganti tanda # dengan link tujuan halaman berikutnya -->
           <a href="#" class="btn-option">
             Pilih Internal
             <i class="fas fa-arrow-right"></i>
           </a>
-
         </div>
-
       </div>
     </section>
 
@@ -563,12 +575,21 @@
 
   <!-- ===== FOOTER ===== -->
   <footer>
-    <div class="container footer-content">
-      <div>
-        <strong>SAKTi</strong>
-        — Sistem Pengawasan Kearsipan Terintegrasi
+    <div class="container footer-inner">
+      <div class="footer-row">
+        <div>
+          <span class="footer-brand">SAKTi</span>
+          <span class="footer-tagline">— Sistem Pengawasan Kearsipan Terintegrasi</span>
+        </div>
+        <div class="footer-address">
+          Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br />
+          Jl. Janti, Banguntapan, Bantul, DIY 55198
+        </div>
       </div>
-      <div>© 2025 SAKTi</div>
+      <div class="footer-bottom">
+        <div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div>
+        <div>© 2025 SAKTi — Sistem Audit Kearsipan Terintegrasi</div>
+      </div>
     </div>
   </footer>
 
