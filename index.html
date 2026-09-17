@@ -9,26 +9,47 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
-  <style>/* Halaman ini hanya berisi style khusus beranda. */</style>
+  <style>
+    /* existing page styles stay here */
+  </style>
 </head>
 <body>
   <header class="site-header navbar">
     <div class="container nav-content">
-      <a href="index.html" class="logo">
+      <div class="logo">
         <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi" />
-        <div class="logo-text"><h1>SAKTi</h1><span>Sistem Pengawasan Kearsipan Terintegrasi</span></div>
-      </a>
-      <nav class="nav-links" id="navLinks" aria-label="Navigasi utama">
-        <a href="#beranda">Beranda</a><a href="#tentang">Tentang</a><a href="portal.html">Portal</a>
+        <div class="logo-text">
+          <h1>SAKTi</h1>
+          <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
+        </div>
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#beranda">Beranda</a>
+        <a href="#tentang">Tentang</a>
+        <a href="portal.html">Portal</a>
       </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
-  <main></main>
+
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-row"><div><span class="footer-brand">SAKTi</span> <span class="footer-tagline">— Sistem Pengawasan Kearsipan Terintegrasi</span></div><div class="footer-address">Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br />Jl. Janti, Banguntapan, Bantul, DIY 55198</div></div>
-      <div class="footer-bottom"><div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div><div>© 2025 SAKTi — Sistem Audit Kearsipan Terintegrasi</div></div>
+      <div class="footer-row">
+        <div>
+          <span class="footer-brand">SAKTi</span>
+          <span style="color:#4a5a68; margin-left:8px;">— Sistem Pengawasan Kearsipan Terintegrasi</span>
+        </div>
+        <div class="footer-address">
+          Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br />
+          Jl. Janti, Banguntapan, Bantul, DIY 55198
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div>
+        <div>© 2025 SAKTi — Sistem Audit Kearsipan Terintegrasi</div>
+      </div>
     </div>
   </footer>
 </body>
