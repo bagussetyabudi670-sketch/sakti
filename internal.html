@@ -6,10 +6,7 @@
   <title>Daftar Instansi Internal · SAKTi</title>
   <link rel="icon" type="image/png" href="assets/img/logoAS.png" />
 
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
@@ -45,21 +42,18 @@
 
     a { color: inherit; text-decoration: none; }
 
-    /* ===== CONTAINER (Navbar & Footer — SAMA DENGAN index.html) ===== */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 32px;
     }
 
-    /* ===== CONTAINER NARROW (Konten Utama) ===== */
     .container-narrow {
       max-width: 1000px;
       margin: 0 auto;
       padding: 0 32px;
     }
 
-    /* ===== ANIMATIONS ===== */
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -77,7 +71,7 @@
     .animate-delay-2 { animation-delay: 0.3s; }
     .animate-delay-3 { animation-delay: 0.45s; }
 
-    /* ===== NAVBAR (SAMA PERSIS DENGAN index.html) ===== */
+    /* NAVBAR */
     .navbar {
       background: rgba(246, 244, 240, 0.92);
       border-bottom: 1px solid #e2dbd0;
@@ -183,7 +177,7 @@
     .nav-toggle.active span:nth-child(2) { opacity: 0; }
     .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ===== TOMBOL KEMBALI ===== */
+    /* TOMBOL KEMBALI */
     .back-wrapper {
       padding: 32px 0 0;
       animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
@@ -211,7 +205,7 @@
     .back-link i { transition: transform 0.2s; }
     .back-link:hover i { transform: translateX(-4px); }
 
-    /* ===== PAGE HEADER ===== */
+    /* PAGE HEADER */
     .page-header {
       padding: 32px 0 32px;
       border-bottom: 1px solid var(--line);
@@ -234,17 +228,9 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    .page-header .label:hover {
-      background: var(--ledger);
-      color: #ffffff;
-    }
-
+    .page-header .label:hover { background: var(--ledger); color: #ffffff; }
     .page-header .label:hover i { color: #ffffff; }
-    .page-header .label i {
-      font-size: 12px;
-      color: var(--ledger);
-      transition: color 0.3s ease;
-    }
+    .page-header .label i { font-size: 12px; color: var(--ledger); transition: color 0.3s ease; }
 
     .page-header h2 {
       font-family: 'Newsreader', serif;
@@ -259,10 +245,7 @@
       transition: transform 0.3s ease, color 0.3s ease;
     }
 
-    .page-header h2 span:hover {
-      transform: scale(1.02);
-      color: var(--ledger);
-    }
+    .page-header h2 span:hover { transform: scale(1.02); color: var(--ledger); }
 
     .page-header p {
       color: var(--ink-soft);
@@ -271,7 +254,7 @@
       margin: 0 auto 24px;
     }
 
-    /* ===== SEARCH & CONTROL ===== */
+    /* SEARCH */
     .search-wrapper {
       max-width: 500px;
       margin: 0 auto 16px;
@@ -309,7 +292,7 @@
       box-shadow: 0 0 0 4px rgba(42, 75, 58, 0.1);
     }
 
-    /* Tombol Kontrol (Buka/Tutup Semua) */
+    /* CONTROLS */
     .controls {
       display: flex;
       justify-content: center;
@@ -342,10 +325,8 @@
       transform: translateY(-2px);
     }
 
-    /* ===== DAFTAR ABJAD (ACCORDION) ===== */
-    .abjad-container {
-      padding: 32px 0 100px;
-    }
+    /* ACCORDION */
+    .abjad-container { padding: 32px 0 100px; }
 
     .abjad-group {
       margin-bottom: 16px;
@@ -364,7 +345,6 @@
       border-color: var(--ledger);
     }
 
-    /* Header Abjad (Bisa diklik) */
     .abjad-header {
       display: flex;
       align-items: center;
@@ -387,11 +367,7 @@
       border-bottom: 1px solid var(--line);
     }
 
-    .abjad-header-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+    .abjad-header-left { display: flex; align-items: center; gap: 16px; }
 
     .abjad-letter {
       font-family: 'Newsreader', serif;
@@ -408,17 +384,8 @@
 
     .abjad-info { display: flex; flex-direction: column; gap: 2px; }
 
-    .abjad-info .title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .abjad-info .count {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--ink-soft);
-    }
+    .abjad-info .title { font-size: 15px; font-weight: 600; color: var(--ink); }
+    .abjad-info .count { font-size: 12px; font-weight: 500; color: var(--ink-soft); }
 
     .abjad-toggle-icon {
       font-size: 16px;
@@ -431,7 +398,6 @@
       color: var(--ledger);
     }
 
-    /* Konten List (yang bisa dibuka-tutup) */
     .abjad-content {
       max-height: 0;
       overflow: hidden;
@@ -440,11 +406,7 @@
 
     .abjad-group.open .abjad-content { max-height: 3000px; }
 
-    .opd-list {
-      list-style: none;
-      padding: 8px 16px 16px;
-      margin: 0;
-    }
+    .opd-list { list-style: none; padding: 8px 16px 16px; margin: 0; }
 
     .opd-item {
       display: flex;
@@ -513,7 +475,7 @@
       color: var(--ledger);
     }
 
-    /* ===== PESAN KOSONG ===== */
+    /* NO RESULT */
     .no-result {
       text-align: center;
       padding: 60px 20px;
@@ -529,7 +491,7 @@
       display: block;
     }
 
-    /* ===== TOMBOL KEMBALI KE ATAS ===== */
+    /* BACK TO TOP */
     .back-to-top {
       position: fixed;
       bottom: 30px;
@@ -560,7 +522,7 @@
       box-shadow: 0 8px 24px rgba(42, 75, 58, 0.4);
     }
 
-    /* ===== FOOTER ===== */
+    /* FOOTER */
     footer {
       border-top: 1px solid #e2dbd0;
       padding: 36px 0;
@@ -590,7 +552,7 @@
 
     .footer-content strong:hover { color: var(--ledger); }
 
-    /* ===== RESPONSIVE ===== */
+    /* RESPONSIVE */
     @media (max-width: 860px) {
       .container, .container-narrow { padding: 0 24px; }
       .page-header h2 { font-size: 30px; }
@@ -613,10 +575,7 @@
         transition: max-height 0.3s ease;
       }
       .nav-links.open { max-height: 260px; }
-      .nav-links a {
-        padding: 16px 24px;
-        border-bottom: 1px solid #e8e1d6;
-      }
+      .nav-links a { padding: 16px 24px; border-bottom: 1px solid #e8e1d6; }
       .nav-links a::after { display: none; }
     }
 
@@ -637,7 +596,7 @@
 
 <body>
 
-  <!-- ===== NAVBAR (SAMA PERSIS DENGAN index.html) ===== -->
+  <!-- NAVBAR -->
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="logo">
@@ -660,14 +619,12 @@
 
   <main>
 
-    <!-- ===== TOMBOL KEMBALI ===== -->
     <div class="container-narrow back-wrapper">
       <a href="jenis-pengawasan.html" class="back-link">
         <i class="fas fa-arrow-left"></i> Kembali ke Jenis Pengawasan
       </a>
     </div>
 
-    <!-- ===== PAGE HEADER ===== -->
     <section class="page-header">
       <div class="container-narrow">
         <span class="label animate-on-load animate-delay-1">
@@ -678,13 +635,11 @@
         </h2>
         <p class="animate-on-load animate-delay-3">Silakan cari atau pilih instansi yang akan dilakukan pengawasan kearsipan tahun 2026.</p>
         
-        <!-- Search Bar -->
         <div class="search-wrapper">
           <i class="fas fa-search"></i>
           <input type="text" id="searchInput" placeholder="Cari nama instansi..." />
         </div>
 
-        <!-- Tombol Kontrol -->
         <div class="controls">
           <button class="ctrl-btn" id="btnOpenAll">
             <i class="fas fa-expand-alt"></i> Buka Semua
@@ -696,12 +651,8 @@
       </div>
     </section>
 
-    <!-- ===== DAFTAR ABJAD (ACCORDION) ===== -->
-    <section class="container-narrow abjad-container" id="abjadContainer">
-      <!-- Konten akan diisi oleh JavaScript -->
-    </section>
+    <section class="container-narrow abjad-container" id="abjadContainer"></section>
 
-    <!-- Pesan Kosong -->
     <div class="no-result" id="noResult">
       <i class="fas fa-search-minus"></i>
       Tidak ada instansi yang cocok dengan pencarian Anda.
@@ -709,12 +660,10 @@
 
   </main>
 
-  <!-- Tombol Kembali ke Atas -->
   <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
     <i class="fas fa-arrow-up"></i>
   </button>
 
-  <!-- ===== FOOTER ===== -->
   <footer>
     <div class="container footer-content">
       <div>
@@ -724,11 +673,7 @@
     </div>
   </footer>
 
-  <!-- ===== JAVASCRIPT LOGIC ===== -->
   <script>
-    // =====================================================
-    // 1. DATA OPD DIKELOMPOKKAN BERDASARKAN ABJAD
-    // =====================================================
     const opdData = {
       "B": [
         "Badan Kepegawaian Daerah DIY",
@@ -768,31 +713,22 @@
         "Dinas Sosial DIY",
         "Dinas Tenaga Kerja dan Transmigrasi DIY"
       ],
-      "I": [
-        "Inspektorat DIY"
-      ],
-      "P": [
-        "Paniradya Kaistimewan DIY"
-      ],
+      "I": ["Inspektorat DIY"],
+      "P": ["Paniradya Kaistimewan DIY"],
       "S": [
         "Satuan Polisi Pamong Praja DIY",
         "Sekretariat Dewan Perwakilan Rakyat Daerah DIY"
       ]
     };
 
-    // =====================================================
-    // 2. FUNGSI UNTUK MENAMPILKAN DAFTAR (ACCORDION)
-    // =====================================================
     const container = document.getElementById('abjadContainer');
     const noResult = document.getElementById('noResult');
     const searchInput = document.getElementById('searchInput');
-
     const openState = {};
 
     function renderList(searchTerm = '') {
       container.innerHTML = '';
       let totalFound = 0;
-
       const sortedKeys = Object.keys(opdData).sort();
 
       sortedKeys.forEach((key, groupIndex) => {
@@ -801,7 +737,6 @@
         );
 
         if (filteredItems.length === 0) return;
-
         totalFound += filteredItems.length;
 
         const isOpen = searchTerm.length > 0 ? true : (openState[key] || false);
@@ -827,7 +762,6 @@
 
         header.addEventListener('click', () => {
           const isCurrentlyOpen = group.classList.contains('open');
-          
           if (isCurrentlyOpen) {
             group.classList.remove('open');
             header.setAttribute('aria-expanded', 'false');
@@ -843,18 +777,14 @@
 
         const content = document.createElement('div');
         content.className = 'abjad-content';
-
         const list = document.createElement('ul');
         list.className = 'opd-list';
 
         filteredItems.forEach((item, itemIndex) => {
           const li = document.createElement('li');
-          
           const link = document.createElement('a');
           link.className = 'opd-item';
-          
           link.href = 'detail-instansi.html?opd=' + encodeURIComponent(item);
-          
           link.style.animationDelay = `${(groupIndex * 0.1) + (itemIndex * 0.03)}s`;
 
           let iconClass = 'fa-building';
@@ -867,9 +797,7 @@
           if (item.startsWith('Paniradya')) iconClass = 'fa-crown';
 
           link.innerHTML = `
-            <div class="item-icon">
-              <i class="fas ${iconClass}"></i>
-            </div>
+            <div class="item-icon"><i class="fas ${iconClass}"></i></div>
             <span class="item-text">${item}</span>
             <i class="fas fa-arrow-right item-arrow"></i>
           `;
@@ -883,23 +811,11 @@
         container.appendChild(group);
       });
 
-      if (totalFound === 0) {
-        noResult.style.display = 'block';
-      } else {
-        noResult.style.display = 'none';
-      }
+      noResult.style.display = totalFound === 0 ? 'block' : 'none';
     }
 
-    // =====================================================
-    // 3. EVENT LISTENER UNTUK PENCARIAN
-    // =====================================================
-    searchInput.addEventListener('input', (e) => {
-      renderList(e.target.value);
-    });
+    searchInput.addEventListener('input', (e) => renderList(e.target.value));
 
-    // =====================================================
-    // 4. TOMBOL BUKA SEMUA / TUTUP SEMUA
-    // =====================================================
     document.getElementById('btnOpenAll').addEventListener('click', () => {
       document.querySelectorAll('.abjad-group').forEach(group => {
         group.classList.add('open');
@@ -916,12 +832,37 @@
       });
     });
 
-    // =====================================================
-    // 5. RENDER PERTAMA KALI
-    // =====================================================
     renderList();
 
-    // =====================================================
-    // 6. TOMBOL KEMBALI KE ATAS
-    // =====================================================
-    const back
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) backToTop.classList.add('visible');
+      else backToTop.classList.remove('visible');
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    (function() {
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+      if (!navToggle || !navLinks) return;
+
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        navToggle.classList.toggle('active', isOpen);
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          navToggle.classList.remove('active');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
