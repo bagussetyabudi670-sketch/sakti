@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pengawasan Internal · SAKTi</title>
+  <title>Daftar Instansi Internal · SAKTi</title>
   <link rel="icon" type="image/png" href="assets/img/logoAS.png" />
 
   <!-- Font Awesome -->
@@ -56,23 +56,19 @@
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 0 32px;
     }
 
     /* ===== ANIMATIONS ===== */
     @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
+      0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
     @keyframes slideDown {
       0% { opacity: 0; transform: translateY(-10px); }
       100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
     }
 
     .animate-on-load {
@@ -177,7 +173,7 @@
 
     /* ===== PAGE HEADER ===== */
     .page-header {
-      padding: 72px 0 48px;
+      padding: 48px 0 32px;
       border-bottom: 1px solid var(--line);
       text-align: center;
     }
@@ -194,15 +190,13 @@
       border: 1px solid var(--ledger);
       padding: 5px 16px 5px 14px;
       border-radius: 40px;
-      margin-bottom: 24px;
-      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      margin-bottom: 16px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .page-header .label:hover {
       background: var(--ledger);
       color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(42, 75, 58, 0.2);
     }
 
     .page-header .label:hover i {
@@ -217,13 +211,10 @@
 
     .page-header h2 {
       font-family: 'Newsreader', serif;
-      font-size: 40px;
+      font-size: 36px;
       line-height: 1.08;
       font-weight: 500;
-      margin-bottom: 12px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-bottom: 8px;
     }
 
     .page-header h2 span {
@@ -238,164 +229,317 @@
 
     .page-header p {
       color: var(--ink-soft);
-      font-size: 17px;
+      font-size: 16px;
       max-width: 560px;
-      margin: 0 auto;
+      margin: 0 auto 24px;
     }
 
-    /* ===== MAIN SECTION (CARD BESAR DI TENGAH) ===== */
-    .main-section {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 64px 0 88px;
+    /* ===== SEARCH & CONTROL ===== */
+    .search-wrapper {
+      max-width: 500px;
+      margin: 0 auto 16px;
+      position: relative;
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.2s forwards;
+      opacity: 0;
     }
 
-    .option-card {
-      text-align: center;
-      max-width: 560px;
+    .search-wrapper i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-soft);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .search-wrapper input {
       width: 100%;
-      background: #ffffff;
+      padding: 16px 24px 16px 54px;
       border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.05), 0 2px 10px rgba(0,0,0,0.02);
-      padding: 64px 48px;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      background: #ffffff;
+      color: var(--ink);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    .search-wrapper input:focus {
+      border-color: var(--ledger);
+      box-shadow: 0 0 0 4px rgba(42, 75, 58, 0.1);
+    }
+
+    /* Tombol Kontrol (Buka/Tutup Semua) */
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
       animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.3s forwards;
       opacity: 0;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .ctrl-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--ink-soft);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ctrl-btn:hover {
+      border-color: var(--ledger);
+      color: var(--ledger);
+      background: #f0f7f2;
+      transform: translateY(-2px);
+    }
+
+    /* ===== DAFTAR ABJAD (ACCORDION) ===== */
+    .abjad-container {
+      padding: 32px 0 100px;
+    }
+
+    .abjad-group {
+      margin-bottom: 16px;
+      animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+      opacity: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .abjad-group.open {
+      box-shadow: 0 8px 24px rgba(42, 75, 58, 0.08);
+      border-color: var(--ledger);
+    }
+
+    /* Header Abjad (Bisa diklik) */
+    .abjad-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+
+    .abjad-header:hover {
+      background: #f0f7f2;
+    }
+
+    .abjad-group.open .abjad-header {
+      background: #f0f7f2;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .abjad-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .abjad-letter {
+      font-family: 'Newsreader', serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--ledger);
+      line-height: 1;
+      width: 48px;
+      text-align: center;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .abjad-group.open .abjad-letter {
+      transform: scale(1.05);
+    }
+
+    .abjad-info {
       display: flex;
       flex-direction: column;
+      gap: 2px;
+    }
+
+    .abjad-info .title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .abjad-info .count {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
+
+    .abjad-toggle-icon {
+      font-size: 16px;
+      color: var(--ink-soft);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1), color 0.3s ease;
+    }
+
+    .abjad-group.open .abjad-toggle-icon {
+      transform: rotate(180deg);
+      color: var(--ledger);
+    }
+
+    /* Konten List (yang bisa dibuka-tutup) */
+    .abjad-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .abjad-group.open .abjad-content {
+      max-height: 3000px; /* Cukup besar untuk menampung list */
+    }
+
+    .opd-list {
+      list-style: none;
+      padding: 8px 16px 16px;
+      margin: 0;
+    }
+
+    .opd-item {
+      display: flex;
       align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      cursor: pointer;
+      border: 1px solid transparent;
+      margin-bottom: 4px;
+      text-decoration: none;
+      color: inherit;
     }
 
-    .option-card:hover {
-      box-shadow: 0 20px 50px rgba(0,0,0,0.08), 0 6px 20px rgba(0,0,0,0.04);
-      transform: translateY(-4px);
+    .opd-item:hover {
+      background: #f0f7f2;
+      border-color: var(--ledger);
+      transform: translateX(6px);
+      box-shadow: 0 4px 12px rgba(42, 75, 58, 0.08);
     }
 
-    .icon-circle {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
+    .opd-item .item-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
       background: #E3F2FD;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 28px;
-      transition: background 0.3s ease, transform 0.3s ease;
-      animation: float 3s ease-in-out infinite;
+      flex-shrink: 0;
+      transition: background 0.3s ease;
     }
 
-    .option-card:hover .icon-circle {
+    .opd-item:hover .item-icon {
       background: var(--ledger);
-      transform: scale(1.05);
     }
 
-    .icon-circle i {
-      font-size: 42px;
-      color: #1976D2;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .option-card:hover .icon-circle i {
-      color: #ffffff;
-      transform: scale(1.1);
-    }
-
-    .option-card h3 {
-      font-family: 'Inter', sans-serif;
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: var(--ink);
-      margin-bottom: 16px;
-    }
-
-    .option-card p {
-      color: var(--ink-soft);
+    .opd-item .item-icon i {
       font-size: 16px;
-      margin-bottom: 40px;
-      line-height: 1.7;
-      max-width: 400px;
+      color: #1976D2;
+      transition: color 0.3s ease;
     }
 
-    .btn-option {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      background: var(--ledger);
+    .opd-item:hover .item-icon i {
       color: #ffffff;
-      font-weight: 700;
-      font-size: 17px;
-      padding: 18px 44px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      width: auto;
-      min-width: 240px;
-      box-shadow: 0 4px 16px rgba(42, 75, 58, 0.22);
-      position: relative;
-      overflow: hidden;
     }
 
-    .btn-option::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .btn-option:hover::after {
-      left: 100%;
-    }
-
-    .btn-option:hover {
-      background: var(--ledger-deep);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(42, 75, 58, 0.30);
-    }
-
-    .btn-option i.fa-arrow-right {
+    .opd-item .item-text {
+      flex: 1;
       font-size: 15px;
-      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      font-weight: 500;
+      color: var(--ink);
+      transition: color 0.3s ease;
     }
 
-    .btn-option:hover i.fa-arrow-right {
-      transform: translateX(6px);
+    .opd-item:hover .item-text {
+      color: var(--ledger);
     }
 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 22px;
+    .opd-item .item-arrow {
       font-size: 14px;
       color: var(--ink-soft);
-      border-bottom: 1px solid transparent;
-      padding-bottom: 3px;
-      transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
     }
 
-    .btn-secondary:hover {
-      color: var(--ink);
-      border-color: var(--ink);
-      transform: translateY(-2px);
+    .opd-item:hover .item-arrow {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--ledger);
     }
 
-    .btn-secondary i {
-      transition: transform 0.3s ease;
+    /* ===== PESAN KOSONG ===== */
+    .no-result {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--ink-soft);
+      font-size: 16px;
+      display: none;
     }
 
-    .btn-secondary:hover i {
-      transform: scale(1.1);
+    .no-result i {
+      font-size: 40px;
+      color: var(--line);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    /* ===== TOMBOL KEMBALI KE ATAS ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--ledger);
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 16px rgba(42, 75, 58, 0.3);
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 40;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: var(--ledger-deep);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(42, 75, 58, 0.4);
     }
 
     /* ===== FOOTER ===== */
@@ -433,24 +577,23 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 860px) {
       .container { padding: 0 24px; }
-      .page-header h2 { font-size: 32px; }
+      .page-header h2 { font-size: 30px; }
       .nav-content { height: 68px; }
       .logo-text span { display: none; }
-      .option-card { padding: 48px 32px; }
+      .abjad-letter { font-size: 28px; width: 40px; }
     }
 
     @media (max-width: 480px) {
       .container { padding: 0 18px; }
-      .page-header { padding: 48px 0 32px; }
+      .page-header { padding: 32px 0 24px; }
       .page-header h2 { font-size: 26px; }
-      .main-section { padding: 40px 0 60px; }
-      .option-card { padding: 36px 22px; border-radius: 16px; }
-      .icon-circle { width: 80px; height: 80px; }
-      .icon-circle i { font-size: 34px; }
-      .option-card h3 { font-size: 24px; }
-      .option-card p { font-size: 15px; margin-bottom: 28px; }
-      .btn-option { width: 100%; font-size: 16px; padding: 16px 28px; }
+      .abjad-header { padding: 14px 16px; }
+      .abjad-letter { font-size: 24px; width: 36px; }
+      .abjad-info .title { font-size: 14px; }
+      .opd-item { padding: 12px 14px; }
+      .opd-item .item-text { font-size: 14px; }
       .footer-content { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .back-to-top { bottom: 20px; right: 20px; width: 44px; height: 44px; font-size: 18px; }
     }
   </style>
 </head>
@@ -479,46 +622,48 @@
     <section class="page-header">
       <div class="container">
         <span class="label animate-on-load animate-delay-1">
-          <i class="fas fa-sign-in-alt"></i> PENGAWASAN INTERNAL
+          <i class="fas fa-list-ul"></i> DAFTAR INSTANSI INTERNAL
         </span>
         <h2 class="animate-on-load animate-delay-2">
-          <span>Selamat</span> <span>Datang</span>
+          <span>Pilih</span> <span>Perangkat</span> <span>Daerah</span>
         </h2>
-        <p class="animate-on-load animate-delay-3">Anda memilih jalur pengawasan internal untuk Perangkat Daerah di lingkungan Pemda D.I. Yogyakarta.</p>
-      </div>
-    </section>
-
-    <!-- ===== MAIN CARD (TENGAH) ===== -->
-    <section class="main-section">
-      <div class="container" style="display: flex; justify-content: center;">
+        <p class="animate-on-load animate-delay-3">Silakan cari atau pilih instansi yang akan dilakukan pengawasan kearsipan tahun 2026.</p>
         
-        <div class="option-card">
-          
-          <div class="icon-circle">
-            <i class="fas fa-building"></i>
-          </div>
-          
-          <h3>MULAI PENGAWASAN</h3>
-          
-          <p>Silakan lanjutkan untuk memilih Perangkat Daerah yang akan dilakukan pengawasan kearsipan tahun 2026.</p>
-
-          <!-- INI LINK KE DAFTAR OPD NANTI -->
-          <!-- Ganti tanda # dengan daftar-opd.html -->
-          <a href="#" class="btn-option">
-            Lihat Daftar Instansi
-            <i class="fas fa-arrow-right"></i>
-          </a>
-
-          <a href="pengawasan.html" class="btn-secondary">
-            <i class="fas fa-circle-question"></i> Butuh bantuan? Hubungi tim pengawas
-          </a>
-
+        <!-- Search Bar -->
+        <div class="search-wrapper">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Cari nama instansi..." />
         </div>
 
+        <!-- Tombol Kontrol -->
+        <div class="controls">
+          <button class="ctrl-btn" id="btnOpenAll">
+            <i class="fas fa-expand-alt"></i> Buka Semua
+          </button>
+          <button class="ctrl-btn" id="btnCloseAll">
+            <i class="fas fa-compress-alt"></i> Tutup Semua
+          </button>
+        </div>
       </div>
     </section>
 
+    <!-- ===== DAFTAR ABJAD (ACCORDION) ===== -->
+    <section class="container abjad-container" id="abjadContainer">
+      <!-- Konten akan diisi oleh JavaScript -->
+    </section>
+
+    <!-- Pesan Kosong -->
+    <div class="no-result" id="noResult">
+      <i class="fas fa-search-minus"></i>
+      Tidak ada instansi yang cocok dengan pencarian Anda.
+    </div>
+
   </main>
+
+  <!-- Tombol Kembali ke Atas -->
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
   <!-- ===== FOOTER ===== -->
   <footer>
@@ -529,6 +674,240 @@
       <div>© 2025 SAKTi</div>
     </div>
   </footer>
+
+  <!-- ===== JAVASCRIPT LOGIC ===== -->
+  <script>
+    // =====================================================
+    // 1. DATA OPD DIKELOMPOKKAN BERDASARKAN ABJAD
+    // =====================================================
+    const opdData = {
+      "B": [
+        { nama: "Badan Kepegawaian Daerah DIY", link: "#" },
+        { nama: "Badan Kesatuan Bangsa dan Politik DIY", link: "#" },
+        { nama: "Badan Penanggulangan Bencana Daerah DIY", link: "#" },
+        { nama: "Badan Pendidikan dan Pelatihan DIY", link: "#" },
+        { nama: "Badan Pengelola Keuangan dan Aset DIY", link: "#" },
+        { nama: "Badan Penghubung Daerah DIY", link: "#" },
+        { nama: "Badan Perencanaan Pembangunan Riset dan Inovasi Daerah DIY", link: "#" },
+        { nama: "Biro Hukum Sekretariat Daerah DIY", link: "#" },
+        { nama: "Biro Kesejahteraan Rakyat Sekretariat Daerah DIY", link: "#" },
+        { nama: "Biro Organisasi Sekretariat Daerah DIY", link: "#" },
+        { nama: "Biro Pengembangan Infrastruktur Wilayah dan Pembiayaan Pembangunan Sekretariat Daerah DIY", link: "#" },
+        { nama: "Biro Pengadaan Barang dan Jasa Sekretariat Daerah DIY", link: "#" },
+        { nama: "Biro Perekonomian Sekretariat Daerah DIY", link: "#" },
+        { nama: "Biro Tata Pemerintahan Sekretariat Daerah DIY", link: "#" },
+        { nama: "Biro Umum, Hubungan Masyarakat, dan Protokol Sekretariat Daerah DIY", link: "#" }
+      ],
+      "D": [
+        { nama: "Dinas Kebudayaan DIY", link: "#" },
+        { nama: "Dinas Kelautan dan Perikanan DIY", link: "#" },
+        { nama: "Dinas Kesehatan DIY", link: "#" },
+        { nama: "Dinas Komunikasi dan Informatika DIY", link: "#" },
+        { nama: "Dinas Koperasi, Usaha Kecil dan Menengah DIY", link: "#" },
+        { nama: "Dinas Lingkungan Hidup dan Kehutanan DIY", link: "#" },
+        { nama: "Dinas Pariwisata DIY", link: "#" },
+        { nama: "Dinas Pekerjaan Umum, Perumahan, dan Energi Sumber Daya Mineral DIY", link: "#" },
+        { nama: "Dinas Pemberdayaan Masyarakat dan Kalurahan, Kependudukan dan Pencatatan Sipil DIY", link: "#" },
+        { nama: "Dinas Pemberdayaan Perempuan, Perlindungan Anak, dan Pengendalian Penduduk DIY", link: "#" },
+        { nama: "Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu DIY", link: "#" },
+        { nama: "Dinas Pendidikan, Pemuda, dan Olahraga DIY", link: "#" },
+        { nama: "Dinas Perhubungan DIY", link: "#" },
+        { nama: "Dinas Perindustrian dan Perdagangan DIY", link: "#" },
+        { nama: "Dinas Perpustakaan dan Arsip Daerah DIY", link: "#" },
+        { nama: "Dinas Pertanian dan Ketahanan Pangan DIY", link: "#" },
+        { nama: "Dinas Pertanahan dan Tata Ruang DIY", link: "#" },
+        { nama: "Dinas Sosial DIY", link: "#" },
+        { nama: "Dinas Tenaga Kerja dan Transmigrasi DIY", link: "#" }
+      ],
+      "I": [
+        { nama: "Inspektorat DIY", link: "#" }
+      ],
+      "P": [
+        { nama: "Paniradya Kaistimewan DIY", link: "#" }
+      ],
+      "S": [
+        { nama: "Satuan Polisi Pamong Praja DIY", link: "#" },
+        { nama: "Sekretariat Dewan Perwakilan Rakyat Daerah DIY", link: "#" }
+      ]
+    };
+
+    // =====================================================
+    // 2. FUNGSI UNTUK MENAMPILKAN DAFTAR (ACCORDION)
+    // =====================================================
+    const container = document.getElementById('abjadContainer');
+    const noResult = document.getElementById('noResult');
+    const searchInput = document.getElementById('searchInput');
+
+    // Simpan status buka/tutup per abjad
+    const openState = {};
+
+    function renderList(searchTerm = '') {
+      container.innerHTML = '';
+      let totalFound = 0;
+
+      // Urutkan abjad secara alfabetis
+      const sortedKeys = Object.keys(opdData).sort();
+
+      sortedKeys.forEach((key, groupIndex) => {
+        // Filter item berdasarkan pencarian
+        const filteredItems = opdData[key].filter(item => 
+          item.nama.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        if (filteredItems.length === 0) return;
+
+        totalFound += filteredItems.length;
+
+        // Cek apakah grup ini harus terbuka
+        // Jika sedang mencari, otomatis buka semua grup yang cocok
+        const isOpen = searchTerm.length > 0 ? true : (openState[key] || false);
+
+        // Buat grup abjad
+        const group = document.createElement('div');
+        group.className = 'abjad-group' + (isOpen ? ' open' : '');
+        group.style.animationDelay = `${groupIndex * 0.1}s`;
+        group.dataset.key = key;
+
+        // === HEADER ABJAD (Bisa diklik) ===
+        const header = document.createElement('button');
+        header.className = 'abjad-header';
+        header.setAttribute('aria-expanded', isOpen);
+        header.innerHTML = `
+          <div class="abjad-header-left">
+            <span class="abjad-letter">${key}</span>
+            <div class="abjad-info">
+              <span class="title">${key === 'B' ? 'Badan & Biro' : key === 'D' ? 'Dinas' : key === 'I' ? 'Inspektorat' : key === 'P' ? 'Paniradya' : 'Satuan & Sekretariat'}</span>
+              <span class="count">${filteredItems.length} instansi</span>
+            </div>
+          </div>
+          <i class="fas fa-chevron-down abjad-toggle-icon"></i>
+        `;
+
+        // Event klik untuk buka/tutup
+        header.addEventListener('click', () => {
+          const isCurrentlyOpen = group.classList.contains('open');
+          
+          if (isCurrentlyOpen) {
+            group.classList.remove('open');
+            header.setAttribute('aria-expanded', 'false');
+            if (searchTerm.length === 0) openState[key] = false;
+          } else {
+            group.classList.add('open');
+            header.setAttribute('aria-expanded', 'true');
+            if (searchTerm.length === 0) openState[key] = true;
+          }
+        });
+
+        group.appendChild(header);
+
+        // === KONTEN LIST ===
+        const content = document.createElement('div');
+        content.className = 'abjad-content';
+
+        const list = document.createElement('ul');
+        list.className = 'opd-list';
+
+        filteredItems.forEach((item, itemIndex) => {
+          const li = document.createElement('li');
+          
+          // Buat link (a) agar bisa diklik
+          const link = document.createElement('a');
+          link.className = 'opd-item';
+          link.href = item.link;
+          link.style.animationDelay = `${(groupIndex * 0.1) + (itemIndex * 0.03)}s`;
+
+          // Tentukan ikon berdasarkan jenis instansi
+          let iconClass = 'fa-building';
+          if (item.nama.startsWith('Biro')) iconClass = 'fa-briefcase';
+          if (item.nama.startsWith('Dinas')) iconClass = 'fa-city';
+          if (item.nama.startsWith('Badan')) iconClass = 'fa-landmark';
+          if (item.nama.startsWith('Inspektorat')) iconClass = 'fa-search';
+          if (item.nama.startsWith('Satuan')) iconClass = 'fa-shield-alt';
+          if (item.nama.startsWith('Sekretariat')) iconClass = 'fa-file-alt';
+          if (item.nama.startsWith('Paniradya')) iconClass = 'fa-crown';
+
+          link.innerHTML = `
+            <div class="item-icon">
+              <i class="fas ${iconClass}"></i>
+            </div>
+            <span class="item-text">${item.nama}</span>
+            <i class="fas fa-arrow-right item-arrow"></i>
+          `;
+
+          // =====================================================
+          // DI SINI TEMPAT ANDA MENGUBAH LINK TUJUAN
+          // =====================================================
+          // Saat ini link menggunakan item.link dari data di atas.
+          // Jika Anda ingin semua item mengarah ke halaman yang sama,
+          // ganti item.link dengan 'halaman-tujuan.html'
+          // Contoh: link.href = 'halaman-pengisian.html?opd=' + encodeURIComponent(item.nama);
+          // =====================================================
+
+          li.appendChild(link);
+          list.appendChild(li);
+        });
+
+        content.appendChild(list);
+        group.appendChild(content);
+        container.appendChild(group);
+      });
+
+      // Tampilkan pesan kosong jika tidak ada hasil
+      if (totalFound === 0) {
+        noResult.style.display = 'block';
+      } else {
+        noResult.style.display = 'none';
+      }
+    }
+
+    // =====================================================
+    // 3. EVENT LISTENER UNTUK PENCARIAN
+    // =====================================================
+    searchInput.addEventListener('input', (e) => {
+      renderList(e.target.value);
+    });
+
+    // =====================================================
+    // 4. TOMBOL BUKA SEMUA / TUTUP SEMUA
+    // =====================================================
+    document.getElementById('btnOpenAll').addEventListener('click', () => {
+      document.querySelectorAll('.abjad-group').forEach(group => {
+        group.classList.add('open');
+        group.querySelector('.abjad-header').setAttribute('aria-expanded', 'true');
+        openState[group.dataset.key] = true;
+      });
+    });
+
+    document.getElementById('btnCloseAll').addEventListener('click', () => {
+      document.querySelectorAll('.abjad-group').forEach(group => {
+        group.classList.remove('open');
+        group.querySelector('.abjad-header').setAttribute('aria-expanded', 'false');
+        openState[group.dataset.key] = false;
+      });
+    });
+
+    // =====================================================
+    // 5. RENDER PERTAMA KALI
+    // =====================================================
+    renderList();
+
+    // =====================================================
+    // 6. TOMBOL KEMBALI KE ATAS
+    // =====================================================
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 
 </body>
 </html>
