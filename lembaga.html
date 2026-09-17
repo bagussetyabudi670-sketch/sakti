@@ -45,7 +45,15 @@
 
     a { color: inherit; text-decoration: none; }
 
+    /* ===== CONTAINER (untuk Navbar & Footer — SAMA DENGAN index.html) ===== */
     .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ===== CONTAINER NARROW (untuk Konten Utama — Lebih Sempit) ===== */
+    .container-narrow {
       max-width: 1000px;
       margin: 0 auto;
       padding: 0 32px;
@@ -91,11 +99,7 @@
       height: 80px;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+    .logo { display: flex; align-items: center; gap: 16px; }
 
     .logo-seal {
       width: 48px;
@@ -105,16 +109,9 @@
       transition: transform 0.3s ease;
     }
 
-    .logo:hover .logo-seal {
-      transform: rotate(-8deg) scale(1.05);
-    }
+    .logo:hover .logo-seal { transform: rotate(-8deg) scale(1.05); }
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-      line-height: 1.1;
-    }
+    .logo-text { display: flex; flex-direction: column; gap: 0px; line-height: 1.1; }
 
     .logo-text h1 {
       font-family: 'Newsreader', serif;
@@ -125,9 +122,7 @@
       transition: color 0.3s ease;
     }
 
-    .logo:hover .logo-text h1 {
-      color: var(--ledger);
-    }
+    .logo:hover .logo-text h1 { color: var(--ledger); }
 
     .logo-text span {
       display: block;
@@ -427,7 +422,7 @@
     .btn-secondary i { transition: transform 0.3s ease; }
     .btn-secondary:hover i { transform: scale(1.1); }
 
-    /* ===== FOOTER ===== */
+    /* ===== FOOTER (SAMA DI SEMUA HALAMAN) ===== */
     footer {
       border-top: 1px solid #e2dbd0;
       padding: 36px 0;
@@ -459,7 +454,7 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 860px) {
-      .container { padding: 0 24px; }
+      .container, .container-narrow { padding: 0 24px; }
       .page-header h2 { font-size: 30px; }
       .nav-content { height: 68px; }
       .logo-text span { display: none; }
@@ -488,7 +483,7 @@
     }
 
     @media (max-width: 480px) {
-      .container { padding: 0 18px; }
+      .container, .container-narrow { padding: 0 18px; }
       .page-header { padding: 24px 0 24px; }
       .page-header h2 { font-size: 26px; }
       .main-section { padding: 40px 0 60px; }
@@ -505,7 +500,7 @@
 
 <body>
 
-  <!-- ===== NAVBAR (SAMA PERSIS DENGAN index.html) ===== -->
+  <!-- ===== NAVBAR (pakai .container max-width 1200px, SAMA DENGAN index.html) ===== -->
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="logo">
@@ -528,16 +523,16 @@
 
   <main>
 
-    <!-- ===== TOMBOL KEMBALI ===== -->
-    <div class="container back-wrapper">
+    <!-- ===== TOMBOL KEMBALI (pakai .container-narrow, sejajar dengan konten) ===== -->
+    <div class="container-narrow back-wrapper">
       <a href="index.html" class="back-link">
         <i class="fas fa-arrow-left"></i> Kembali ke Beranda
       </a>
     </div>
 
-    <!-- ===== PAGE HEADER ===== -->
+    <!-- ===== PAGE HEADER (pakai .container-narrow) ===== -->
     <section class="page-header">
-      <div class="container">
+      <div class="container-narrow">
         <span class="label animate-on-load animate-delay-1">
           <i class="fas fa-building"></i> OBJEK PENGAWASAN
         </span>
@@ -550,7 +545,7 @@
 
     <!-- ===== MAIN CARD (TENGAH) ===== -->
     <section class="main-section">
-      <div class="container" style="display: flex; justify-content: center;">
+      <div class="container-narrow" style="display: flex; justify-content: center;">
         
         <div class="option-card">
           
@@ -562,7 +557,6 @@
           
           <p>Pilih jenis pengawasan untuk mengisi data, mengunggah bukti dukung, dan memantau status pengawasan kearsipan.</p>
 
-          <!-- Tombol menuju ke jenis-pengawasan.html -->
           <a href="jenis-pengawasan.html" class="btn-option">
             Jenis Pengawasan
             <i class="fas fa-arrow-right"></i>
@@ -579,7 +573,7 @@
 
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- ===== FOOTER (pakai .container max-width 1200px, SAMA DENGAN index.html) ===== -->
   <footer>
     <div class="container footer-content">
       <div>
