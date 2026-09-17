@@ -48,8 +48,6 @@
     .btn-primary { background:#1976D2; color:#fff; } .btn-primary.green { background:var(--ledger); }
     .btn-secondary { background:#fff; border:1px solid rgba(26,38,50,.12); }
     .btn-secondary:hover { color:var(--ledger); border-color:var(--ledger); }
-
-    /* Footer dibuat sama dengan footer index.html. */
     footer { border-top:1px solid #e2dbd0; padding:44px 0 32px; background:#fcfaf7; }
     .footer-inner { display:flex; flex-direction:column; gap:20px; }
     .footer-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
@@ -58,45 +56,15 @@
     .footer-address a { color:#2a4b3a; font-weight:500; }
     .footer-address a:hover { color:#a73b2e; }
     .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-top:20px; border-top:1px solid #d6cec0; color:#4a5a68; font-size:14px; }
-    @media (max-width:860px) {
-      .container,.container-narrow { padding:0 24px; } .nav-content { height:68px; } .logo-text span { display:none; }
-      .nav-toggle { display:block; } .nav-links { position:absolute; top:68px; left:0; right:0; display:flex; flex-direction:column; gap:0; max-height:0; overflow:hidden; background:var(--paper); border-bottom:1px solid var(--line); transition:max-height .3s; }
-      .nav-links.open { max-height:260px; } .nav-links a { padding:16px 24px; border-bottom:1px solid #e8e1d6; }
-      .cards-wrapper { grid-template-columns:1fr; max-width:420px; }
-    }
+    @media (max-width:860px) { .container,.container-narrow { padding:0 24px; } .nav-content { height:68px; } .logo-text span { display:none; } .nav-toggle { display:block; } .nav-links { position:absolute; top:68px; left:0; right:0; display:flex; flex-direction:column; gap:0; max-height:0; overflow:hidden; background:var(--paper); border-bottom:1px solid var(--line); transition:max-height .3s; } .nav-links.open { max-height:260px; } .nav-links a { padding:16px 24px; border-bottom:1px solid #e8e1d6; } .cards-wrapper { grid-template-columns:1fr; max-width:420px; } }
     @media (max-width:680px) { .footer-row,.footer-bottom { flex-direction:column; align-items:flex-start; } }
     @media (max-width:480px) { .container,.container-narrow { padding:0 18px; } .page-header h2 { font-size:28px; } }
   </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="container nav-content">
-      <a href="index.html" class="logo"><img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi" /><div class="logo-text"><h1>SAKTi</h1><span>Sistem Pengawasan Kearsipan Terintegrasi</span></div></a>
-      <nav class="nav-links" id="navLinks"><a href="index.html#beranda">Beranda</a><a href="index.html#tentang">Tentang</a><a href="portal.html">Portal</a></nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
-    </div>
-  </header>
-  <main>
-    <div class="container-narrow back-wrapper"><a href="internal.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Instansi</a></div>
-    <section class="page-header"><div class="container-narrow"><h2 id="namaInstansi">Memuat nama instansi...</h2><p>Silakan pilih unit kerja untuk memulai proses pengawasan kearsipan.</p></div></section>
-    <section class="main-section"><div class="container-narrow"><div class="cards-wrapper">
-      <div class="card"><div class="card-header blue">UNIT PENGOLAH</div><div class="card-body"><h3>Lembar Kerja UP</h3><p>Akses formulir ASKI dan ruang unggah berkas bukti dukung khusus Unit Pengolah.</p><a href="#" class="btn-card btn-primary"><i class="fas fa-file-alt"></i> Isi Form ASKI</a><a href="#" class="btn-card btn-secondary"><i class="fas fa-cloud-upload-alt"></i> Unggah Bukti</a></div></div>
-      <div class="card"><div class="card-header green">UNIT KEARSIPAN</div><div class="card-body"><h3>Lembar Kerja UK</h3><p>Akses formulir ASKI dan ruang unggah berkas bukti dukung khusus Unit Kearsipan.</p><a href="#" class="btn-card btn-primary green"><i class="fas fa-file-alt"></i> Isi Form ASKI</a><a href="#" class="btn-card btn-secondary"><i class="fas fa-cloud-upload-alt"></i> Unggah Bukti</a></div></div>
-    </div></div></section>
-  </main>
-  <footer>
-    <div class="container footer-inner">
-      <div class="footer-row"><div><span class="footer-brand">SAKTi</span><span style="color:#4a5a68; margin-left:8px;">— Sistem Pengawasan Kearsipan Terintegrasi</span></div><div class="footer-address">Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br />Jl. Janti, Banguntapan, Bantul, DIY 55198</div></div>
-      <div class="footer-bottom"><div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div><div>© 2025 SAKTi — Sistem Audit Kearsipan Terintegrasi</div></div>
-    </div>
-  </footer>
-  <script>
-    const namaOpd = new URLSearchParams(window.location.search).get('opd');
-    document.getElementById('namaInstansi').textContent = namaOpd ? decodeURIComponent(namaOpd) : 'Detail Instansi';
-    if (namaOpd) document.title = decodeURIComponent(namaOpd) + ' · SAKTi';
-    const navToggle = document.getElementById('navToggle'); const navLinks = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => { const open = navLinks.classList.toggle('open'); navToggle.setAttribute('aria-expanded', String(open)); });
-    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { navLinks.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); }));
-  </script>
+  <header class="navbar"><div class="container nav-content"><a href="index.html" class="logo"><img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi" /><div class="logo-text"><h1>SAKTi</h1><span>Sistem Pengawasan Kearsipan Terintegrasi</span></div></a><nav class="nav-links" id="navLinks"><a href="index.html#beranda">Beranda</a><a href="index.html#tentang">Tentang</a><a href="portal.html">Portal</a></nav><button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button></div></header>
+  <main><div class="container-narrow back-wrapper"><a href="internal.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Instansi</a></div><section class="page-header"><div class="container-narrow"><h2 id="namaInstansi">Memuat nama instansi...</h2><p>Silakan pilih unit kerja untuk memulai proses pengawasan kearsipan.</p></div></section><section class="main-section"><div class="container-narrow"><div class="cards-wrapper"><div class="card"><div class="card-header blue">UNIT PENGOLAH</div><div class="card-body"><h3>Lembar Kerja UP</h3><p>Akses formulir ASKI dan ruang unggah berkas bukti dukung khusus Unit Pengolah.</p><a href="#" class="btn-card btn-primary"><i class="fas fa-file-alt"></i> Isi Form ASKI</a><a href="#" class="btn-card btn-secondary"><i class="fas fa-cloud-upload-alt"></i> Unggah Bukti</a></div></div><div class="card"><div class="card-header green">UNIT KEARSIPAN</div><div class="card-body"><h3>Lembar Kerja UK</h3><p>Akses formulir ASKI dan ruang unggah berkas bukti dukung khusus Unit Kearsipan.</p><a href="#" class="btn-card btn-primary green"><i class="fas fa-file-alt"></i> Isi Form ASKI</a><a href="#" class="btn-card btn-secondary"><i class="fas fa-cloud-upload-alt"></i> Unggah Bukti</a></div></div></div></div></section></main>
+  <footer><div class="container footer-inner"><div class="footer-row"><div><span class="footer-brand">SAKTi</span><span style="color:#4a5a68; margin-left:8px;">— Sistem Pengawasan Kearsipan Terintegrasi</span></div><div class="footer-address">Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br />Jl. Janti, Banguntapan, Bantul, DIY 55198</div></div><div class="footer-bottom"><div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div><div>© 2026 SAKTi — Sistem Audit Kearsipan Terintegrasi</div></div></div></footer>
+  <script>const namaOpd=new URLSearchParams(window.location.search).get('opd');document.getElementById('namaInstansi').textContent=namaOpd?decodeURIComponent(namaOpd):'Detail Instansi';if(namaOpd)document.title=decodeURIComponent(namaOpd)+' · SAKTi';const navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks');navToggle.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');navToggle.setAttribute('aria-expanded',String(open));});navLinks.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{navLinks.classList.remove('open');navToggle.setAttribute('aria-expanded','false');}));</script>
 </body>
 </html>
