@@ -52,7 +52,7 @@
     }
 
     .container-narrow {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 32px;
     }
@@ -247,7 +247,7 @@
       line-height: 1.6;
     }
 
-    /* ===== TOMBOL REKAP VERIFIKASI ===== */
+    /* ===== TOMBOL REKAP ===== */
     .rekap-wrapper {
       text-align: center;
       padding: 24px 0 8px;
@@ -260,7 +260,7 @@
       align-items: center;
       gap: 10px;
       padding: 14px 32px;
-      background: #2a4b3a;
+      background: #16A34A;
       color: #ffffff;
       font-family: 'Inter', sans-serif;
       font-size: 15px;
@@ -270,13 +270,13 @@
       cursor: pointer;
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      box-shadow: 0 4px 16px rgba(42, 75, 58, 0.25);
+      box-shadow: 0 4px 16px rgba(22, 163, 74, 0.25);
     }
 
     .btn-rekap:hover {
-      background: #1d3a2c;
+      background: #15803D;
       transform: translateY(-3px);
-      box-shadow: 0 10px 28px rgba(42, 75, 58, 0.35);
+      box-shadow: 0 10px 28px rgba(22, 163, 74, 0.35);
     }
 
     .btn-rekap i {
@@ -284,9 +284,7 @@
       transition: transform 0.3s ease;
     }
 
-    .btn-rekap:hover i {
-      transform: scale(1.15);
-    }
+    .btn-rekap:hover i { transform: scale(1.15); }
 
     /* ===== DAFTAR OPD ===== */
     .main-section {
@@ -297,9 +295,7 @@
     .opd-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      max-width: 900px;
-      margin: 0 auto;
+      gap: 16px;
     }
 
     /* Kartu OPD */
@@ -307,7 +303,7 @@
       background: #ffffff;
       border: 1px solid #e8e1d6;
       border-radius: 14px;
-      padding: 18px 22px;
+      padding: 18px 24px;
       display: flex;
       align-items: center;
       gap: 20px;
@@ -315,40 +311,32 @@
       transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
       animation: fadeInUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
       opacity: 0;
-      text-decoration: none;
-      color: inherit;
     }
 
     .opd-row:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-      border-color: #2a4b3a;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      border-color: #cbd5e1;
     }
 
-    /* Ikon di kiri */
-    .opd-row .row-icon {
-      width: 42px;
-      height: 42px;
+    /* Nomor urut */
+    .opd-number {
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       background: #F1F5F9;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: background 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #475569;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    .opd-row .row-icon i {
-      font-size: 17px;
-      color: #64748B;
-      transition: color 0.3s ease;
-    }
-
-    .opd-row:hover .row-icon {
+    .opd-row:hover .opd-number {
       background: #2a4b3a;
-    }
-
-    .opd-row:hover .row-icon i {
       color: #ffffff;
     }
 
@@ -362,12 +350,12 @@
       min-width: 0;
     }
 
-    /* Grup Form (UK / UP) */
+    /* Grup Form (Kearsipan / Pengolah) */
     .form-group {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      min-width: 130px;
+      min-width: 200px;
       flex-shrink: 0;
     }
 
@@ -386,67 +374,65 @@
       justify-content: center;
     }
 
-    /* Badge status */
-    .badge {
+    /* Tombol aksi (SELALU 3 buah, tidak peduli status) */
+    .btn-aksi {
       display: inline-flex;
       align-items: center;
       gap: 4px;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.3px;
-      padding: 4px 10px;
+      padding: 6px 12px;
       border-radius: 20px;
       white-space: nowrap;
       transition: all 0.3s ease;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      min-width: 64px;
+      justify-content: center;
     }
 
-    .badge i {
-      font-size: 9px;
+    .btn-aksi i {
+      font-size: 10px;
     }
 
-    /* RHAS */
-    .badge.rhas {
+    .btn-aksi:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    /* RHAS — kuning */
+    .btn-aksi.rhas {
       background: #FEF3C7;
       color: #92400E;
-      border: 1px solid #FDE68A;
+      border-color: #FDE68A;
+    }
+    .btn-aksi.rhas:hover {
+      background: #FDE68A;
+      border-color: #F59E0B;
     }
 
-    /* Final (Selesai) */
-    .badge.final {
+    /* Final — hijau */
+    .btn-aksi.final {
       background: #D1FAE5;
       color: #065F46;
-      border: 1px solid #A7F3D0;
+      border-color: #A7F3D0;
+    }
+    .btn-aksi.final:hover {
+      background: #A7F3D0;
+      border-color: #10B981;
     }
 
-    /* Bukti */
-    .badge.bukti {
+    /* Bukti — biru */
+    .btn-aksi.bukti {
       background: #DBEAFE;
       color: #1E40AF;
-      border: 1px solid #BFDBFE;
+      border-color: #BFDBFE;
     }
-
-    /* Tombol panah */
-    .opd-arrow {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #F1F5F9;
-      color: #64748B;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.3s ease;
-    }
-
-    .opd-arrow i {
-      font-size: 12px;
-    }
-
-    .opd-row:hover .opd-arrow {
-      background: #2a4b3a;
-      color: #ffffff;
-      transform: translateX(3px);
+    .btn-aksi.bukti:hover {
+      background: #BFDBFE;
+      border-color: #3B82F6;
     }
 
     /* ===== FOOTER ===== */
@@ -480,7 +466,7 @@
     .footer-content strong:hover { color: var(--ledger); }
 
     /* ===== RESPONSIVE ===== */
-    @media (max-width: 860px) {
+    @media (max-width: 960px) {
       .container, .container-narrow { padding: 0 24px; }
       .page-header h2 { font-size: 26px; }
       .nav-content { height: 68px; }
@@ -488,20 +474,17 @@
 
       .opd-row {
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 14px;
+        padding: 16px 18px;
       }
 
       .opd-name {
-        flex-basis: calc(100% - 54px);
+        flex-basis: calc(100% - 60px);
       }
 
       .form-group {
-        flex-basis: calc(50% - 6px);
+        flex-basis: calc(50% - 7px);
         min-width: 0;
-      }
-
-      .opd-arrow {
-        display: none;
       }
 
       .nav-toggle { display: flex; }
@@ -533,9 +516,10 @@
       .page-header p { font-size: 13px; }
       .main-section { padding: 16px 0 60px; }
       .opd-row { padding: 14px 16px; gap: 10px; }
-      .opd-name { font-size: 13px; }
+      .opd-number { width: 34px; height: 34px; font-size: 12px; }
+      .opd-name { font-size: 13px; flex-basis: calc(100% - 48px); }
       .form-group-label { font-size: 9px; }
-      .badge { font-size: 9px; padding: 3px 8px; }
+      .btn-aksi { font-size: 9px; padding: 5px 8px; min-width: 56px; }
       .btn-rekap { font-size: 13px; padding: 12px 24px; }
       .footer-content { flex-direction: column; align-items: flex-start; gap: 8px; }
     }
@@ -582,15 +566,18 @@
         </span>
         <h2 class="animate-on-load animate-delay-2">Direktori Perangkat Daerah</h2>
         <p class="animate-on-load animate-delay-3" id="infoOpd">
-          Daftar 10 instansi yang diawasi oleh Tim 1. Klik dokumen untuk membuka form atau Bukti Dukung yang sudah diisi.
+          Daftar 10 instansi yang diawasi oleh Tim 1. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.
         </p>
       </div>
     </section>
 
     <!-- ===== TOMBOL REKAP ===== -->
     <div class="container-narrow rekap-wrapper">
-      <a href="#" class="btn-rekap">
-        <i class="fas fa-chart-bar"></i>
+      <!-- =====================================================
+           GANTI href="#" DENGAN LINK REKAP PROGRES VERIFIKASI
+           ===================================================== -->
+      <a href="#" class="btn-rekap" target="_blank" rel="noopener">
+        <i class="fas fa-clipboard-list"></i>
         Buka Rekap Progres Verifikasi
       </a>
     </div>
@@ -617,68 +604,75 @@
   </footer>
 
   <!-- ===================================================== -->
-  <!-- JAVASCRIPT: DATA OPD PER TIM (HARDCODE DULU)         -->
+  <!-- JAVASCRIPT                                           -->
   <!-- ===================================================== -->
   <script>
     // =====================================================
-    // 1. DATA OPD PER TIM (sementara hardcode dulu)
+    // 1. LINK TUJUAN TOMBOL (sementara kosong)
     // =====================================================
-    // Setiap OPD punya status form UK & UP:
-    // - "rhas"  = sudah isi RHAS
-    // - "final" = sudah final
-    // - "bukti" = sudah upload bukti
+    // GANTI "#" DI BAWAH INI DENGAN LINK ASLI NANTI
+    // =====================================================
+    const linkRhas  = "#";  // ← link tombol RHAS
+    const linkFinal = "#";  // ← link tombol Final
+    const linkBukti = "#";  // ← link tombol Bukti
+
+    // =====================================================
+    // 2. DATA OPD PER TIM
+    // =====================================================
+    // Cukup daftar nama OPD-nya saja.
+    // Tombol RHAS/Final/Bukti SELALU muncul untuk semua OPD.
     // =====================================================
     const opdPerTim = {
       "1": [
-        { nama: "Badan Pendidikan dan Pelatihan DIY",        uk: ["rhas", "final", "bukti"], up: ["rhas", "final", "bukti"] },
-        { nama: "Badan Pengelola Keuangan dan Aset DIY",     uk: ["rhas", "final", "bukti"], up: ["rhas", "final", "bukti"] },
-        { nama: "Biro Pengadaan Barang/Jasa SETDA DIY",      uk: ["rhas", "final", "bukti"], up: ["rhas", "final"] },
-        { nama: "Biro Pengembangan Infrastruktur Wilayah dan Pembiayaan Pembangunan Setda DIY", uk: ["rhas", "final"], up: ["rhas", "final"] },
-        { nama: "Biro Hukum Sekretariat Daerah DIY",         uk: ["rhas", "final"], up: ["rhas", "final"] },
-        { nama: "Biro Kesejahteraan Rakyat Sekretariat Daerah DIY", uk: ["rhas"], up: ["rhas"] },
-        { nama: "Biro Organisasi Sekretariat Daerah DIY",     uk: ["rhas", "final"], up: ["rhas"] },
-        { nama: "Biro Perekonomian Sekretariat Daerah DIY",  uk: ["rhas"], up: ["rhas"] },
-        { nama: "Biro Tata Pemerintahan Sekretariat Daerah DIY", uk: ["rhas"], up: ["rhas"] },
-        { nama: "Biro Umum, Hubungan Masyarakat, dan Protokol Sekretariat Daerah DIY", uk: ["rhas"], up: ["rhas"] }
+        "Badan Pendidikan dan Pelatihan DIY",
+        "Badan Pengelola Keuangan dan Aset DIY",
+        "Biro Pengadaan Barang/Jasa SETDA DIY",
+        "Biro Pengembangan Infrastruktur Wilayah dan Pembiayaan Pembangunan Setda DIY",
+        "Biro Hukum Sekretariat Daerah DIY",
+        "Biro Kesejahteraan Rakyat Sekretariat Daerah DIY",
+        "Biro Organisasi Sekretariat Daerah DIY",
+        "Biro Perekonomian Sekretariat Daerah DIY",
+        "Biro Tata Pemerintahan Sekretariat Daerah DIY",
+        "Biro Umum, Hubungan Masyarakat, dan Protokol Sekretariat Daerah DIY"
       ],
       "2": [
-        { nama: "Dinas Kebudayaan DIY",                      uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Kelautan dan Perikanan DIY",           uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Kesehatan DIY",                        uk: ["rhas", "final"], up: ["rhas", "final"] },
-        { nama: "Dinas Komunikasi dan Informatika DIY",       uk: ["rhas", "final"], up: ["rhas"] },
-        { nama: "Dinas Koperasi, Usaha Kecil dan Menengah DIY", uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Lingkungan Hidup dan Kehutanan DIY",   uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Pariwisata DIY",                       uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Pekerjaan Umum, Perumahan, dan Energi Sumber Daya Mineral DIY", uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Pemberdayaan Masyarakat dan Kalurahan, Kependudukan dan Pencatatan Sipil DIY", uk: ["rhas"], up: ["rhas"] }
+        "Dinas Kebudayaan DIY",
+        "Dinas Kelautan dan Perikanan DIY",
+        "Dinas Kesehatan DIY",
+        "Dinas Komunikasi dan Informatika DIY",
+        "Dinas Koperasi, Usaha Kecil dan Menengah DIY",
+        "Dinas Lingkungan Hidup dan Kehutanan DIY",
+        "Dinas Pariwisata DIY",
+        "Dinas Pekerjaan Umum, Perumahan, dan Energi Sumber Daya Mineral DIY",
+        "Dinas Pemberdayaan Masyarakat dan Kalurahan, Kependudukan dan Pencatatan Sipil DIY"
       ],
       "3": [
-        { nama: "Dinas Pemberdayaan Perempuan, Perlindungan Anak, dan Pengendalian Penduduk DIY", uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu DIY", uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Pendidikan, Pemuda, dan Olahraga DIY", uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Perhubungan DIY",                     uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Perindustrian dan Perdagangan DIY",    uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Perpustakaan dan Arsip Daerah DIY",   uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Pertanian dan Ketahanan Pangan DIY",  uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Pertanahan dan Tata Ruang DIY",       uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Sosial DIY",                          uk: ["rhas"], up: ["rhas"] },
-        { nama: "Dinas Tenaga Kerja dan Transmigrasi DIY",   uk: ["rhas"], up: ["rhas"] }
+        "Dinas Pemberdayaan Perempuan, Perlindungan Anak, dan Pengendalian Penduduk DIY",
+        "Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu DIY",
+        "Dinas Pendidikan, Pemuda, dan Olahraga DIY",
+        "Dinas Perhubungan DIY",
+        "Dinas Perindustrian dan Perdagangan DIY",
+        "Dinas Perpustakaan dan Arsip Daerah DIY",
+        "Dinas Pertanian dan Ketahanan Pangan DIY",
+        "Dinas Pertanahan dan Tata Ruang DIY",
+        "Dinas Sosial DIY",
+        "Dinas Tenaga Kerja dan Transmigrasi DIY"
       ],
       "4": [
-        { nama: "Inspektorat DIY",                           uk: ["rhas"], up: ["rhas"] },
-        { nama: "Paniradya Kaistimewan DIY",                  uk: ["rhas"], up: ["rhas"] },
-        { nama: "Satuan Polisi Pamong Praja DIY",            uk: ["rhas"], up: ["rhas"] },
-        { nama: "Sekretariat Dewan Perwakilan Rakyat Daerah DIY", uk: ["rhas"], up: ["rhas"] },
-        { nama: "Badan Kepegawaian Daerah DIY",              uk: ["rhas"], up: ["rhas"] },
-        { nama: "Badan Kesatuan Bangsa dan Politik DIY",     uk: ["rhas"], up: ["rhas"] },
-        { nama: "Badan Penanggulangan Bencana Daerah DIY",   uk: ["rhas"], up: ["rhas"] },
-        { nama: "Badan Penghubung Daerah DIY",               uk: ["rhas"], up: ["rhas"] },
-        { nama: "Badan Perencanaan Pembangunan Riset dan Inovasi Daerah DIY", uk: ["rhas"], up: ["rhas"] }
+        "Inspektorat DIY",
+        "Paniradya Kaistimewan DIY",
+        "Satuan Polisi Pamong Praja DIY",
+        "Sekretariat Dewan Perwakilan Rakyat Daerah DIY",
+        "Badan Kepegawaian Daerah DIY",
+        "Badan Kesatuan Bangsa dan Politik DIY",
+        "Badan Penanggulangan Bencana Daerah DIY",
+        "Badan Penghubung Daerah DIY",
+        "Badan Perencanaan Pembangunan Riset dan Inovasi Daerah DIY"
       ]
     };
 
     // =====================================================
-    // 2. BACA PARAMETER URL
+    // 3. BACA PARAMETER URL
     // =====================================================
     const urlParams = new URLSearchParams(window.location.search);
     const timParam = urlParams.get('tim') || '1';
@@ -694,52 +688,50 @@
 
     document.getElementById('infoOpd').textContent =
       'Daftar ' + jumlahOpd + ' instansi yang diawasi oleh Tim ' + timParam +
-      '. Klik dokumen untuk membuka form atau Bukti Dukung yang sudah diisi.';
+      '. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.';
 
     // =====================================================
-    // 3. FUNGSI UNTUK MEMBUAT BADGE
+    // 4. FUNGSI UNTUK MEMBUAT 3 TOMBOL (RHAS, Final, Bukti)
     // =====================================================
-    function renderBadges(badges) {
-      if (!badges || badges.length === 0) {
-        return '<span class="badge" style="background:#F1F5F9;color:#94A3B8;border:1px solid #E2E8F0;">—</span>';
-      }
-      return badges.map(b => {
-        if (b === 'rhas')  return '<span class="badge rhas"><i class="fas fa-clock"></i> RHAS</span>';
-        if (b === 'final') return '<span class="badge final"><i class="fas fa-check"></i> Final</span>';
-        if (b === 'bukti') return '<span class="badge bukti"><i class="fas fa-folder"></i> Bukti</span>';
-        return '';
-      }).join('');
+    // SELALU 3 tombol, tidak peduli sudah diisi atau belum.
+    // =====================================================
+    function renderTombol() {
+      return `
+        <a href="${linkRhas}" class="btn-aksi rhas" target="_blank" rel="noopener" title="Buka Form RHAS">
+          <i class="fas fa-clock"></i> RHAS
+        </a>
+        <a href="${linkFinal}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Final">
+          <i class="fas fa-check"></i> Final
+        </a>
+        <a href="${linkBukti}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Bukti Dukung">
+          <i class="fas fa-folder"></i> Bukti
+        </a>
+      `;
     }
 
     // =====================================================
-    // 4. RENDER DAFTAR OPD
+    // 5. RENDER DAFTAR OPD
     // =====================================================
     const opdListContainer = document.getElementById('opdList');
 
-    opdList.forEach((opd, index) => {
-      const row = document.createElement('a');
+    opdList.forEach((nama, index) => {
+      const row = document.createElement('div');
       row.className = 'opd-row';
       row.style.animationDelay = (index * 0.05) + 's';
-      row.href = 'detail-opd-pengawas.html?tahun=' + tahunParam +
-                 '&jenis=' + jenisParam +
-                 '&tim=' + timParam +
-                 '&opd=' + encodeURIComponent(opd.nama);
+
+      // Nomor urut 2 digit (01, 02, 03, ...)
+      const no = String(index + 1).padStart(2, '0');
 
       row.innerHTML = `
-        <div class="row-icon">
-          <i class="fas fa-building"></i>
-        </div>
-        <div class="opd-name">${opd.nama}</div>
+        <div class="opd-number">${no}</div>
+        <div class="opd-name">${nama}</div>
         <div class="form-group">
-          <div class="form-group-label">Form UK</div>
-          <div class="form-badges">${renderBadges(opd.uk)}</div>
+          <div class="form-group-label">Kearsipan</div>
+          <div class="form-badges">${renderTombol()}</div>
         </div>
         <div class="form-group">
-          <div class="form-group-label">Form UP</div>
-          <div class="form-badges">${renderBadges(opd.up)}</div>
-        </div>
-        <div class="opd-arrow">
-          <i class="fas fa-arrow-right"></i>
+          <div class="form-group-label">Pengolah</div>
+          <div class="form-badges">${renderTombol()}</div>
         </div>
       `;
 
@@ -747,7 +739,7 @@
     });
 
     // =====================================================
-    // 5. HAMBURGER MENU
+    // 6. HAMBURGER MENU
     // =====================================================
     (function() {
       const navToggle = document.getElementById('navToggle');
