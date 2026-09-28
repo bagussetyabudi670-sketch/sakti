@@ -74,7 +74,7 @@
     .animate-delay-2 { animation-delay: 0.3s; }
     .animate-delay-3 { animation-delay: 0.45s; }
 
-    /* ===== NAVBAR ===== */
+    /* NAVBAR */
     .navbar {
       background: rgba(246, 244, 240, 0.92);
       border-bottom: 1px solid #e2dbd0;
@@ -180,7 +180,7 @@
     .nav-toggle.active span:nth-child(2) { opacity: 0; }
     .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ===== TOMBOL KEMBALI ===== */
+    /* TOMBOL KEMBALI */
     .back-wrapper {
       padding: 32px 0 0;
       animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
@@ -208,7 +208,7 @@
     .back-link i { transition: transform 0.2s; }
     .back-link:hover i { transform: translateX(-4px); }
 
-    /* ===== PAGE HEADER ===== */
+    /* PAGE HEADER */
     .page-header {
       padding: 40px 0 24px;
       text-align: center;
@@ -249,7 +249,7 @@
       margin: 0 auto;
     }
 
-    /* ===== DUA KARTU ===== */
+    /* DUA KARTU */
     .main-section {
       flex: 1;
       display: flex;
@@ -308,13 +308,11 @@
       transition: color 0.3s ease;
     }
 
-    /* Internal — biru */
     .icon-internal { background: #E3F2FD; }
     .icon-internal i { color: #1976D2; }
     .audit-card:hover .icon-internal { background: #1976D2; }
     .audit-card:hover .icon-internal i { color: #ffffff; transform: scale(1.1); }
 
-    /* Eksternal — hijau */
     .icon-external { background: #D1FAE5; }
     .icon-external i { color: #059669; }
     .audit-card:hover .icon-external { background: #059669; }
@@ -371,7 +369,7 @@
 
     .audit-card:hover .audit-btn i { transform: translateX(4px); }
 
-    /* ===== FOOTER ===== */
+    /* FOOTER */
     footer {
       border-top: 1px solid #e2dbd0;
       padding: 36px 0;
@@ -401,7 +399,7 @@
 
     .footer-content strong:hover { color: var(--ledger); }
 
-    /* ===== RESPONSIVE ===== */
+    /* RESPONSIVE */
     @media (max-width: 860px) {
       .container, .container-narrow { padding: 0 24px; }
       .page-header h2 { font-size: 28px; }
@@ -449,7 +447,7 @@
 
 <body>
 
-  <!-- ===== NAVBAR ===== -->
+  <!-- NAVBAR -->
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="logo">
@@ -472,14 +470,14 @@
 
   <main>
 
-    <!-- ===== TOMBOL KEMBALI ===== -->
+    <!-- TOMBOL KEMBALI -->
     <div class="container-narrow back-wrapper">
       <a href="pengawas.html" class="back-link">
         <i class="fas fa-arrow-left"></i> Kembali ke Dashboard Pengawas
       </a>
     </div>
 
-    <!-- ===== PAGE HEADER ===== -->
+    <!-- PAGE HEADER -->
     <section class="page-header">
       <div class="container-narrow">
         <span class="label animate-on-load animate-delay-1">
@@ -490,13 +488,13 @@
       </div>
     </section>
 
-    <!-- ===== DUA KARTU ===== -->
+    <!-- DUA KARTU -->
     <section class="main-section">
       <div class="container-narrow">
         <div class="cards-wrapper">
 
-          <!-- KARTU 1: AUDIT INTERNAL (placeholder) -->
-          <a href="#" class="audit-card">
+          <!-- KARTU 1: AUDIT INTERNAL — sudah aktif -->
+          <a href="menu-audit.html" class="audit-card">
             <div class="audit-icon icon-internal">
               <i class="fas fa-building"></i>
             </div>
@@ -531,7 +529,7 @@
 
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer>
     <div class="container footer-content">
       <div>
@@ -541,7 +539,7 @@
     </div>
   </footer>
 
-  <!-- ===== SCRIPT ===== -->
+  <!-- SCRIPT -->
   <script>
     (function() {
       const navToggle = document.getElementById('navToggle');
