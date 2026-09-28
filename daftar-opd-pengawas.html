@@ -374,7 +374,7 @@
       justify-content: center;
     }
 
-    /* Tombol aksi (SELALU 3 buah, tidak peduli status) */
+    /* Tombol aksi (SELALU 3 buah) */
     .btn-aksi {
       display: inline-flex;
       align-items: center;
@@ -393,9 +393,7 @@
       justify-content: center;
     }
 
-    .btn-aksi i {
-      font-size: 10px;
-    }
+    .btn-aksi i { font-size: 10px; }
 
     .btn-aksi:hover {
       transform: translateY(-2px);
@@ -502,10 +500,7 @@
         transition: max-height 0.3s ease;
       }
       .nav-links.open { max-height: 260px; }
-      .nav-links a {
-        padding: 16px 24px;
-        border-bottom: 1px solid #e8e1d6;
-      }
+      .nav-links a { padding: 16px 24px; border-bottom: 1px solid #e8e1d6; }
       .nav-links a::after { display: none; }
     }
 
@@ -553,7 +548,7 @@
 
     <!-- ===== TOMBOL KEMBALI ===== -->
     <div class="container-narrow back-wrapper">
-      <a href="pilih-tim.html" class="back-link">
+      <a href="#" class="back-link" id="backLink">
         <i class="fas fa-arrow-left"></i> Kembali ke Direktori Tim
       </a>
     </div>
@@ -564,7 +559,7 @@
         <span class="label animate-on-load animate-delay-1" id="labelTim">
           <i class="fas fa-users"></i> TIM PENGAWAS 1
         </span>
-        <h2 class="animate-on-load animate-delay-2">Direktori Perangkat Daerah</h2>
+        <h2 class="animate-on-load animate-delay-2" id="judulHalaman">Direktori Perangkat Daerah</h2>
         <p class="animate-on-load animate-delay-3" id="infoOpd">
           Daftar 10 instansi yang diawasi oleh Tim 1. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.
         </p>
@@ -612,15 +607,23 @@
     // =====================================================
     // GANTI "#" DI BAWAH INI DENGAN LINK ASLI NANTI
     // =====================================================
-    const linkRhas  = "#";  // ← link tombol RHAS
-    const linkFinal = "#";  // ← link tombol Final
-    const linkBukti = "#";  // ← link tombol Bukti
+    const linkRhas  = "#";
+    const linkFinal = "#";
+    const linkBukti = "#";
 
     // =====================================================
-    // 2. DATA OPD PER TIM
+    // 2. NAMA WILAYAH (untuk Eksternal)
     // =====================================================
-    // Cukup daftar nama OPD-nya saja.
-    // Tombol RHAS/Final/Bukti SELALU muncul untuk semua OPD.
+    const namaWilayah = {
+      'bantul': 'Kabupaten Bantul',
+      'gunungkidul': 'Kabupaten Gunungkidul',
+      'kulonprogo': 'Kabupaten Kulon Progo',
+      'sleman': 'Kabupaten Sleman',
+      'yogyakarta': 'Kota Yogyakarta'
+    };
+
+    // =====================================================
+    // 3. DATA OPD PER TIM
     // =====================================================
     const opdPerTim = {
       "1": [
@@ -672,28 +675,44 @@
     };
 
     // =====================================================
-    // 3. BACA PARAMETER URL
+    // 4. BACA PARAMETER URL
     // =====================================================
     const urlParams = new URLSearchParams(window.location.search);
     const timParam = urlParams.get('tim') || '1';
     const tahunParam = urlParams.get('tahun') || '2026';
     const jenisParam = urlParams.get('jenis') || 'internal';
+    const wilayahParam = urlParams.get('wilayah') || '';
 
-    // Update label & info
+    // Update label
     document.getElementById('labelTim').innerHTML =
       '<i class="fas fa-users"></i> TIM PENGAWAS ' + timParam;
+
+    // Update judul & info (beda antara Internal & Eksternal)
+    const judulHalaman = document.getElementById('judulHalaman');
+    const infoOpd = document.getElementById('infoOpd');
+    const backLink = document.getElementById('backLink');
 
     const opdList = opdPerTim[timParam] || [];
     const jumlahOpd = opdList.length;
 
-    document.getElementById('infoOpd').textContent =
-      'Daftar ' + jumlahOpd + ' instansi yang diawasi oleh Tim ' + timParam +
-      '. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.';
+    if (jenisParam === 'eksternal' && wilayahParam && namaWilayah[wilayahParam]) {
+      // Eksternal
+      judulHalaman.textContent = namaWilayah[wilayahParam] + ' — Direktori Perangkat Daerah';
+      infoOpd.textContent =
+        'Daftar ' + jumlahOpd + ' instansi yang diawasi oleh Tim ' + timParam +
+        ' di ' + namaWilayah[wilayahParam] + '. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.';
+      backLink.href = 'pilih-tim.html?wilayah=' + wilayahParam + '&tahun=' + tahunParam + '&jenis=eksternal';
+    } else {
+      // Internal
+      judulHalaman.textContent = 'Direktori Perangkat Daerah';
+      infoOpd.textContent =
+        'Daftar ' + jumlahOpd + ' instansi yang diawasi oleh Tim ' + timParam +
+        '. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.';
+      backLink.href = 'pilih-tim.html?tahun=' + tahunParam + '&jenis=internal';
+    }
 
     // =====================================================
-    // 4. FUNGSI UNTUK MEMBUAT 3 TOMBOL (RHAS, Final, Bukti)
-    // =====================================================
-    // SELALU 3 tombol, tidak peduli sudah diisi atau belum.
+    // 5. FUNGSI UNTUK MEMBUAT 3 TOMBOL
     // =====================================================
     function renderTombol() {
       return `
@@ -710,7 +729,7 @@
     }
 
     // =====================================================
-    // 5. RENDER DAFTAR OPD
+    // 6. RENDER DAFTAR OPD
     // =====================================================
     const opdListContainer = document.getElementById('opdList');
 
@@ -719,7 +738,6 @@
       row.className = 'opd-row';
       row.style.animationDelay = (index * 0.05) + 's';
 
-      // Nomor urut 2 digit (01, 02, 03, ...)
       const no = String(index + 1).padStart(2, '0');
 
       row.innerHTML = `
@@ -739,7 +757,7 @@
     });
 
     // =====================================================
-    // 6. HAMBURGER MENU
+    // 7. HAMBURGER MENU
     // =====================================================
     (function() {
       const navToggle = document.getElementById('navToggle');
