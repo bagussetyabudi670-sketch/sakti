@@ -258,12 +258,12 @@
     .page-header p {
       color: var(--ink-soft);
       font-size: 15px;
-      max-width: 560px;
+      max-width: 620px;
       margin: 16px auto 0;
       line-height: 1.6;
     }
 
-    /* ===== MAIN SECTION — GRID 4 TIM ===== */
+    /* ===== GRID 4 TIM ===== */
     .main-section {
       flex: 1;
       display: flex;
@@ -281,7 +281,6 @@
       margin: 0 auto;
     }
 
-    /* Kartu Tim */
     .team-card {
       display: flex;
       align-items: center;
@@ -309,7 +308,6 @@
       border-color: #EA580C;
     }
 
-    /* Kode Tim (T1, T2, T3, T4) */
     .team-code {
       font-family: 'Newsreader', serif;
       font-size: 32px;
@@ -321,7 +319,6 @@
       text-align: center;
     }
 
-    /* Info Tim */
     .team-info {
       flex: 1;
       display: flex;
@@ -347,7 +344,6 @@
       line-height: 1.2;
     }
 
-    /* Badge "SEDANG BERJALAN" */
     .team-status {
       display: inline-flex;
       align-items: center;
@@ -371,7 +367,6 @@
       animation: pulse 2s ease-in-out infinite;
     }
 
-    /* Koordinator */
     .team-info p {
       font-size: 12px;
       color: var(--ink-soft);
@@ -381,7 +376,6 @@
       text-overflow: ellipsis;
     }
 
-    /* Jumlah Perangkat Daerah */
     .team-count {
       display: inline-flex;
       align-items: center;
@@ -397,7 +391,6 @@
       color: #EA580C;
     }
 
-    /* Tombol panah */
     .team-arrow {
       width: 36px;
       height: 36px;
@@ -479,10 +472,7 @@
         transition: max-height 0.3s ease;
       }
       .nav-links.open { max-height: 260px; }
-      .nav-links a {
-        padding: 16px 24px;
-        border-bottom: 1px solid #e8e1d6;
-      }
+      .nav-links a { padding: 16px 24px; border-bottom: 1px solid #e8e1d6; }
       .nav-links a::after { display: none; }
     }
 
@@ -529,8 +519,8 @@
 
     <!-- ===== TOMBOL KEMBALI ===== -->
     <div class="container-narrow back-wrapper">
-      <a href="pilih-jenis-audit.html" class="back-link">
-        <i class="fas fa-arrow-left"></i> Kembali ke Jenis Audit
+      <a href="#" class="back-link" id="backLink">
+        <i class="fas fa-arrow-left"></i> Kembali
       </a>
     </div>
 
@@ -540,9 +530,9 @@
         <span class="label animate-on-load animate-delay-1">
           <i class="fas fa-users"></i> DIREKTORI TIM
         </span>
-        <h2 class="animate-on-load animate-delay-2">Direktori Tim Audit Internal</h2>
+        <h2 class="animate-on-load animate-delay-2" id="judulHalaman">Direktori Tim Audit</h2>
         <div class="line"></div>
-        <p class="animate-on-load animate-delay-3" id="infoTahun">Tahun Pelaksanaan 2026 mencakup 38 Perangkat Daerah.</p>
+        <p class="animate-on-load animate-delay-3" id="infoTahun">Tahun Pelaksanaan mencakup 38 Perangkat Daerah.</p>
       </div>
     </section>
 
@@ -552,7 +542,7 @@
         <div class="team-grid">
 
           <!-- TIM 1 -->
-          <a href="daftar-opd-pengawas.html?tahun=2026&jenis=internal&tim=1" class="team-card">
+          <a href="#" class="team-card" data-tim="1">
             <div class="team-code">T1</div>
             <div class="team-info">
               <div class="team-header">
@@ -561,7 +551,7 @@
                   <span class="dot"></span> Sedang Berjalan
                 </span>
               </div>
-              <p>Koordinator: Rr. Rr. Retno Yuliasi, S.Si, M.P</p>
+              <p>Koordinator: Nur Amri Yahya, S.IP</p>
               <div class="team-count">
                 <i class="fas fa-building"></i> 10 Perangkat Daerah
               </div>
@@ -572,7 +562,7 @@
           </a>
 
           <!-- TIM 2 -->
-          <a href="daftar-opd-pengawas.html?tahun=2026&jenis=internal&tim=2" class="team-card">
+          <a href="#" class="team-card" data-tim="2">
             <div class="team-code">T2</div>
             <div class="team-info">
               <div class="team-header">
@@ -581,7 +571,7 @@
                   <span class="dot"></span> Sedang Berjalan
                 </span>
               </div>
-              <p>Koordinator: Yuwanti, S.Si, M.Ars</p>
+              <p>Koordinator: Yunianti, S.S.T.Ars</p>
               <div class="team-count">
                 <i class="fas fa-building"></i> 9 Perangkat Daerah
               </div>
@@ -592,7 +582,7 @@
           </a>
 
           <!-- TIM 3 -->
-          <a href="daftar-opd-pengawas.html?tahun=2026&jenis=internal&tim=3" class="team-card">
+          <a href="#" class="team-card" data-tim="3">
             <div class="team-code">T3</div>
             <div class="team-info">
               <div class="team-header">
@@ -601,7 +591,7 @@
                   <span class="dot"></span> Sedang Berjalan
                 </span>
               </div>
-              <p>Koordinator: Syamsul Purwadi, S.Sos, M.AP</p>
+              <p>Koordinator: Syamsiyah Pujiastuti, S.S, M.A.P</p>
               <div class="team-count">
                 <i class="fas fa-building"></i> 10 Perangkat Daerah
               </div>
@@ -612,7 +602,7 @@
           </a>
 
           <!-- TIM 4 -->
-          <a href="daftar-opd-pengawas.html?tahun=2026&jenis=internal&tim=4" class="team-card">
+          <a href="#" class="team-card" data-tim="4">
             <div class="team-code">T4</div>
             <div class="team-info">
               <div class="team-header">
@@ -621,7 +611,7 @@
                   <span class="dot"></span> Sedang Berjalan
                 </span>
               </div>
-              <p>Koordinator: Atik Widayati, S.Si, M.AP</p>
+              <p>Koordinator: Atik Widayati, S.S.T.Ars</p>
               <div class="team-count">
                 <i class="fas fa-building"></i> 9 Perangkat Daerah
               </div>
@@ -649,27 +639,59 @@
 
   <!-- ===== SCRIPT ===== -->
   <script>
-    // Baca parameter dari URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const tahun = urlParams.get('tahun');
-    const jenis = urlParams.get('jenis');
+    // =====================================================
+    // 1. NAMA WILAYAH (untuk Eksternal)
+    // =====================================================
+    const namaWilayah = {
+      'bantul': 'Kabupaten Bantul',
+      'gunungkidul': 'Kabupaten Gunungkidul',
+      'kulonprogo': 'Kabupaten Kulon Progo',
+      'sleman': 'Kabupaten Sleman',
+      'yogyakarta': 'Kota Yogyakarta'
+    };
 
-    // Update info tahun
-    if (tahun) {
-      const jenisLabel = jenis === 'eksternal' ? 'Eksternal' : 'Internal';
-      document.getElementById('infoTahun').textContent =
-        'Tahun Pelaksanaan ' + tahun + ' — Audit ' + jenisLabel + ' mencakup 38 Perangkat Daerah.';
+    // =====================================================
+    // 2. BACA PARAMETER URL
+    // =====================================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const tahun = urlParams.get('tahun') || '2026';
+    const jenis = urlParams.get('jenis') || 'internal';
+    const wilayah = urlParams.get('wilayah') || '';
+
+    // =====================================================
+    // 3. UPDATE JUDUL & INFO
+    // =====================================================
+    const judulHalaman = document.getElementById('judulHalaman');
+    const infoTahun = document.getElementById('infoTahun');
+    const backLink = document.getElementById('backLink');
+
+    if (jenis === 'eksternal' && wilayah && namaWilayah[wilayah]) {
+      // Eksternal
+      judulHalaman.textContent = 'Direktori Tim Audit Eksternal';
+      infoTahun.textContent = namaWilayah[wilayah] + ' — Tahun Pelaksanaan ' + tahun + '.';
+      backLink.href = 'pilih-tahun-eksternal.html?wilayah=' + wilayah;
+      backLink.innerHTML = '<i class="fas fa-arrow-left"></i> Kembali ke Pilih Tahun';
+    } else {
+      // Internal
+      judulHalaman.textContent = 'Direktori Tim Audit Internal';
+      infoTahun.textContent = 'Tahun Pelaksanaan ' + tahun + ' mencakup 38 Perangkat Daerah.';
+      backLink.href = 'menu-audit.html';
+      backLink.innerHTML = '<i class="fas fa-arrow-left"></i> Kembali ke Menu Audit';
     }
 
-    // Teruskan parameter tahun & jenis ke setiap kartu tim
+    // =====================================================
+    // 4. UPDATE LINK KARTU TIM
+    // =====================================================
     document.querySelectorAll('.team-card').forEach(card => {
-      const url = new URL(card.href, window.location.origin);
-      if (tahun) url.searchParams.set('tahun', tahun);
-      if (jenis) url.searchParams.set('jenis', jenis);
-      card.href = url.toString();
+      const tim = card.dataset.tim;
+      let url = 'daftar-opd-pengawas.html?tahun=' + tahun + '&jenis=' + jenis + '&tim=' + tim;
+      if (wilayah) url += '&wilayah=' + wilayah;
+      card.href = url;
     });
 
-    // Hamburger menu
+    // =====================================================
+    // 5. HAMBURGER MENU
+    // =====================================================
     (function() {
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
