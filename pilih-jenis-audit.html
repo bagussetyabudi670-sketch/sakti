@@ -57,7 +57,6 @@
       padding: 0 32px;
     }
 
-    /* ===== ANIMATIONS ===== */
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -250,7 +249,7 @@
       margin: 0 auto;
     }
 
-    /* ===== MAIN SECTION — DUA KARTU ===== */
+    /* ===== DUA KARTU ===== */
     .main-section {
       flex: 1;
       display: flex;
@@ -268,7 +267,6 @@
       gap: 20px;
     }
 
-    /* Kartu Audit */
     .audit-card {
       display: flex;
       align-items: center;
@@ -294,7 +292,6 @@
       border-color: var(--ledger);
     }
 
-    /* Ikon bulat */
     .audit-icon {
       width: 64px;
       height: 64px;
@@ -311,33 +308,18 @@
       transition: color 0.3s ease;
     }
 
-    /* Ikon Internal — Biru */
-    .icon-internal {
-      background: #E3F2FD;
-    }
+    /* Internal — biru */
+    .icon-internal { background: #E3F2FD; }
     .icon-internal i { color: #1976D2; }
-    .audit-card:hover .icon-internal {
-      background: #1976D2;
-    }
-    .audit-card:hover .icon-internal i {
-      color: #ffffff;
-      transform: scale(1.1);
-    }
+    .audit-card:hover .icon-internal { background: #1976D2; }
+    .audit-card:hover .icon-internal i { color: #ffffff; transform: scale(1.1); }
 
-    /* Ikon Eksternal — Hijau */
-    .icon-external {
-      background: #D1FAE5;
-    }
+    /* Eksternal — hijau */
+    .icon-external { background: #D1FAE5; }
     .icon-external i { color: #059669; }
-    .audit-card:hover .icon-external {
-      background: #059669;
-    }
-    .audit-card:hover .icon-external i {
-      color: #ffffff;
-      transform: scale(1.1);
-    }
+    .audit-card:hover .icon-external { background: #059669; }
+    .audit-card:hover .icon-external i { color: #ffffff; transform: scale(1.1); }
 
-    /* Teks */
     .audit-text {
       flex: 1;
       display: flex;
@@ -361,7 +343,6 @@
       line-height: 1.5;
     }
 
-    /* Tombol "Masuk" */
     .audit-btn {
       display: inline-flex;
       align-items: center;
@@ -388,9 +369,7 @@
       transition: transform 0.3s ease;
     }
 
-    .audit-card:hover .audit-btn i {
-      transform: translateX(4px);
-    }
+    .audit-card:hover .audit-btn i { transform: translateX(4px); }
 
     /* ===== FOOTER ===== */
     footer {
@@ -444,27 +423,16 @@
         transition: max-height 0.3s ease;
       }
       .nav-links.open { max-height: 260px; }
-      .nav-links a {
-        padding: 16px 24px;
-        border-bottom: 1px solid #e8e1d6;
-      }
+      .nav-links a { padding: 16px 24px; border-bottom: 1px solid #e8e1d6; }
       .nav-links a::after { display: none; }
     }
 
     @media (max-width: 640px) {
-      .audit-card {
-        flex-wrap: wrap;
-        gap: 16px;
-        padding: 20px;
-      }
+      .audit-card { flex-wrap: wrap; gap: 16px; padding: 20px; }
       .audit-icon { width: 56px; height: 56px; }
       .audit-icon i { font-size: 22px; }
       .audit-text { flex-basis: calc(100% - 80px); }
-      .audit-btn {
-        flex-basis: 100%;
-        justify-content: center;
-        margin-top: 8px;
-      }
+      .audit-btn { flex-basis: 100%; justify-content: center; margin-top: 8px; }
     }
 
     @media (max-width: 480px) {
@@ -506,8 +474,8 @@
 
     <!-- ===== TOMBOL KEMBALI ===== -->
     <div class="container-narrow back-wrapper">
-      <a href="menu-audit.html" class="back-link">
-        <i class="fas fa-arrow-left"></i> Kembali ke Menu Audit
+      <a href="pengawas.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Kembali ke Dashboard Pengawas
       </a>
     </div>
 
@@ -517,18 +485,18 @@
         <span class="label animate-on-load animate-delay-1">
           <i class="fas fa-list-check"></i> JENIS AUDIT
         </span>
-        <h2 class="animate-on-load animate-delay-2" id="judulTahun">Pilih Jenis Audit</h2>
+        <h2 class="animate-on-load animate-delay-2">Pilih Jenis Audit</h2>
         <p class="animate-on-load animate-delay-3">Silakan pilih jenis audit kearsipan yang akan dilaksanakan.</p>
       </div>
     </section>
 
-    <!-- ===== DUA KARTU: INTERNAL & EKSTERNAL ===== -->
+    <!-- ===== DUA KARTU ===== -->
     <section class="main-section">
       <div class="container-narrow">
         <div class="cards-wrapper">
 
-          <!-- KARTU 1: AUDIT INTERNAL -->
-          <a href="pilih-tim.html?tahun=2026&jenis=internal" class="audit-card">
+          <!-- KARTU 1: AUDIT INTERNAL (placeholder) -->
+          <a href="#" class="audit-card">
             <div class="audit-icon icon-internal">
               <i class="fas fa-building"></i>
             </div>
@@ -543,7 +511,7 @@
           </a>
 
           <!-- KARTU 2: AUDIT EKSTERNAL -->
-          <a href="pilih-tim.html?tahun=2026&jenis=eksternal" class="audit-card">
+          <a href="pilih-kabupaten.html" class="audit-card">
             <div class="audit-icon icon-external">
               <i class="fas fa-map-marked-alt"></i>
             </div>
@@ -575,24 +543,6 @@
 
   <!-- ===== SCRIPT ===== -->
   <script>
-    // 1. Baca parameter tahun dari URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const tahun = urlParams.get('tahun');
-
-    if (tahun) {
-      document.getElementById('judulTahun').textContent = 'Pilih Jenis Audit — Tahun ' + tahun;
-    }
-
-    // 2. Update link kartu agar membawa parameter tahun
-    document.querySelectorAll('.audit-card').forEach(card => {
-      const url = new URL(card.href, window.location.origin);
-      if (tahun) {
-        url.searchParams.set('tahun', tahun);
-      }
-      card.href = url.toString();
-    });
-
-    // 3. Hamburger menu
     (function() {
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
