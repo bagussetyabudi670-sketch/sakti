@@ -57,7 +57,6 @@
       padding: 0 32px;
     }
 
-    /* ===== ANIMATIONS ===== */
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -298,7 +297,6 @@
       gap: 16px;
     }
 
-    /* Kartu OPD */
     .opd-row {
       background: #ffffff;
       border: 1px solid #e8e1d6;
@@ -318,7 +316,6 @@
       border-color: #cbd5e1;
     }
 
-    /* Nomor urut */
     .opd-number {
       width: 40px;
       height: 40px;
@@ -340,7 +337,6 @@
       color: #ffffff;
     }
 
-    /* Nama OPD */
     .opd-name {
       flex: 1;
       font-size: 14px;
@@ -350,7 +346,6 @@
       min-width: 0;
     }
 
-    /* Grup Form (Kearsipan / Pengolah) */
     .form-group {
       display: flex;
       flex-direction: column;
@@ -374,7 +369,6 @@
       justify-content: center;
     }
 
-    /* Tombol aksi (SELALU 3 buah) */
     .btn-aksi {
       display: inline-flex;
       align-items: center;
@@ -400,7 +394,6 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
-    /* RHAS — kuning */
     .btn-aksi.rhas {
       background: #FEF3C7;
       color: #92400E;
@@ -411,7 +404,6 @@
       border-color: #F59E0B;
     }
 
-    /* Final — hijau */
     .btn-aksi.final {
       background: #D1FAE5;
       color: #065F46;
@@ -422,7 +414,6 @@
       border-color: #10B981;
     }
 
-    /* Bukti — biru */
     .btn-aksi.bukti {
       background: #DBEAFE;
       color: #1E40AF;
@@ -476,9 +467,7 @@
         padding: 16px 18px;
       }
 
-      .opd-name {
-        flex-basis: calc(100% - 60px);
-      }
+      .opd-name { flex-basis: calc(100% - 60px); }
 
       .form-group {
         flex-basis: calc(50% - 7px);
@@ -548,7 +537,7 @@
 
     <!-- ===== TOMBOL KEMBALI ===== -->
     <div class="container-narrow back-wrapper">
-      <a href="#" class="back-link" id="backLink">
+      <a href="pilih-tim.html" class="back-link">
         <i class="fas fa-arrow-left"></i> Kembali ke Direktori Tim
       </a>
     </div>
@@ -559,18 +548,15 @@
         <span class="label animate-on-load animate-delay-1" id="labelTim">
           <i class="fas fa-users"></i> TIM PENGAWAS 1
         </span>
-        <h2 class="animate-on-load animate-delay-2" id="judulHalaman">Direktori Perangkat Daerah</h2>
+        <h2 class="animate-on-load animate-delay-2">Direktori Perangkat Daerah</h2>
         <p class="animate-on-load animate-delay-3" id="infoOpd">
-          Daftar 10 instansi yang diawasi oleh Tim 1. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.
+          Daftar instansi yang diawasi oleh Tim 1. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.
         </p>
       </div>
     </section>
 
     <!-- ===== TOMBOL REKAP ===== -->
     <div class="container-narrow rekap-wrapper">
-      <!-- =====================================================
-           GANTI href="#" DENGAN LINK REKAP PROGRES VERIFIKASI
-           ===================================================== -->
       <a href="#" class="btn-rekap" target="_blank" rel="noopener">
         <i class="fas fa-clipboard-list"></i>
         Buka Rekap Progres Verifikasi
@@ -598,121 +584,93 @@
     </div>
   </footer>
 
-  <!-- ===================================================== -->
-  <!-- JAVASCRIPT                                           -->
-  <!-- ===================================================== -->
+  <!-- ===== JAVASCRIPT ===== -->
   <script>
     // =====================================================
     // 1. LINK TUJUAN TOMBOL (sementara kosong)
-    // =====================================================
-    // GANTI "#" DI BAWAH INI DENGAN LINK ASLI NANTI
     // =====================================================
     const linkRhas  = "#";
     const linkFinal = "#";
     const linkBukti = "#";
 
     // =====================================================
-    // 2. NAMA WILAYAH (untuk Eksternal)
+    // 2. DATA OPD PER TIM (37 OPD dari Drive)
     // =====================================================
-    const namaWilayah = {
-      'bantul': 'Kabupaten Bantul',
-      'gunungkidul': 'Kabupaten Gunungkidul',
-      'kulonprogo': 'Kabupaten Kulon Progo',
-      'sleman': 'Kabupaten Sleman',
-      'yogyakarta': 'Kota Yogyakarta'
-    };
-
-    // =====================================================
-    // 3. DATA OPD PER TIM
+    // Pembagian:
+    //   Tim 1: 10 OPD
+    //   Tim 2: 9 OPD
+    //   Tim 3: 9 OPD
+    //   Tim 4: 9 OPD
     // =====================================================
     const opdPerTim = {
       "1": [
-        "Badan Pendidikan dan Pelatihan DIY",
-        "Badan Pengelola Keuangan dan Aset DIY",
-        "Biro Pengadaan Barang/Jasa SETDA DIY",
-        "Biro Pengembangan Infrastruktur Wilayah dan Pembiayaan Pembangunan Setda DIY",
-        "Biro Hukum Sekretariat Daerah DIY",
-        "Biro Kesejahteraan Rakyat Sekretariat Daerah DIY",
-        "Biro Organisasi Sekretariat Daerah DIY",
-        "Biro Perekonomian Sekretariat Daerah DIY",
-        "Biro Tata Pemerintahan Sekretariat Daerah DIY",
-        "Biro Umum, Hubungan Masyarakat, dan Protokol Sekretariat Daerah DIY"
+        "Badan Kepegawaian dan Pengembangan Sumberdaya Manusia (BKPSDM)",
+        "Badan Kesatuan Bangsa dan Politik",
+        "Badan Penanggulangan Bencana Daerah",
+        "Badan Pengelolaan Keuangan, Pendapatan dan Aset Daerah",
+        "Badan Perencanaan Pembangunan Daerah",
+        "Bagian Hukum",
+        "Bagian Kesejahteraan Rakyat",
+        "Bagian Organisasi",
+        "Bagian Pengadaan Barang dan Jasa",
+        "Bagian Perekonomian, Pembangunan dan Sumberdaya Alam"
       ],
       "2": [
-        "Dinas Kebudayaan DIY",
-        "Dinas Kelautan dan Perikanan DIY",
-        "Dinas Kesehatan DIY",
-        "Dinas Komunikasi dan Informatika DIY",
-        "Dinas Koperasi, Usaha Kecil dan Menengah DIY",
-        "Dinas Lingkungan Hidup dan Kehutanan DIY",
-        "Dinas Pariwisata DIY",
-        "Dinas Pekerjaan Umum, Perumahan, dan Energi Sumber Daya Mineral DIY",
-        "Dinas Pemberdayaan Masyarakat dan Kalurahan, Kependudukan dan Pencatatan Sipil DIY"
+        "Bagian Perencanaan dan Keuangan",
+        "Bagian Tata Pemerintahan",
+        "Bagian Umum dan Protokol",
+        "Dinas Kelautan dan Perikanan",
+        "Dinas Kesehatan",
+        "Dinas Koperasi, Usaha Kecil dan Menengah, Perindustrian dan Perdagangan",
+        "Dinas Pemberdayaan Perempuan dan Perlindungan Anak, Pengendalian Penduduk dan KB",
+        "Dinas Perpustakaan dan Kearsipan",
+        "Dinas Kebudayaan (Kundha Kabudayan)"
       ],
       "3": [
-        "Dinas Pemberdayaan Perempuan, Perlindungan Anak, dan Pengendalian Penduduk DIY",
-        "Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu DIY",
-        "Dinas Pendidikan, Pemuda, dan Olahraga DIY",
-        "Dinas Perhubungan DIY",
-        "Dinas Perindustrian dan Perdagangan DIY",
-        "Dinas Perpustakaan dan Arsip Daerah DIY",
-        "Dinas Pertanian dan Ketahanan Pangan DIY",
-        "Dinas Pertanahan dan Tata Ruang DIY",
-        "Dinas Sosial DIY",
-        "Dinas Tenaga Kerja dan Transmigrasi DIY"
+        "Dinas Kependudukan dan Pencatatan Sipil",
+        "Dinas Ketahanan Pangan dan Pertanian",
+        "Dinas Komunikasi dan Informatika",
+        "Dinas Lingkungan Hidup",
+        "Dinas Pariwisata",
+        "Dinas Pekerjaan Umum Perumahan dan Kawasan Pemukiman",
+        "Dinas Pemberdayaan Masyarakat dan Kalurahan",
+        "Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu",
+        "Dinas Pendidikan Kepemudaan dan Olahraga"
       ],
       "4": [
-        "Inspektorat DIY",
-        "Paniradya Kaistimewan DIY",
-        "Satuan Polisi Pamong Praja DIY",
-        "Sekretariat Dewan Perwakilan Rakyat Daerah DIY",
-        "Badan Kepegawaian Daerah DIY",
-        "Badan Kesatuan Bangsa dan Politik DIY",
-        "Badan Penanggulangan Bencana Daerah DIY",
-        "Badan Penghubung Daerah DIY",
-        "Badan Perencanaan Pembangunan Riset dan Inovasi Daerah DIY"
+        "Dinas Perhubungan",
+        "Dinas Pertanahan dan Tata Ruang (Kundha Niti Mandala sarta Tata Sasana)",
+        "Dinas Sosial",
+        "Dinas Tenaga Kerja Dan Transmigrasi",
+        "Inspektorat Daerah",
+        "RSUD Panembahan Senopati",
+        "RSUD Saras Adyatma",
+        "Satuan Polisi Pamong Praja",
+        "Sekretaris Dewan Perwakilan Rakyat"
       ]
     };
 
     // =====================================================
-    // 4. BACA PARAMETER URL
+    // 3. BACA PARAMETER URL
     // =====================================================
     const urlParams = new URLSearchParams(window.location.search);
     const timParam = urlParams.get('tim') || '1';
     const tahunParam = urlParams.get('tahun') || '2026';
     const jenisParam = urlParams.get('jenis') || 'internal';
-    const wilayahParam = urlParams.get('wilayah') || '';
 
-    // Update label
+    // Update label & info
     document.getElementById('labelTim').innerHTML =
       '<i class="fas fa-users"></i> TIM PENGAWAS ' + timParam;
-
-    // Update judul & info (beda antara Internal & Eksternal)
-    const judulHalaman = document.getElementById('judulHalaman');
-    const infoOpd = document.getElementById('infoOpd');
-    const backLink = document.getElementById('backLink');
 
     const opdList = opdPerTim[timParam] || [];
     const jumlahOpd = opdList.length;
 
-    if (jenisParam === 'eksternal' && wilayahParam && namaWilayah[wilayahParam]) {
-      // Eksternal
-      judulHalaman.textContent = namaWilayah[wilayahParam] + ' — Direktori Perangkat Daerah';
-      infoOpd.textContent =
-        'Daftar ' + jumlahOpd + ' instansi yang diawasi oleh Tim ' + timParam +
-        ' di ' + namaWilayah[wilayahParam] + '. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.';
-      backLink.href = 'pilih-tim.html?wilayah=' + wilayahParam + '&tahun=' + tahunParam + '&jenis=eksternal';
-    } else {
-      // Internal
-      judulHalaman.textContent = 'Direktori Perangkat Daerah';
-      infoOpd.textContent =
-        'Daftar ' + jumlahOpd + ' instansi yang diawasi oleh Tim ' + timParam +
-        '. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.';
-      backLink.href = 'pilih-tim.html?tahun=' + tahunParam + '&jenis=internal';
-    }
+    document.getElementById('infoOpd').textContent =
+      'Daftar ' + jumlahOpd + ' instansi yang diawasi oleh Tim ' + timParam +
+      '. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.';
 
     // =====================================================
-    // 5. FUNGSI UNTUK MEMBUAT 3 TOMBOL
+    // 4. RENDER TOMBOL (RHAS, Final, Bukti)
     // =====================================================
     function renderTombol() {
       return `
@@ -729,7 +687,7 @@
     }
 
     // =====================================================
-    // 6. RENDER DAFTAR OPD
+    // 5. RENDER DAFTAR OPD
     // =====================================================
     const opdListContainer = document.getElementById('opdList');
 
@@ -757,7 +715,7 @@
     });
 
     // =====================================================
-    // 7. HAMBURGER MENU
+    // 6. HAMBURGER MENU
     // =====================================================
     (function() {
       const navToggle = document.getElementById('navToggle');
