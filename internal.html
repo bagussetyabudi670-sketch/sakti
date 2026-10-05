@@ -6,7 +6,10 @@
   <title>Daftar Instansi Internal · SAKTi</title>
   <link rel="icon" type="image/png" href="assets/img/logoAS.png" />
 
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
@@ -42,6 +45,7 @@
 
     a { color: inherit; text-decoration: none; }
 
+    /* ===== CONTAINER ===== */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -54,6 +58,7 @@
       padding: 0 32px;
     }
 
+    /* ===== ANIMATIONS ===== */
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -71,7 +76,7 @@
     .animate-delay-2 { animation-delay: 0.3s; }
     .animate-delay-3 { animation-delay: 0.45s; }
 
-    /* NAVBAR */
+    /* ===== NAVBAR ===== */
     .navbar {
       background: rgba(246, 244, 240, 0.92);
       border-bottom: 1px solid #e2dbd0;
@@ -177,7 +182,7 @@
     .nav-toggle.active span:nth-child(2) { opacity: 0; }
     .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* TOMBOL KEMBALI */
+    /* ===== TOMBOL KEMBALI ===== */
     .back-wrapper {
       padding: 32px 0 0;
       animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
@@ -205,7 +210,7 @@
     .back-link i { transition: transform 0.2s; }
     .back-link:hover i { transform: translateX(-4px); }
 
-    /* PAGE HEADER */
+    /* ===== PAGE HEADER ===== */
     .page-header {
       padding: 32px 0 32px;
       border-bottom: 1px solid var(--line);
@@ -254,7 +259,7 @@
       margin: 0 auto 24px;
     }
 
-    /* SEARCH */
+    /* ===== SEARCH ===== */
     .search-wrapper {
       max-width: 500px;
       margin: 0 auto 16px;
@@ -292,7 +297,7 @@
       box-shadow: 0 0 0 4px rgba(42, 75, 58, 0.1);
     }
 
-    /* CONTROLS */
+    /* ===== CONTROLS ===== */
     .controls {
       display: flex;
       justify-content: center;
@@ -325,7 +330,7 @@
       transform: translateY(-2px);
     }
 
-    /* ACCORDION */
+    /* ===== ACCORDION ABJAD ===== */
     .abjad-container { padding: 32px 0 100px; }
 
     .abjad-group {
@@ -475,7 +480,7 @@
       color: var(--ledger);
     }
 
-    /* NO RESULT */
+    /* ===== NO RESULT ===== */
     .no-result {
       text-align: center;
       padding: 60px 20px;
@@ -491,7 +496,7 @@
       display: block;
     }
 
-    /* BACK TO TOP */
+    /* ===== BACK TO TOP ===== */
     .back-to-top {
       position: fixed;
       bottom: 30px;
@@ -522,7 +527,7 @@
       box-shadow: 0 8px 24px rgba(42, 75, 58, 0.4);
     }
 
-    /* FOOTER */
+    /* ===== FOOTER ===== */
     footer {
       border-top: 1px solid #e2dbd0;
       padding: 36px 0;
@@ -552,7 +557,7 @@
 
     .footer-content strong:hover { color: var(--ledger); }
 
-    /* RESPONSIVE */
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 860px) {
       .container, .container-narrow { padding: 0 24px; }
       .page-header h2 { font-size: 30px; }
@@ -596,7 +601,7 @@
 
 <body>
 
-  <!-- NAVBAR -->
+  <!-- ===== NAVBAR ===== -->
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="logo">
@@ -619,12 +624,14 @@
 
   <main>
 
+    <!-- ===== TOMBOL KEMBALI ===== -->
     <div class="container-narrow back-wrapper">
       <a href="jenis-pengawasan.html" class="back-link">
         <i class="fas fa-arrow-left"></i> Kembali ke Jenis Pengawasan
       </a>
     </div>
 
+    <!-- ===== PAGE HEADER ===== -->
     <section class="page-header">
       <div class="container-narrow">
         <span class="label animate-on-load animate-delay-1">
@@ -635,11 +642,13 @@
         </h2>
         <p class="animate-on-load animate-delay-3">Silakan cari atau pilih instansi yang akan dilakukan pengawasan kearsipan tahun 2026.</p>
         
+        <!-- Search Bar -->
         <div class="search-wrapper">
           <i class="fas fa-search"></i>
           <input type="text" id="searchInput" placeholder="Cari nama instansi..." />
         </div>
 
+        <!-- Tombol Kontrol -->
         <div class="controls">
           <button class="ctrl-btn" id="btnOpenAll">
             <i class="fas fa-expand-alt"></i> Buka Semua
@@ -651,8 +660,12 @@
       </div>
     </section>
 
-    <section class="container-narrow abjad-container" id="abjadContainer"></section>
+    <!-- ===== DAFTAR ABJAD (ACCORDION) ===== -->
+    <section class="container-narrow abjad-container" id="abjadContainer">
+      <!-- Konten akan diisi oleh JavaScript -->
+    </section>
 
+    <!-- Pesan Kosong -->
     <div class="no-result" id="noResult">
       <i class="fas fa-search-minus"></i>
       Tidak ada instansi yang cocok dengan pencarian Anda.
@@ -660,10 +673,12 @@
 
   </main>
 
+  <!-- Tombol Kembali ke Atas -->
   <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
     <i class="fas fa-arrow-up"></i>
   </button>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
     <div class="container footer-content">
       <div>
@@ -673,54 +688,72 @@
     </div>
   </footer>
 
+  <!-- ===== JAVASCRIPT LOGIC ===== -->
   <script>
+    // =====================================================
+    // 1. DATA OPD — PERSIS DARI GOOGLE DRIVE
+    // =====================================================
+    // Struktur folder Drive:
+    //   B → 13 OPD
+    //   D → 19 OPD
+    //   I → 1 OPD
+    //   R → 2 OPD
+    //   S → 2 OPD
+    //   Total: 37 OPD
+    // =====================================================
     const opdData = {
       "B": [
-        "Badan Kepegawaian Daerah DIY",
-        "Badan Kesatuan Bangsa dan Politik DIY",
-        "Badan Penanggulangan Bencana Daerah DIY",
-        "Badan Pendidikan dan Pelatihan DIY",
-        "Badan Pengelola Keuangan dan Aset DIY",
-        "Badan Penghubung Daerah DIY",
-        "Badan Perencanaan Pembangunan Riset dan Inovasi Daerah DIY",
-        "Biro Hukum Sekretariat Daerah DIY",
-        "Biro Kesejahteraan Rakyat Sekretariat Daerah DIY",
-        "Biro Organisasi Sekretariat Daerah DIY",
-        "Biro Pengembangan Infrastruktur Wilayah dan Pembiayaan Pembangunan Sekretariat Daerah DIY",
-        "Biro Pengadaan Barang dan Jasa Sekretariat Daerah DIY",
-        "Biro Perekonomian Sekretariat Daerah DIY",
-        "Biro Tata Pemerintahan Sekretariat Daerah DIY",
-        "Biro Umum, Hubungan Masyarakat, dan Protokol Sekretariat Daerah DIY"
+        "Badan Kepegawaian dan Pengembangan Sumberdaya Manusia (BKPSDM)",
+        "Badan Kesatuan Bangsa dan Politik",
+        "Badan Penanggulangan Bencana Daerah",
+        "Badan Pengelolaan Keuangan, Pendapatan dan Aset Daerah",
+        "Badan Perencanaan Pembangunan Daerah",
+        "Bagian Hukum",
+        "Bagian Kesejahteraan Rakyat",
+        "Bagian Organisasi",
+        "Bagian Pengadaan Barang dan Jasa",
+        "Bagian Perekonomian, Pembangunan dan Sumberdaya Alam",
+        "Bagian Perencanaan dan Keuangan",
+        "Bagian Tata Pemerintahan",
+        "Bagian Umum dan Protokol"
       ],
       "D": [
-        "Dinas Kebudayaan DIY",
-        "Dinas Kelautan dan Perikanan DIY",
-        "Dinas Kesehatan DIY",
-        "Dinas Komunikasi dan Informatika DIY",
-        "Dinas Koperasi, Usaha Kecil dan Menengah DIY",
-        "Dinas Lingkungan Hidup dan Kehutanan DIY",
-        "Dinas Pariwisata DIY",
-        "Dinas Pekerjaan Umum, Perumahan, dan Energi Sumber Daya Mineral DIY",
-        "Dinas Pemberdayaan Masyarakat dan Kalurahan, Kependudukan dan Pencatatan Sipil DIY",
-        "Dinas Pemberdayaan Perempuan, Perlindungan Anak, dan Pengendalian Penduduk DIY",
-        "Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu DIY",
-        "Dinas Pendidikan, Pemuda, dan Olahraga DIY",
-        "Dinas Perhubungan DIY",
-        "Dinas Perindustrian dan Perdagangan DIY",
-        "Dinas Perpustakaan dan Arsip Daerah DIY",
-        "Dinas Pertanian dan Ketahanan Pangan DIY",
-        "Dinas Pertanahan dan Tata Ruang DIY",
-        "Dinas Sosial DIY",
-        "Dinas Tenaga Kerja dan Transmigrasi DIY"
+        "Dinas Kelautan dan Perikanan",
+        "Dinas Kesehatan",
+        "Dinas Koperasi, Usaha Kecil dan Menengah, Perindustrian dan Perdagangan",
+        "Dinas Pemberdayaan Perempuan dan Perlindungan Anak, Pengendalian Penduduk dan KB",
+        "Dinas Perpustakaan dan Kearsipan",
+        "Dinas Kebudayaan (Kundha Kabudayan)",
+        "Dinas Kependudukan dan Pencatatan Sipil",
+        "Dinas Ketahanan Pangan dan Pertanian",
+        "Dinas Komunikasi dan Informatika",
+        "Dinas Lingkungan Hidup",
+        "Dinas Pariwisata",
+        "Dinas Pekerjaan Umum Perumahan dan Kawasan Pemukiman",
+        "Dinas Pemberdayaan Masyarakat dan Kalurahan",
+        "Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu",
+        "Dinas Pendidikan Kepemudaan dan Olahraga",
+        "Dinas Perhubungan",
+        "Dinas Pertanahan dan Tata Ruang (Kundha Niti Mandala sarta Tata Sasana)",
+        "Dinas Sosial",
+        "Dinas Tenaga Kerja Dan Transmigrasi"
       ],
-      "I": ["Inspektorat DIY"],
-      "P": ["Paniradya Kaistimewan DIY"],
+      "I": [
+        "Inspektorat Daerah"
+      ],
+      "R": [
+        "RSUD Panembahan Senopati",
+        "RSUD Saras Adyatma"
+      ],
       "S": [
-        "Satuan Polisi Pamong Praja DIY",
-        "Sekretariat Dewan Perwakilan Rakyat Daerah DIY"
+        "Satuan Polisi Pamong Praja",
+        "Sekretaris Dewan Perwakilan Rakyat"
       ]
     };
 
+    // =====================================================
+    // 2. FUNGSI RENDER
+    // =====================================================
     const container = document.getElementById('abjadContainer');
     const noResult = document.getElementById('noResult');
     const searchInput = document.getElementById('searchInput');
@@ -729,10 +762,11 @@
     function renderList(searchTerm = '') {
       container.innerHTML = '';
       let totalFound = 0;
+
       const sortedKeys = Object.keys(opdData).sort();
 
       sortedKeys.forEach((key, groupIndex) => {
-        const filteredItems = opdData[key].filter(item => 
+        const filteredItems = opdData[key].filter(item =>
           item.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
@@ -753,7 +787,7 @@
           <div class="abjad-header-left">
             <span class="abjad-letter">${key}</span>
             <div class="abjad-info">
-              <span class="title">${key === 'B' ? 'Badan & Biro' : key === 'D' ? 'Dinas' : key === 'I' ? 'Inspektorat' : key === 'P' ? 'Paniradya' : 'Satuan & Sekretariat'}</span>
+              <span class="title">Kelompok ${key}</span>
               <span class="count">${filteredItems.length} instansi</span>
             </div>
           </div>
@@ -788,13 +822,13 @@
           link.style.animationDelay = `${(groupIndex * 0.1) + (itemIndex * 0.03)}s`;
 
           let iconClass = 'fa-building';
-          if (item.startsWith('Biro')) iconClass = 'fa-briefcase';
+          if (item.startsWith('Bagian')) iconClass = 'fa-briefcase';
           if (item.startsWith('Dinas')) iconClass = 'fa-city';
           if (item.startsWith('Badan')) iconClass = 'fa-landmark';
           if (item.startsWith('Inspektorat')) iconClass = 'fa-search';
           if (item.startsWith('Satuan')) iconClass = 'fa-shield-alt';
-          if (item.startsWith('Sekretariat')) iconClass = 'fa-file-alt';
-          if (item.startsWith('Paniradya')) iconClass = 'fa-crown';
+          if (item.startsWith('Sekretaris')) iconClass = 'fa-file-alt';
+          if (item.startsWith('RSUD')) iconClass = 'fa-hospital';
 
           link.innerHTML = `
             <div class="item-icon"><i class="fas ${iconClass}"></i></div>
@@ -814,8 +848,14 @@
       noResult.style.display = totalFound === 0 ? 'block' : 'none';
     }
 
+    // =====================================================
+    // 3. EVENT PENCARIAN
+    // =====================================================
     searchInput.addEventListener('input', (e) => renderList(e.target.value));
 
+    // =====================================================
+    // 4. BUKA / TUTUP SEMUA
+    // =====================================================
     document.getElementById('btnOpenAll').addEventListener('click', () => {
       document.querySelectorAll('.abjad-group').forEach(group => {
         group.classList.add('open');
@@ -832,8 +872,14 @@
       });
     });
 
+    // =====================================================
+    // 5. RENDER AWAL
+    // =====================================================
     renderList();
 
+    // =====================================================
+    // 6. BACK TO TOP
+    // =====================================================
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 400) backToTop.classList.add('visible');
@@ -843,6 +889,9 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
+    // =====================================================
+    // 7. HAMBURGER MENU
+    // =====================================================
     (function() {
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
