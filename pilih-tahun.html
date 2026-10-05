@@ -57,7 +57,6 @@
       padding: 0 32px;
     }
 
-    /* ===== ANIMATIONS ===== */
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -299,7 +298,6 @@
       box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     }
 
-    /* Garis vertikal warna */
     .year-bar {
       width: 6px;
       height: 60px;
@@ -311,7 +309,6 @@
     .year-bar.green { background: #16A34A; }
     .year-bar.gray { background: #94A3B8; }
 
-    /* Angka Tahun */
     .year-number {
       font-family: 'Newsreader', serif;
       font-size: 42px;
@@ -326,7 +323,6 @@
     .year-number.green { color: #16A34A; }
     .year-number.gray { color: #94A3B8; }
 
-    /* Status */
     .year-status {
       flex: 1;
       display: flex;
@@ -379,7 +375,6 @@
 
     .status-badge.gray .dot { background: #94A3B8; }
 
-    /* Tombol panah */
     .year-arrow {
       width: 48px;
       height: 48px;
@@ -407,7 +402,6 @@
 
     .year-card:hover .year-arrow i { transform: translateX(3px); }
 
-    /* Kartu terkunci */
     .year-card.locked {
       cursor: not-allowed;
       opacity: 0.7;
@@ -518,10 +512,10 @@
 
   <main>
 
-    <!-- ===== TOMBOL KEMBALI ===== -->
+    <!-- ===== TOMBOL KEMBALI (ke menu-audit.html) ===== -->
     <div class="container-narrow back-wrapper">
-      <a href="pilih-kabupaten.html" class="back-link">
-        <i class="fas fa-arrow-left"></i> Kembali ke Pilih Kabupaten/Kota
+      <a href="menu-audit.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Kembali ke Menu Audit
       </a>
     </div>
 
@@ -529,9 +523,9 @@
     <section class="page-header">
       <div class="container-narrow">
         <span class="label animate-on-load animate-delay-1">
-          <i class="fas fa-calendar-alt"></i> AUDIT EKSTERNAL
+          <i class="fas fa-calendar-alt"></i> AUDIT
         </span>
-        <h2 class="animate-on-load animate-delay-2" id="judulWilayah">Pilih Tahun Pelaksanaan</h2>
+        <h2 class="animate-on-load animate-delay-2">Pilih Tahun Pelaksanaan</h2>
         <p class="animate-on-load animate-delay-3">Silakan pilih tahun pelaksanaan audit kearsipan yang ingin Anda lihat rinciannya.</p>
       </div>
     </section>
@@ -541,8 +535,8 @@
       <div class="container-narrow">
         <div class="year-list">
 
-          <!-- 2026 — SEDANG BERJALAN -->
-          <a href="pilih-tim.html?wilayah=WILAYAH&tahun=2026&jenis=eksternal" class="year-card" data-tahun="2026">
+          <!-- 2026 — SEDANG BERJALAN → pilih-kabupaten.html?tahun=2026 -->
+          <a href="pilih-kabupaten.html?tahun=2026" class="year-card">
             <div class="year-bar orange"></div>
             <div class="year-number orange">2026</div>
             <div class="year-status">
@@ -555,8 +549,8 @@
             </div>
           </a>
 
-          <!-- 2025 — ARSIP / SELESAI -->
-          <a href="pilih-tim.html?wilayah=WILAYAH&tahun=2025&jenis=eksternal" class="year-card" data-tahun="2025">
+          <!-- 2025 — ARSIP / SELESAI → pilih-kabupaten.html?tahun=2025 -->
+          <a href="pilih-kabupaten.html?tahun=2025" class="year-card">
             <div class="year-bar green"></div>
             <div class="year-number green">2025</div>
             <div class="year-status">
@@ -601,30 +595,6 @@
 
   <!-- ===== SCRIPT ===== -->
   <script>
-    // Nama wilayah (dari parameter URL)
-    const namaWilayah = {
-      'bantul': 'Kabupaten Bantul',
-      'gunungkidul': 'Kabupaten Gunungkidul',
-      'kulonprogo': 'Kabupaten Kulon Progo',
-      'sleman': 'Kabupaten Sleman',
-      'yogyakarta': 'Kota Yogyakarta'
-    };
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const wilayah = urlParams.get('wilayah') || '';
-
-    // Update judul
-    if (wilayah && namaWilayah[wilayah]) {
-      document.getElementById('judulWilayah').textContent =
-        namaWilayah[wilayah] + ' — Pilih Tahun';
-    }
-
-    // Update link tahun agar membawa parameter wilayah
-    document.querySelectorAll('.year-card[data-tahun]').forEach(card => {
-      const tahun = card.dataset.tahun;
-      card.href = 'pilih-tim.html?wilayah=' + wilayah + '&tahun=' + tahun + '&jenis=eksternal';
-    });
-
     // Hamburger menu
     (function() {
       const navToggle = document.getElementById('navToggle');
