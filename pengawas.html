@@ -3,468 +3,376 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pengawas · SAKTi</title>
+  <title>Dashboard Pengawas · SEPAKAT</title>
   <link rel="icon" type="image/png" href="assets/img/logoAS.png" />
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --paper: #f6f4f0;
-      --paper-deep: #e8e3d9;
-      --ink: #1a2632;
-      --ink-soft: #4a5a68;
-      --ledger: #2a4b3a;
-      --ledger-deep: #1d3a2c;
-      --seal: #a73b2e;
-      --brass: #b08d3e;
-      --line: rgba(26, 38, 50, 0.12);
-      --radius: 8px;
-      --shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
+    :root { --paper:#f6f4f0; --ink:#1a2632; --ink-soft:#4a5a68; --line:#e2dbd0; --ledger:#2a4b3a; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { min-height:100vh; display:flex; flex-direction:column; background:var(--paper); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.6; }
+    a { color:inherit; text-decoration:none; }
+    .container { max-width:1200px; margin:0 auto; padding:0 32px; }
+    .container-narrow { max-width:1000px; margin:0 auto; padding:0 32px; }
+
+    /* NAVBAR */
+    .navbar { background:rgba(246,244,240,.92); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:30; backdrop-filter:blur(6px); }
+    .nav-content { height:80px; display:flex; align-items:center; justify-content:space-between; }
+    .logo { display:flex; align-items:center; gap:16px; }
+    .logo-seal { width:48px; height:48px; object-fit:contain; border-radius:8px; }
+    .logo-text { display:flex; flex-direction:column; line-height:1.1; }
+    .logo-text h1 { font:600 22px/1.1 'Newsreader',serif; }
+    .logo-text span { display:block; margin-top:-1px; color:var(--ink-soft); font-size:12px; font-weight:500; letter-spacing:.3px; }
+    .nav-links { display:flex; gap:40px; color:#2e3d4b; font-size:15px; font-weight:500; }
+    .nav-links a { padding-bottom:4px; border-bottom:2px solid transparent; }
+    .nav-links a:hover { color:#0f1a24; border-color:#a73b2e; }
+    .nav-toggle { display:none; background:none; border:0; cursor:pointer; padding:8px; }
+    .nav-toggle span { display:block; width:24px; height:2px; margin:5px 0; background:#0f1a24; }
+
+    main { flex:1; }
+    .back-wrapper { padding-top:32px; }
+    .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--ink-soft); font-size:14px; font-weight:500; }
+    .back-link:hover { color:var(--ink); }
+
+    /* PAGE HEADER */
+    .page-header { padding:32px 0 24px; text-align:center; }
+    .page-header h2 { margin-bottom:8px; font:600 36px/1.1 'Newsreader',serif; }
+    .page-header p { max-width:640px; margin:auto; color:var(--ink-soft); font-size:15px; }
+
+    /* PENGUMUMAN */
+    .announcement-wrapper { padding:24px 0 8px; }
+    .announcement-box {
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 4px 16px rgba(0,0,0,.03);
+    }
+    .announcement-header {
+      background:linear-gradient(135deg, #1E40AF 0%, #2563EB 100%);
+      color:#fff;
+      padding:18px 28px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .announcement-header i {
+      font-size:24px;
+      background:rgba(255,255,255,.15);
+      padding:10px;
+      border-radius:10px;
+    }
+    .announcement-header h3 {
+      font-family:'Inter',sans-serif;
+      font-size:15px;
+      font-weight:800;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      margin-bottom:2px;
+    }
+    .announcement-header p {
+      font-size:12px;
+      opacity:.8;
+      font-weight:500;
+    }
+    .announcement-list {
+      padding:16px 20px 20px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .announcement-item {
+      display:flex;
+      gap:16px;
+      padding:14px 16px;
+      border-radius:10px;
+      background:#F8FAFC;
+      border-left:4px solid #CBD5E1;
+      transition:all .3s;
+      align-items:flex-start;
+    }
+    .announcement-item:hover {
+      background:#F1F5F9;
+      transform:translateX(4px);
+    }
+    .announcement-item.urgent {
+      border-left-color:#EA580C;
+      background:#FFF7ED;
+    }
+    .announcement-item.urgent:hover {
+      background:#FFEDD5;
+    }
+    .announcement-item.info {
+      border-left-color:#16A34A;
+      background:#F0FDF4;
+    }
+    .announcement-item.info:hover {
+      background:#DCFCE7;
+    }
+    .announcement-item.neutral {
+      border-left-color:#3B82F6;
+      background:#EFF6FF;
+    }
+    .announcement-item.neutral:hover {
+      background:#DBEAFE;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    .announcement-date {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      min-width:60px;
+      padding:8px 10px;
+      border-radius:10px;
+      text-align:center;
+    }
+    .announcement-date.urgent { background:#EA580C; color:#fff; }
+    .announcement-date.info { background:#16A34A; color:#fff; }
+    .announcement-date.neutral { background:#3B82F6; color:#fff; }
+    .announcement-date .day {
+      font-size:22px;
+      font-weight:800;
+      line-height:1;
+      font-family:'Inter',sans-serif;
+    }
+    .announcement-date .month {
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      margin-top:3px;
+      opacity:.9;
     }
 
-    a { color: inherit; text-decoration: none; }
-
-    /* ===== CONTAINER (Navbar & Footer) ===== */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 32px;
+    .announcement-body {
+      flex:1;
+      min-width:0;
+    }
+    .announcement-body p {
+      font-size:14px;
+      color:var(--ink);
+      line-height:1.6;
+      margin-bottom:6px;
+    }
+    .announcement-tag {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:3px 10px;
+      border-radius:20px;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+    }
+    .announcement-tag.urgent {
+      background:#FED7AA;
+      color:#7C2D12;
+      animation:pulse 2s ease-in-out infinite;
+    }
+    .announcement-tag.info {
+      background:#BBF7D0;
+      color:#14532D;
+    }
+    .announcement-tag.neutral {
+      background:#BFDBFE;
+      color:#1E3A8A;
     }
 
-    .container-narrow {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 32px;
+    @keyframes pulse {
+      0%, 100% { opacity:1; }
+      50% { opacity:.6; }
     }
 
-    /* ===== ANIMATIONS ===== */
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    /* MAIN MENU CARDS */
+    .main-section { padding:32px 0 100px; }
+    .cards-wrapper { display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:900px; margin:0 auto; }
+    .menu-card {
+      background:#fff;
+      border:1px solid #e8e1d6;
+      border-radius:18px;
+      padding:36px 32px 32px;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      transition:all .3s cubic-bezier(.2,.9,.3,1);
+      cursor:pointer;
+      text-decoration:none;
+      color:inherit;
     }
-    @keyframes slideDown {
-      0% { opacity: 0; transform: translateY(-10px); }
-      100% { opacity: 1; transform: translateY(0); }
+    .menu-card:hover {
+      transform:translateY(-6px);
+      box-shadow:0 20px 50px rgba(0,0,0,.08);
+      border-color:var(--ledger);
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
+    .menu-icon {
+      width:80px;
+      height:80px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:20px;
+      transition:all .3s;
     }
+    .menu-icon i { font-size:32px; transition:all .3s; }
+    .menu-card:hover .menu-icon { transform:scale(1.05); }
 
-    .animate-on-load {
-      opacity: 0;
-      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    .menu-icon.purple { background:#F3E8FD; }
+    .menu-icon.purple i { color:#7C3AED; }
+    .menu-card:hover .menu-icon.purple { background:#7C3AED; }
+    .menu-card:hover .menu-icon.purple i { color:#fff; }
+
+    .menu-icon.green { background:#D1FAE5; }
+    .menu-icon.green i { color:#059669; }
+    .menu-card:hover .menu-icon.green { background:#059669; }
+    .menu-card:hover .menu-icon.green i { color:#fff; }
+
+    .menu-icon.blue { background:#DBEAFE; }
+    .menu-icon.blue i { color:#1E40AF; }
+    .menu-card:hover .menu-icon.blue { background:#1E40AF; }
+    .menu-card:hover .menu-icon.blue i { color:#fff; }
+
+    .menu-card h3 {
+      font-family:'Inter',sans-serif;
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      color:var(--ink);
+      margin-bottom:10px;
+      line-height:1.2;
     }
-    .animate-delay-1 { animation-delay: 0.15s; }
-    .animate-delay-2 { animation-delay: 0.3s; }
-    .animate-delay-3 { animation-delay: 0.45s; }
-
-    /* ===== NAVBAR ===== */
-    .navbar {
-      background: rgba(246, 244, 240, 0.92);
-      border-bottom: 1px solid #e2dbd0;
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      backdrop-filter: blur(6px);
-      animation: slideDown 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    .menu-card p {
+      font-size:14px;
+      color:var(--ink-soft);
+      line-height:1.6;
+      margin-bottom:24px;
+      flex:1;
+      max-width:280px;
     }
-
-    .nav-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
+    .menu-btn {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:11px 26px;
+      border-radius:50px;
+      font-size:14px;
+      font-weight:700;
+      background:#F0F0F0;
+      color:var(--ink);
+      transition:all .3s;
     }
-
-    .logo { display: flex; align-items: center; gap: 16px; }
-
-    .logo-seal {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
+    .menu-card:hover .menu-btn {
+      background:var(--ledger);
+      color:#fff;
+      transform:translateY(-2px);
+      box-shadow:0 6px 16px rgba(42,75,58,.25);
     }
+    .menu-btn i { font-size:12px; transition:transform .3s; }
+    .menu-card:hover .menu-btn i { transform:translateX(4px); }
 
-    .logo:hover .logo-seal { transform: rotate(-8deg) scale(1.05); }
-
-    .logo-text { display: flex; flex-direction: column; gap: 0px; line-height: 1.1; }
-
-    .logo-text h1 {
-      font-family: 'Newsreader', serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      line-height: 1.1;
-      transition: color 0.3s ease;
+    /* APLIKASI PENDUKUNG */
+    .support-section { text-align:center; padding:40px 0 80px; }
+    .support-label {
+      display:inline-block;
+      position:relative;
+      font-size:12px;
+      font-weight:700;
+      color:var(--ink-soft);
+      letter-spacing:3px;
+      text-transform:uppercase;
+      margin-bottom:32px;
     }
-
-    .logo:hover .logo-text h1 { color: var(--ledger); }
-
-    .logo-text span {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      letter-spacing: 0.3px;
-      margin-top: -1px;
-      line-height: 1.2;
+    .support-label::before, .support-label::after {
+      content:'';
+      position:absolute;
+      top:50%;
+      width:60px;
+      height:1px;
+      background:var(--line);
     }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      color: #2e3d4b;
+    .support-label::before { right:100%; margin-right:16px; }
+    .support-label::after { left:100%; margin-left:16px; }
+    .support-icon {
+      width:80px;
+      height:80px;
+      border-radius:50%;
+      background:#E3F2FD;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 20px;
+      transition:all .3s;
+      cursor:pointer;
     }
-
-    .nav-links a {
-      position: relative;
-      padding-bottom: 4px;
-      transition: color 0.2s;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--seal);
-      transition: width 0.2s;
-    }
-
-    .nav-links a:hover { color: #0f1a24; }
-    .nav-links a:hover::after { width: 100%; }
-
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-      z-index: 40;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: #0f1a24;
-      border-radius: 2px;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-toggle.active span:nth-child(2) { opacity: 0; }
-    .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* ===== TOMBOL KEMBALI ===== */
-    .back-wrapper {
-      padding: 32px 0 0;
-      animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-      opacity: 0;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      border-bottom: 2px solid transparent;
-      padding-bottom: 3px;
-      transition: color 0.2s, border-color 0.2s, transform 0.2s;
+    .support-icon i { font-size:32px; color:#1976D2; transition:all .3s; }
+    .support-icon:hover { background:#1976D2; transform:scale(1.08); }
+    .support-icon:hover i { color:#fff; }
+    .support-title {
+      font-family:'Inter',sans-serif;
+      font-size:16px;
+      font-weight:800;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:var(--ink);
     }
 
-    .back-link:hover {
-      color: var(--ink);
-      border-color: var(--ink);
-      transform: translateX(-3px);
-    }
+    /* FOOTER */
+    footer { border-top:1px solid #e2dbd0; padding:44px 0 32px; background:#fcfaf7; }
+    .footer-inner { display:flex; flex-direction:column; gap:20px; }
+    .footer-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+    .footer-brand { color:#0f1a24; font:600 18px 'Newsreader',serif; }
+    .footer-address { color:#4a5a68; font-size:14px; line-height:1.6; }
+    .footer-address a { color:#2a4b3a; font-weight:500; }
+    .footer-address a:hover { color:#a73b2e; }
+    .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-top:20px; border-top:1px solid #d6cec0; color:#4a5a68; font-size:14px; }
 
-    .back-link i { transition: transform 0.2s; }
-    .back-link:hover i { transform: translateX(-4px); }
-
-    /* ===== PAGE HEADER ===== */
-    .page-header {
-      padding: 40px 0 16px;
-      text-align: center;
+    /* RESPONSIVE */
+    @media (max-width:860px) {
+      .container,.container-narrow { padding:0 24px; }
+      .nav-content { height:68px; }
+      .logo-text span { display:none; }
+      .nav-toggle { display:block; }
+      .nav-links { position:absolute; top:68px; left:0; right:0; display:flex; flex-direction:column; gap:0; max-height:0; overflow:hidden; background:var(--paper); border-bottom:1px solid var(--line); transition:max-height .3s; }
+      .nav-links.open { max-height:260px; }
+      .nav-links a { padding:16px 24px; border-bottom:1px solid #e8e1d6; }
+      .cards-wrapper { grid-template-columns:1fr; max-width:420px; }
     }
-
-    .page-header h2 {
-      font-family: 'Newsreader', serif;
-      font-size: 36px;
-      line-height: 1.08;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--ink);
+    @media (max-width:680px) {
+      .footer-row,.footer-bottom { flex-direction:column; align-items:flex-start; }
     }
-
-    .page-header p {
-      color: var(--ink-soft);
-      font-size: 16px;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    /* ===== MAIN SECTION (DUA KARTU) ===== */
-    .main-section {
-      flex: 1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 48px 0 100px;
-    }
-
-    .cards-wrapper {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
-      max-width: 800px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    /* Kartu */
-    .card {
-      background: #ffffff;
-      border: 1px solid #e8e1d6;
-      border-radius: 20px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
-      padding: 44px 32px 36px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-      opacity: 0;
-    }
-
-    .card:nth-child(1) { animation-delay: 0.2s; }
-    .card:nth-child(2) { animation-delay: 0.35s; }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 6px 16px rgba(0,0,0,0.04);
-      border-color: var(--ledger);
-    }
-
-    /* Ikon di dalam lingkaran */
-    .card-icon {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-
-    .card-icon i {
-      font-size: 32px;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    /* Ikon Ungu — Menu Audit */
-    .icon-purple {
-      background: #F3E8FD;
-    }
-    .icon-purple i {
-      color: #7C3AED;
-    }
-    .card:hover .icon-purple {
-      background: #7C3AED;
-    }
-    .card:hover .icon-purple i {
-      color: #ffffff;
-      transform: scale(1.1);
-    }
-
-    /* Ikon Hijau — Laporan Audit */
-    .icon-green {
-      background: #D1FAE5;
-    }
-    .icon-green i {
-      color: #059669;
-    }
-    .card:hover .icon-green {
-      background: #059669;
-    }
-    .card:hover .icon-green i {
-      color: #ffffff;
-      transform: scale(1.1);
-    }
-
-    /* Judul Kartu */
-    .card h3 {
-      font-family: 'Inter', sans-serif;
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 12px;
-    }
-
-    /* Deskripsi */
-    .card p {
-      color: var(--ink-soft);
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 32px;
-      flex: 1;
-      max-width: 260px;
-    }
-
-    /* Tombol Kartu */
-    .btn-card {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 28px;
-      border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      min-width: 170px;
-      background: #F0F0F0;
-      color: var(--ink);
-      border: none;
-    }
-
-    .btn-card:hover {
-      background: var(--ledger);
-      color: #ffffff;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(42, 75, 58, 0.25);
-    }
-
-    .btn-card i.fa-arrow-right {
-      font-size: 12px;
-      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-    }
-
-    .btn-card:hover i.fa-arrow-right { transform: translateX(5px); }
-
-    /* ===== FOOTER ===== */
-    footer {
-      border-top: 1px solid #e2dbd0;
-      padding: 36px 0;
-      background: #fcfaf7;
-      margin-top: auto;
-      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.6s forwards;
-      opacity: 0;
-    }
-
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 14px;
-      color: var(--ink-soft);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-content strong {
-      color: var(--ink);
-      font-family: 'Newsreader', serif;
-      font-size: 16px;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    .footer-content strong:hover { color: var(--ledger); }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 860px) {
-      .container, .container-narrow { padding: 0 24px; }
-      .page-header h2 { font-size: 28px; }
-      .nav-content { height: 68px; }
-      .logo-text span { display: none; }
-      .cards-wrapper { grid-template-columns: 1fr; gap: 24px; max-width: 400px; }
-
-      .nav-toggle { display: flex; }
-      .nav-links {
-        position: absolute;
-        top: 68px;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        gap: 0;
-        background: #f6f4f0;
-        border-bottom: 1px solid #e2dbd0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-      }
-      .nav-links.open { max-height: 260px; }
-      .nav-links a {
-        padding: 16px 24px;
-        border-bottom: 1px solid #e8e1d6;
-      }
-      .nav-links a::after { display: none; }
-    }
-
-    @media (max-width: 480px) {
-      .container, .container-narrow { padding: 0 18px; }
-      .page-header { padding: 24px 0 12px; }
-      .page-header h2 { font-size: 22px; }
-      .main-section { padding: 32px 0 60px; }
-      .card { padding: 32px 24px 28px; }
-      .card-icon { width: 68px; height: 68px; }
-      .card-icon i { font-size: 26px; }
-      .card h3 { font-size: 16px; }
-      .btn-card { width: 100%; font-size: 13px; padding: 12px 20px; }
-      .footer-content { flex-direction: column; align-items: flex-start; gap: 8px; }
+    @media (max-width:480px) {
+      .container,.container-narrow { padding:0 18px; }
+      .page-header h2 { font-size:26px; }
+      .menu-card { padding:28px 20px 24px; }
+      .menu-icon { width:68px; height:68px; }
+      .menu-icon i { font-size:26px; }
+      .menu-card h3 { font-size:16px; }
+      .announcement-header { padding:14px 18px; }
+      .announcement-header h3 { font-size:13px; }
+      .announcement-list { padding:12px 14px 16px; }
+      .announcement-item { padding:12px; gap:12px; }
+      .announcement-date { min-width:52px; padding:6px 8px; }
+      .announcement-date .day { font-size:18px; }
+      .announcement-body p { font-size:13px; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- ===== NAVBAR ===== -->
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="logo">
-        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi" />
+        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SEPAKAT" />
         <div class="logo-text">
-          <h1>SAKTi</h1>
+          <h1>SEPAKAT</h1>
           <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
         </div>
       </a>
@@ -481,89 +389,154 @@
 
   <main>
 
-    <!-- ===== TOMBOL KEMBALI ===== -->
     <div class="container-narrow back-wrapper">
       <a href="portal.html" class="back-link">
         <i class="fas fa-arrow-left"></i> Kembali ke Portal
       </a>
     </div>
 
-    <!-- ===== PAGE HEADER ===== -->
+    <!-- PAGE HEADER -->
     <section class="page-header">
       <div class="container-narrow">
-        <h2 class="animate-on-load animate-delay-1">Dashboard Pengawas</h2>
-        <p class="animate-on-load animate-delay-2">Selamat datang, silakan pilih menu di bawah ini.</p>
+        <h2>Selamat Datang di Portal Pengawas</h2>
+        <p>Silakan akses <strong>Menu Audit</strong> untuk pelaksanaan, atau <strong>Laporan Audit</strong> untuk rekapitulasi pengawasan.</p>
       </div>
     </section>
 
-    <!-- ===== DUA KARTU UTAMA ===== -->
-    <section class="main-section">
-      <div class="container-narrow">
-        <div class="cards-wrapper">
+    <!-- PENGUMUMAN PENTING -->
+    <section class="container-narrow announcement-wrapper">
+      <div class="announcement-box">
+        <div class="announcement-header">
+          <i class="fas fa-bullhorn"></i>
+          <div>
+            <h3>Pengumuman Penting</h3>
+            <p>Timeline Pengawasan Kearsipan</p>
+          </div>
+        </div>
+        <div class="announcement-list">
 
-          <!-- KARTU 1: MENU AUDIT -->
-          <div class="card">
-            <div class="card-icon icon-purple">
-              <i class="fas fa-clipboard-list"></i>
+          <div class="announcement-item urgent">
+            <div class="announcement-date urgent">
+              <div class="day">25</div>
+              <div class="month">Apr 26</div>
             </div>
-            <h3>Menu Audit</h3>
-            <p>Pelaksanaan Audit Internal &amp; Audit Eksternal</p>
-            <a href="menu-audit.html" class="btn-card">
-              Buka Menu
-              <i class="fas fa-arrow-right"></i>
-            </a>
+            <div class="announcement-body">
+              <p>Proses verifikasi pengawasan eksternal Kabupaten/Kota sudah dapat diakses dan dimulai.</p>
+              <span class="announcement-tag urgent">
+                <i class="fas fa-play-circle"></i> Mulai Hari Ini
+              </span>
+            </div>
           </div>
 
-          <!-- KARTU 2: LAPORAN AUDIT -->
-          <div class="card">
-            <div class="card-icon icon-green">
-              <i class="fas fa-file-alt"></i>
+          <div class="announcement-item neutral">
+            <div class="announcement-date neutral">
+              <div class="day">24</div>
+              <div class="month">Apr 26</div>
             </div>
-            <h3>Laporan Audit</h3>
-            <p>Asip LKJ, LAKE, &amp; Laporan Konsolidasi</p>
-            <a href="#" class="btn-card">
-              Lihat Laporan
-              <i class="fas fa-arrow-right"></i>
-            </a>
+            <div class="announcement-body">
+              <p>Penutupan akses pengawasan Kabupaten/Kota pada pukul 16.00 WIB.</p>
+              <span class="announcement-tag neutral">
+                <i class="fas fa-clock"></i> Batas Waktu
+              </span>
+            </div>
+          </div>
+
+          <div class="announcement-item info">
+            <div class="announcement-date info">
+              <div class="day">23</div>
+              <div class="month">Apr 26</div>
+            </div>
+            <div class="announcement-body">
+              <p>Pelaksanaan verifikasi pengawasan internal untuk Perangkat Daerah Pemda DIY.</p>
+              <span class="announcement-tag info">
+                <i class="fas fa-check-circle"></i> Pelaksanaan
+              </span>
+            </div>
           </div>
 
         </div>
       </div>
     </section>
 
+    <!-- MAIN MENU CARDS -->
+    <section class="main-section">
+      <div class="container-narrow">
+        <div class="cards-wrapper">
+
+          <a href="menu-audit.html" class="menu-card">
+            <div class="menu-icon purple">
+              <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h3>Menu Audit</h3>
+            <p>Pelaksanaan Audit Internal &amp; Audit Eksternal</p>
+            <span class="menu-btn">
+              Buka Menu <i class="fas fa-arrow-right"></i>
+            </span>
+          </a>
+
+          <a href="laporan-audit.html" class="menu-card">
+            <div class="menu-icon green">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <h3>Laporan Audit</h3>
+            <p>Arsip LAKI, LAKE, &amp; Laporan Konsolidasi</p>
+            <span class="menu-btn">
+              Lihat Laporan <i class="fas fa-arrow-right"></i>
+            </span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- APLIKASI PENDUKUNG -->
+    <section class="support-section">
+      <div class="container-narrow">
+        <div class="support-label">Aplikasi Pendukung</div>
+        <a href="#" class="support-icon" title="Monev Triwulanan">
+          <i class="fas fa-chart-line"></i>
+        </a>
+        <div class="support-title">Monev Triwulanan</div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer>
-    <div class="container footer-content">
-      <div>
-        <strong>SAKTi</strong> — Sistem Pengawasan Kearsipan Terintegrasi
+    <div class="container footer-inner">
+      <div class="footer-row">
+        <div>
+          <span class="footer-brand">SEPAKAT</span>
+          <span style="color:#4a5a68; margin-left:8px;">— Sistem Pengawasan Kearsipan Terintegrasi</span>
+        </div>
+        <div class="footer-address">
+          Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br />
+          Jl. Janti, Banguntapan, Bantul, DIY 55198
+        </div>
       </div>
-      <div>© 2025 SAKTi</div>
+      <div class="footer-bottom">
+        <div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div>
+        <div>© 2026 SEPAKAT — Sistem Pengawasan Kearsipan Terintegrasi</div>
+      </div>
     </div>
   </footer>
 
-  <!-- ===== HAMBURGER MENU SCRIPT ===== -->
   <script>
-    (function() {
-      const navToggle = document.getElementById('navToggle');
-      const navLinks = document.getElementById('navLinks');
-      if (!navToggle || !navLinks) return;
+    // Hamburger menu
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
 
-      navToggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('open');
-        navToggle.classList.toggle('active', isOpen);
-        navToggle.setAttribute('aria-expanded', String(isOpen));
-      });
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
 
-      navLinks.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('open');
-          navToggle.classList.remove('active');
-          navToggle.setAttribute('aria-expanded', 'false');
-        });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
       });
-    })();
+    });
   </script>
 
 </body>
