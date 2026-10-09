@@ -44,7 +44,7 @@
 
     /* YEAR GRID */
     .main-section { padding:24px 0 100px; }
-    .year-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1100px; margin:0 auto; }
+    .year-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:900px; margin:0 auto; }
 
     .year-card {
       background:#fff;
@@ -62,16 +62,16 @@
 
     /* Year header */
     .year-header {
-      padding:24px 24px 20px;
+      padding:28px 24px 24px;
       text-align:center;
       border-bottom:1px solid var(--line);
     }
     .year-number {
       font-family:'Newsreader',serif;
-      font-size:38px;
+      font-size:42px;
       font-weight:700;
       line-height:1;
-      margin-bottom:8px;
+      margin-bottom:12px;
     }
     .year-number.active { color:#EA580C; }
     .year-number.archive { color:#16A34A; }
@@ -105,35 +105,21 @@
 
     /* Year body */
     .year-body {
-      padding:20px 24px 24px;
+      padding:24px 24px 28px;
       display:flex;
       flex-direction:column;
-      gap:16px;
+      gap:12px;
       flex:1;
-    }
-
-    .section-title {
-      font-size:10px;
-      font-weight:800;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      color:var(--ink-soft);
-      margin-bottom:4px;
-    }
-
-    .link-group {
-      display:flex;
-      flex-direction:column;
-      gap:8px;
+      justify-content:center;
     }
 
     .report-btn {
       display:flex;
       align-items:center;
-      gap:10px;
-      padding:11px 16px;
-      border-radius:10px;
-      font-size:13px;
+      gap:12px;
+      padding:14px 18px;
+      border-radius:12px;
+      font-size:14px;
       font-weight:600;
       transition:all .3s;
       cursor:pointer;
@@ -142,24 +128,16 @@
       border:1px solid transparent;
     }
     .report-btn i {
-      font-size:14px;
+      font-size:16px;
       flex-shrink:0;
-      width:20px;
+      width:22px;
       text-align:center;
     }
     .report-btn:hover { transform:translateX(4px); }
 
-    /* Blue (LAKE Provinsi) */
-    .report-btn.blue { background:#DBEAFE; color:#1E40AF; border-color:#BFDBFE; }
-    .report-btn.blue:hover { background:#BFDBFE; border-color:#3B82F6; }
-
     /* Green (LAKI Pemda) */
     .report-btn.green { background:#D1FAE5; color:#065F46; border-color:#A7F3D0; }
     .report-btn.green:hover { background:#A7F3D0; border-color:#10B981; }
-
-    /* Grey (LAKE Kab/Kota) */
-    .report-btn.grey { background:#F1F5F9; color:#475569; border-color:#E2E8F0; }
-    .report-btn.grey:hover { background:#E2E8F0; border-color:#CBD5E1; }
 
     /* Disabled */
     .report-btn.disabled { opacity:.45; cursor:not-allowed; pointer-events:none; }
@@ -177,7 +155,7 @@
       color:#94A3B8;
     }
     .locked-content i { font-size:40px; }
-    .locked-content p { font-size:14px; font-weight:600; }
+    .locked-content p { font-size:14px; font-weight:700; letter-spacing:1px; }
 
     /* FOOTER */
     footer { border-top:1px solid #e2dbd0; padding:44px 0 32px; background:#fcfaf7; }
@@ -198,13 +176,13 @@
       .nav-links { position:absolute; top:68px; left:0; right:0; display:flex; flex-direction:column; gap:0; max-height:0; overflow:hidden; background:var(--paper); border-bottom:1px solid var(--line); transition:max-height .3s; }
       .nav-links.open { max-height:260px; }
       .nav-links a { padding:16px 24px; border-bottom:1px solid #e8e1d6; }
-      .year-grid { grid-template-columns:1fr; max-width:480px; }
+      .year-grid { grid-template-columns:1fr; max-width:400px; }
     }
     @media (max-width:680px) { .footer-row,.footer-bottom { flex-direction:column; align-items:flex-start; } }
     @media (max-width:480px) {
       .container,.container-narrow { padding:0 18px; }
       .page-header h2 { font-size:26px; }
-      .year-number { font-size:32px; }
+      .year-number { font-size:36px; }
     }
   </style>
 </head>
@@ -241,7 +219,7 @@
     <section class="page-header">
       <div class="container-narrow">
         <h2>Laporan Audit</h2>
-        <p>Silakan pilih tahun dan wilayah untuk melihat laporan LAKE (eksternal) atau LAKI (internal).</p>
+        <p>Silakan pilih tahun untuk melihat Laporan Kinerja Pengawasan Kearsipan (LAKI) Internal Pemda DIY.</p>
       </div>
     </section>
 
@@ -249,9 +227,7 @@
       <div class="container-narrow">
         <div class="year-grid">
 
-          <!-- ============================================ -->
-          <!-- TAHUN 2025 — ARSIP / SELESAI                 -->
-          <!-- ============================================ -->
+          <!-- TAHUN 2025 -->
           <div class="year-card">
             <div class="year-header">
               <div class="year-number archive">2025</div>
@@ -260,46 +236,13 @@
               </span>
             </div>
             <div class="year-body">
-
-              <div>
-                <div class="section-title">Provinsi</div>
-                <div class="link-group">
-                  <a href="#" class="report-btn blue" data-link="lake-prov-2025">
-                    <i class="fas fa-file-alt"></i> LAKE Provinsi DIY
-                  </a>
-                  <a href="#" class="report-btn green" data-link="laki-pemda-2025">
-                    <i class="fas fa-file-alt"></i> LAKI Pemda DIY
-                  </a>
-                </div>
-              </div>
-
-              <div>
-                <div class="section-title">Kabupaten / Kota</div>
-                <div class="link-group">
-                  <a href="#" class="report-btn grey" data-link="lake-sleman-2025">
-                    <i class="fas fa-map-pin"></i> LAKE Sleman
-                  </a>
-                  <a href="#" class="report-btn grey" data-link="lake-bantul-2025">
-                    <i class="fas fa-map-pin"></i> LAKE Bantul
-                  </a>
-                  <a href="#" class="report-btn grey" data-link="lake-kulonprogo-2025">
-                    <i class="fas fa-map-pin"></i> LAKE Kulon Progo
-                  </a>
-                  <a href="#" class="report-btn grey" data-link="lake-gunungkidul-2025">
-                    <i class="fas fa-map-pin"></i> LAKE Gunungkidul
-                  </a>
-                  <a href="#" class="report-btn grey" data-link="lake-yogyakarta-2025">
-                    <i class="fas fa-map-pin"></i> LAKE Kota Yogyakarta
-                  </a>
-                </div>
-              </div>
-
+              <a href="#" class="report-btn green" data-link="laki-2025">
+                <i class="fas fa-file-alt"></i> LAKI Pemda DIY 2025
+              </a>
             </div>
           </div>
 
-          <!-- ============================================ -->
-          <!-- TAHUN 2026 — SEDANG BERJALAN                 -->
-          <!-- ============================================ -->
+          <!-- TAHUN 2026 -->
           <div class="year-card">
             <div class="year-header">
               <div class="year-number active">2026</div>
@@ -308,46 +251,13 @@
               </span>
             </div>
             <div class="year-body">
-
-              <div>
-                <div class="section-title">Provinsi</div>
-                <div class="link-group">
-                  <a href="#" class="report-btn blue disabled">
-                    <i class="fas fa-file-alt"></i> LAKE Provinsi DIY
-                  </a>
-                  <a href="#" class="report-btn green" data-link="laki-pemda-2026">
-                    <i class="fas fa-file-alt"></i> LAKI Pemda DIY
-                  </a>
-                </div>
-              </div>
-
-              <div>
-                <div class="section-title">Kabupaten / Kota</div>
-                <div class="link-group">
-                  <a href="#" class="report-btn grey disabled">
-                    <i class="fas fa-map-pin"></i> LAKE Sleman
-                  </a>
-                  <a href="#" class="report-btn grey disabled">
-                    <i class="fas fa-map-pin"></i> LAKE Bantul
-                  </a>
-                  <a href="#" class="report-btn grey disabled">
-                    <i class="fas fa-map-pin"></i> LAKE Kulon Progo
-                  </a>
-                  <a href="#" class="report-btn grey disabled">
-                    <i class="fas fa-map-pin"></i> LAKE Gunungkidul
-                  </a>
-                  <a href="#" class="report-btn grey disabled">
-                    <i class="fas fa-map-pin"></i> LAKE Kota Yogyakarta
-                  </a>
-                </div>
-              </div>
-
+              <a href="#" class="report-btn green" data-link="laki-2026">
+                <i class="fas fa-file-alt"></i> LAKI Pemda DIY 2026
+              </a>
             </div>
           </div>
 
-          <!-- ============================================ -->
-          <!-- TAHUN 2027 — BELUM TERSEDIA                  -->
-          <!-- ============================================ -->
+          <!-- TAHUN 2027 -->
           <div class="year-card disabled">
             <div class="year-header">
               <div class="year-number locked">2027</div>
@@ -388,24 +298,17 @@
 
   <script>
     // =====================================================
-    // LINK LAPORAN (sementara kosong)
-    // Ganti "#" dengan link asli nanti
+    // LINK LAKI (sementara kosong)
+    // Ganti "#" dengan link asli dari owner
     // =====================================================
-    const LINK_LAPORAN = {
-      'lake-prov-2025': '#',
-      'laki-pemda-2025': '#',
-      'lake-sleman-2025': '#',
-      'lake-bantul-2025': '#',
-      'lake-kulonprogo-2025': '#',
-      'lake-gunungkidul-2025': '#',
-      'lake-yogyakarta-2025': '#',
-      'laki-pemda-2026': '#'
+    const LINK_LAKI = {
+      'laki-2025': '#',
+      'laki-2026': '#'
     };
 
-    // Set semua link
     document.querySelectorAll('.report-btn[data-link]').forEach(btn => {
       const key = btn.dataset.link;
-      const url = LINK_LAPORAN[key];
+      const url = LINK_LAKI[key];
       if (url && url !== '#') {
         btn.href = url;
         btn.target = '_blank';
