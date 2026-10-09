@@ -114,10 +114,10 @@
             <div class="card-body">
               <h3>Lembar Kerja UP</h3>
               <p>Akses formulir ASKI dan ruang unggah berkas bukti dukung khusus Unit Pengolah.</p>
-              <a href="#" id="btnFormUP" class="btn-card btn-primary" target="_blank" rel="noopener">
+              <a href="#" id="btnFormUP" class="btn-card btn-primary">
                 <i class="fas fa-file-alt"></i> Isi Form ASKI
               </a>
-              <a href="#" id="btnBuktiUP" class="btn-card btn-secondary" target="_blank" rel="noopener">
+              <a href="#" id="btnBuktiUP" class="btn-card btn-secondary">
                 <i class="fas fa-cloud-upload-alt"></i> Unggah Bukti
               </a>
             </div>
@@ -129,10 +129,10 @@
             <div class="card-body">
               <h3>Lembar Kerja UK</h3>
               <p>Akses formulir ASKI dan ruang unggah berkas bukti dukung khusus Unit Kearsipan.</p>
-              <a href="#" id="btnFormUK" class="btn-card btn-primary green" target="_blank" rel="noopener">
+              <a href="#" id="btnFormUK" class="btn-card btn-primary green">
                 <i class="fas fa-file-alt"></i> Isi Form ASKI
               </a>
-              <a href="#" id="btnBuktiUK" class="btn-card btn-secondary" target="_blank" rel="noopener">
+              <a href="#" id="btnBuktiUK" class="btn-card btn-secondary">
                 <i class="fas fa-cloud-upload-alt"></i> Unggah Bukti
               </a>
             </div>
@@ -163,62 +163,63 @@
   </footer>
 
   <script>
-    // =====================================================
-    // KONFIGURASI API
-    // =====================================================
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxjFgFQLZxSCw_8xG0EqXypdzDQQ8TE1i4rQ6jJ0Bh8ZGnLbblFQv0eRz-2aLN8KCJj/exec';
-
-    // =====================================================
-    // AMBIL NAMA OPD DARI URL
-    // =====================================================
-    const urlParams = new URLSearchParams(window.location.search);
-    const namaOpd = urlParams.get('opd') ? decodeURIComponent(urlParams.get('opd')) : '';
-
-    if (namaOpd) {
-      document.getElementById('namaInstansi').textContent = namaOpd;
-      document.title = namaOpd + ' · SEPAKAT';
-      document.getElementById('statusBadge').style.display = 'none';
-    } else {
-      document.getElementById('namaInstansi').textContent = 'Detail Instansi';
-      document.getElementById('statusBadge').textContent = 'Nama OPD tidak valid';
-      document.getElementById('statusBadge').className = 'error-badge';
-      return;
-    }
-
-    // =====================================================
-    // SET LINK TOMBOL KE ENDPOINT create-file
-    // =====================================================
-    function buildUrl(unit, type) {
-      return API_URL + '?action=create-file' +
-        '&opd=' + encodeURIComponent(namaOpd) +
-        '&unit=' + encodeURIComponent(unit) +
-        '&type=' + type;
-    }
-
-    document.getElementById('btnFormUP').href = buildUrl('Unit Pengolah', 'form');
-    document.getElementById('btnBuktiUP').href = buildUrl('Unit Pengolah', 'bukti');
-    document.getElementById('btnFormUK').href = buildUrl('Unit Kearsipan', 'form');
-    document.getElementById('btnBuktiUK').href = buildUrl('Unit Kearsipan', 'bukti');
-
-    // =====================================================
-    // HAMBURGER MENU
-    // =====================================================
     (function() {
+      // =====================================================
+      // KONFIGURASI API
+      // =====================================================
+      const API_URL = 'https://script.google.com/macros/s/AKfycbxjFgFQLZxSCw_8xG0EqXypdzDQQ8TE1i4rQ6jJ0Bh8ZGnLbblFQv0eRz-2aLN8KCJj/exec';
+
+      // =====================================================
+      // AMBIL NAMA OPD DARI URL
+      // =====================================================
+      const urlParams = new URLSearchParams(window.location.search);
+      const namaOpd = urlParams.get('opd') ? decodeURIComponent(urlParams.get('opd')) : '';
+
+      if (namaOpd) {
+        document.getElementById('namaInstansi').textContent = namaOpd;
+        document.title = namaOpd + ' · SEPAKAT';
+        document.getElementById('statusBadge').style.display = 'none';
+      } else {
+        document.getElementById('namaInstansi').textContent = 'Detail Instansi';
+        document.getElementById('statusBadge').textContent = 'Nama OPD tidak valid';
+        document.getElementById('statusBadge').className = 'error-badge';
+      }
+
+      // =====================================================
+      // SET LINK TOMBOL KE ENDPOINT create-file
+      // =====================================================
+      function buildUrl(unit, type) {
+        return API_URL + '?action=create-file' +
+          '&opd=' + encodeURIComponent(namaOpd) +
+          '&unit=' + encodeURIComponent(unit) +
+          '&type=' + type;
+      }
+
+      if (namaOpd) {
+        document.getElementById('btnFormUP').href = buildUrl('Unit Pengolah', 'form');
+        document.getElementById('btnBuktiUP').href = buildUrl('Unit Pengolah', 'bukti');
+        document.getElementById('btnFormUK').href = buildUrl('Unit Kearsipan', 'form');
+        document.getElementById('btnBuktiUK').href = buildUrl('Unit Kearsipan', 'bukti');
+      }
+
+      // =====================================================
+      // HAMBURGER MENU
+      // =====================================================
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
-      if (!navToggle || !navLinks) return;
-
-      navToggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('open');
-        navToggle.setAttribute('aria-expanded', String(isOpen));
-      });
-
-      navLinks.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('open');
-          navToggle.setAttribute('aria-expanded', 'false');
+      if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+          const isOpen = navLinks.classList.toggle('open');
+          navToggle.setAttribute('aria-expanded', String(isOpen));
         });
-      });
+
+        navLinks.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
     })();
   </script>
 </body>
