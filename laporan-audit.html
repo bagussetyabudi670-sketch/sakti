@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laporan Audit · SEPAKAT</title>
+  <link rel="icon" type="image/png" href="assets/img/logoAS.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --paper:#f6f4f0; --ink:#1a2632; --ink-soft:#4a5a68; --line:#e2dbd0; --ledger:#2a4b3a; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { min-height:100vh; display:flex; flex-direction:column; background:var(--paper); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.6; }
+    a { color:inherit; text-decoration:none; }
+    .container { max-width:1200px; margin:0 auto; padding:0 32px; }
+    .container-narrow { max-width:1100px; margin:0 auto; padding:0 32px; }
+
+    /* NAVBAR */
+    .navbar { background:rgba(246,244,240,.92); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:30; backdrop-filter:blur(6px); }
+    .nav-content { height:80px; display:flex; align-items:center; justify-content:space-between; }
+    .logo { display:flex; align-items:center; gap:16px; }
+    .logo-seal { width:48px; height:48px; object-fit:contain; border-radius:8px; }
+    .logo-text { display:flex; flex-direction:column; line-height:1.1; }
+    .logo-text h1 { font:600 22px/1.1 'Newsreader',serif; }
+    .logo-text span { display:block; margin-top:-1px; color:var(--ink-soft); font-size:12px; font-weight:500; letter-spacing:.3px; }
+    .nav-links { display:flex; gap:40px; color:#2e3d4b; font-size:15px; font-weight:500; }
+    .nav-links a { padding-bottom:4px; border-bottom:2px solid transparent; }
+    .nav-links a:hover { color:#0f1a24; border-color:#a73b2e; }
+    .nav-toggle { display:none; background:none; border:0; cursor:pointer; padding:8px; }
+    .nav-toggle span { display:block; width:24px; height:2px; margin:5px 0; background:#0f1a24; }
+
+    main { flex:1; }
+    .back-wrapper { padding-top:32px; }
+    .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--ink-soft); font-size:14px; font-weight:500; }
+    .back-link:hover { color:var(--ink); }
+
+    /* PAGE HEADER */
+    .page-header { padding:40px 0 32px; text-align:center; }
+    .page-header h2 { margin-bottom:8px; font:600 36px/1.1 'Newsreader',serif; }
+    .page-header p { max-width:620px; margin:auto; color:var(--ink-soft); font-size:15px; }
+
+    /* YEAR GRID */
+    .main-section { padding:24px 0 100px; }
+    .year-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1100px; margin:0 auto; }
+
+    .year-card {
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 4px 16px rgba(0,0,0,.03);
+      display:flex;
+      flex-direction:column;
+      transition:all .3s;
+    }
+    .year-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,.08); }
+    .year-card.disabled { opacity:.5; cursor:not-allowed; }
+    .year-card.disabled:hover { transform:none; box-shadow:0 4px 16px rgba(0,0,0,.03); }
+
+    /* Year header */
+    .year-header {
+      padding:24px 24px 20px;
+      text-align:center;
+      border-bottom:1px solid var(--line);
+    }
+    .year-number {
+      font-family:'Newsreader',serif;
+      font-size:38px;
+      font-weight:700;
+      line-height:1;
+      margin-bottom:8px;
+    }
+    .year-number.active { color:#EA580C; }
+    .year-number.archive { color:#16A34A; }
+    .year-number.locked { color:#94A3B8; }
+
+    .year-status {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:5px 14px;
+      border-radius:20px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+    }
+    .year-status.active { background:#FFF7ED; color:#EA580C; border:1px solid #FED7AA; }
+    .year-status.archive { background:#F0FDF4; color:#16A34A; border:1px solid #BBF7D0; }
+    .year-status.locked { background:#F1F5F9; color:#94A3B8; border:1px solid #E2E8F0; }
+
+    .year-status .dot {
+      width:7px;
+      height:7px;
+      border-radius:50%;
+    }
+    .year-status.active .dot { background:#EA580C; animation:pulse 2s infinite; }
+    .year-status.archive .dot { background:#16A34A; }
+    .year-status.locked .dot { background:#94A3B8; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    /* Year body */
+    .year-body {
+      padding:20px 24px 24px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      flex:1;
+    }
+
+    .section-title {
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:var(--ink-soft);
+      margin-bottom:4px;
+    }
+
+    .link-group {
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .report-btn {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:11px 16px;
+      border-radius:10px;
+      font-size:13px;
+      font-weight:600;
+      transition:all .3s;
+      cursor:pointer;
+      text-decoration:none;
+      color:inherit;
+      border:1px solid transparent;
+    }
+    .report-btn i {
+      font-size:14px;
+      flex-shrink:0;
+      width:20px;
+      text-align:center;
+    }
+    .report-btn:hover { transform:translateX(4px); }
+
+    /* Blue (LAKE Provinsi) */
+    .report-btn.blue { background:#DBEAFE; color:#1E40AF; border-color:#BFDBFE; }
+    .report-btn.blue:hover { background:#BFDBFE; border-color:#3B82F6; }
+
+    /* Green (LAKI Pemda) */
+    .report-btn.green { background:#D1FAE5; color:#065F46; border-color:#A7F3D0; }
+    .report-btn.green:hover { background:#A7F3D0; border-color:#10B981; }
+
+    /* Grey (LAKE Kab/Kota) */
+    .report-btn.grey { background:#F1F5F9; color:#475569; border-color:#E2E8F0; }
+    .report-btn.grey:hover { background:#E2E8F0; border-color:#CBD5E1; }
+
+    /* Disabled */
+    .report-btn.disabled { opacity:.45; cursor:not-allowed; pointer-events:none; }
+
+    /* Locked card */
+    .locked-content {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:40px 24px;
+      text-align:center;
+      gap:12px;
+      color:#94A3B8;
+    }
+    .locked-content i { font-size:40px; }
+    .locked-content p { font-size:14px; font-weight:600; }
+
+    /* FOOTER */
+    footer { border-top:1px solid #e2dbd0; padding:44px 0 32px; background:#fcfaf7; }
+    .footer-inner { display:flex; flex-direction:column; gap:20px; }
+    .footer-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+    .footer-brand { color:#0f1a24; font:600 18px 'Newsreader',serif; }
+    .footer-address { color:#4a5a68; font-size:14px; line-height:1.6; }
+    .footer-address a { color:#2a4b3a; font-weight:500; }
+    .footer-address a:hover { color:#a73b2e; }
+    .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-top:20px; border-top:1px solid #d6cec0; color:#4a5a68; font-size:14px; }
+
+    /* RESPONSIVE */
+    @media (max-width:960px) {
+      .container,.container-narrow { padding:0 24px; }
+      .nav-content { height:68px; }
+      .logo-text span { display:none; }
+      .nav-toggle { display:block; }
+      .nav-links { position:absolute; top:68px; left:0; right:0; display:flex; flex-direction:column; gap:0; max-height:0; overflow:hidden; background:var(--paper); border-bottom:1px solid var(--line); transition:max-height .3s; }
+      .nav-links.open { max-height:260px; }
+      .nav-links a { padding:16px 24px; border-bottom:1px solid #e8e1d6; }
+      .year-grid { grid-template-columns:1fr; max-width:480px; }
+    }
+    @media (max-width:680px) { .footer-row,.footer-bottom { flex-direction:column; align-items:flex-start; } }
+    @media (max-width:480px) {
+      .container,.container-narrow { padding:0 18px; }
+      .page-header h2 { font-size:26px; }
+      .year-number { font-size:32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SEPAKAT" />
+        <div class="logo-text">
+          <h1>SEPAKAT</h1>
+          <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
+        </div>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html#beranda">Beranda</a>
+        <a href="index.html#tentang">Tentang</a>
+        <a href="portal.html">Portal</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="container-narrow back-wrapper">
+      <a href="pengawas.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Kembali ke Dashboard Pengawas
+      </a>
+    </div>
+
+    <section class="page-header">
+      <div class="container-narrow">
+        <h2>Laporan Audit</h2>
+        <p>Silakan pilih tahun dan wilayah untuk melihat laporan LAKE (eksternal) atau LAKI (internal).</p>
+      </div>
+    </section>
+
+    <section class="main-section">
+      <div class="container-narrow">
+        <div class="year-grid">
+
+          <!-- ============================================ -->
+          <!-- TAHUN 2025 — ARSIP / SELESAI                 -->
+          <!-- ============================================ -->
+          <div class="year-card">
+            <div class="year-header">
+              <div class="year-number archive">2025</div>
+              <span class="year-status archive">
+                <span class="dot"></span> Arsip / Selesai
+              </span>
+            </div>
+            <div class="year-body">
+
+              <div>
+                <div class="section-title">Provinsi</div>
+                <div class="link-group">
+                  <a href="#" class="report-btn blue" data-link="lake-prov-2025">
+                    <i class="fas fa-file-alt"></i> LAKE Provinsi DIY
+                  </a>
+                  <a href="#" class="report-btn green" data-link="laki-pemda-2025">
+                    <i class="fas fa-file-alt"></i> LAKI Pemda DIY
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <div class="section-title">Kabupaten / Kota</div>
+                <div class="link-group">
+                  <a href="#" class="report-btn grey" data-link="lake-sleman-2025">
+                    <i class="fas fa-map-pin"></i> LAKE Sleman
+                  </a>
+                  <a href="#" class="report-btn grey" data-link="lake-bantul-2025">
+                    <i class="fas fa-map-pin"></i> LAKE Bantul
+                  </a>
+                  <a href="#" class="report-btn grey" data-link="lake-kulonprogo-2025">
+                    <i class="fas fa-map-pin"></i> LAKE Kulon Progo
+                  </a>
+                  <a href="#" class="report-btn grey" data-link="lake-gunungkidul-2025">
+                    <i class="fas fa-map-pin"></i> LAKE Gunungkidul
+                  </a>
+                  <a href="#" class="report-btn grey" data-link="lake-yogyakarta-2025">
+                    <i class="fas fa-map-pin"></i> LAKE Kota Yogyakarta
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ============================================ -->
+          <!-- TAHUN 2026 — SEDANG BERJALAN                 -->
+          <!-- ============================================ -->
+          <div class="year-card">
+            <div class="year-header">
+              <div class="year-number active">2026</div>
+              <span class="year-status active">
+                <span class="dot"></span> Sedang Berjalan
+              </span>
+            </div>
+            <div class="year-body">
+
+              <div>
+                <div class="section-title">Provinsi</div>
+                <div class="link-group">
+                  <a href="#" class="report-btn blue disabled">
+                    <i class="fas fa-file-alt"></i> LAKE Provinsi DIY
+                  </a>
+                  <a href="#" class="report-btn green" data-link="laki-pemda-2026">
+                    <i class="fas fa-file-alt"></i> LAKI Pemda DIY
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <div class="section-title">Kabupaten / Kota</div>
+                <div class="link-group">
+                  <a href="#" class="report-btn grey disabled">
+                    <i class="fas fa-map-pin"></i> LAKE Sleman
+                  </a>
+                  <a href="#" class="report-btn grey disabled">
+                    <i class="fas fa-map-pin"></i> LAKE Bantul
+                  </a>
+                  <a href="#" class="report-btn grey disabled">
+                    <i class="fas fa-map-pin"></i> LAKE Kulon Progo
+                  </a>
+                  <a href="#" class="report-btn grey disabled">
+                    <i class="fas fa-map-pin"></i> LAKE Gunungkidul
+                  </a>
+                  <a href="#" class="report-btn grey disabled">
+                    <i class="fas fa-map-pin"></i> LAKE Kota Yogyakarta
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ============================================ -->
+          <!-- TAHUN 2027 — BELUM TERSEDIA                  -->
+          <!-- ============================================ -->
+          <div class="year-card disabled">
+            <div class="year-header">
+              <div class="year-number locked">2027</div>
+              <span class="year-status locked">
+                <span class="dot"></span> Persiapan
+              </span>
+            </div>
+            <div class="locked-content">
+              <i class="fas fa-lock"></i>
+              <p>BELUM TERSEDIA</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-row">
+        <div>
+          <span class="footer-brand">SEPAKAT</span>
+          <span style="color:#4a5a68; margin-left:8px;">— Sistem Pengawasan Kearsipan Terintegrasi</span>
+        </div>
+        <div class="footer-address">
+          Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br />
+          Jl. Janti, Banguntapan, Bantul, DIY 55198
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div>
+        <div>© 2026 SEPAKAT — Sistem Pengawasan Kearsipan Terintegrasi</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // =====================================================
+    // LINK LAPORAN (sementara kosong)
+    // Ganti "#" dengan link asli nanti
+    // =====================================================
+    const LINK_LAPORAN = {
+      'lake-prov-2025': '#',
+      'laki-pemda-2025': '#',
+      'lake-sleman-2025': '#',
+      'lake-bantul-2025': '#',
+      'lake-kulonprogo-2025': '#',
+      'lake-gunungkidul-2025': '#',
+      'lake-yogyakarta-2025': '#',
+      'laki-pemda-2026': '#'
+    };
+
+    // Set semua link
+    document.querySelectorAll('.report-btn[data-link]').forEach(btn => {
+      const key = btn.dataset.link;
+      const url = LINK_LAPORAN[key];
+      if (url && url !== '#') {
+        btn.href = url;
+        btn.target = '_blank';
+        btn.rel = 'noopener';
+      } else {
+        btn.href = '#';
+        btn.classList.add('disabled');
+        btn.addEventListener('click', e => e.preventDefault());
+      }
+    });
+
+    // Hamburger menu
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
+</body>
+</html>
