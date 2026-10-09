@@ -3,522 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daftar OPD Pengawas · SAKTi</title>
+  <title>Daftar OPD Pengawas · SEPAKAT</title>
   <link rel="icon" type="image/png" href="assets/img/logoAS.png" />
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
-
   <style>
-    :root {
-      --paper: #f6f4f0;
-      --paper-deep: #e8e3d9;
-      --ink: #1a2632;
-      --ink-soft: #4a5a68;
-      --ledger: #2a4b3a;
-      --ledger-deep: #1d3a2c;
-      --seal: #a73b2e;
-      --brass: #b08d3e;
-      --line: rgba(26, 38, 50, 0.12);
-      --radius: 8px;
-      --shadow: 0 8px 28px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
+    :root { --paper:#f6f4f0; --paper-deep:#e8e3d9; --ink:#1a2632; --ink-soft:#4a5a68; --ledger:#2a4b3a; --ledger-deep:#1d3a2c; --seal:#a73b2e; --brass:#b08d3e; --line:rgba(26,38,50,.12); --radius:8px; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--paper); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; display:flex; flex-direction:column; }
+    a { color:inherit; text-decoration:none; }
+    .container { max-width:1200px; margin:0 auto; padding:0 32px; }
+    .container-narrow { max-width:1100px; margin:0 auto; padding:0 32px; }
+
+    @keyframes fadeInUp { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+    @keyframes slideDown { 0%{opacity:0;transform:translateY(-10px)} 100%{opacity:1;transform:translateY(0)} }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .navbar { background:rgba(246,244,240,.92); border-bottom:1px solid #e2dbd0; position:sticky; top:0; z-index:30; backdrop-filter:blur(6px); animation:slideDown .6s cubic-bezier(.2,.9,.3,1) forwards; }
+    .nav-content { display:flex; align-items:center; justify-content:space-between; height:80px; }
+    .logo { display:flex; align-items:center; gap:16px; }
+    .logo-seal { width:48px; height:48px; object-fit:contain; border-radius:8px; transition:transform .3s; }
+    .logo:hover .logo-seal { transform:rotate(-8deg) scale(1.05); }
+    .logo-text { display:flex; flex-direction:column; line-height:1.1; }
+    .logo-text h1 { font-family:'Newsreader',serif; font-size:22px; font-weight:600; letter-spacing:-.3px; line-height:1.1; transition:color .3s; }
+    .logo:hover .logo-text h1 { color:var(--ledger); }
+    .logo-text span { display:block; font-size:12px; font-weight:500; color:var(--ink-soft); letter-spacing:.3px; margin-top:-1px; line-height:1.2; }
+    .nav-links { display:flex; gap:40px; font-size:15px; font-weight:500; color:#2e3d4b; }
+    .nav-links a { position:relative; padding-bottom:4px; transition:color .2s; }
+    .nav-links a::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background:var(--seal); transition:width .2s; }
+    .nav-links a:hover { color:#0f1a24; }
+    .nav-links a:hover::after { width:100%; }
+    .nav-toggle { display:none; flex-direction:column; justify-content:center; gap:5px; background:none; border:none; cursor:pointer; padding:8px; z-index:40; }
+    .nav-toggle span { display:block; width:24px; height:2px; background:#0f1a24; border-radius:2px; transition:transform .2s, opacity .2s; }
+    .nav-toggle.active span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-toggle.active span:nth-child(2) { opacity:0; }
+    .nav-toggle.active span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    .back-wrapper { padding:32px 0 0; animation:fadeInUp .6s cubic-bezier(.2,.9,.3,1) forwards; opacity:0; }
+    .back-link { display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:var(--ink-soft); border-bottom:2px solid transparent; padding-bottom:3px; transition:color .2s, border-color .2s, transform .2s; }
+    .back-link:hover { color:var(--ink); border-color:var(--ink); transform:translateX(-3px); }
+    .back-link i { transition:transform .2s; }
+    .back-link:hover i { transform:translateX(-4px); }
+
+    .page-header { padding:40px 0 24px; text-align:center; }
+    .page-header .label { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; color:#2a4b3a; text-transform:uppercase; letter-spacing:1px; border:1px solid #2a4b3a; padding:5px 16px; border-radius:40px; margin-bottom:16px; background:#F0FDF4; }
+    .page-header h2 { font-family:'Newsreader',serif; font-size:32px; line-height:1.1; font-weight:600; margin-bottom:8px; }
+    .page-header p { color:var(--ink-soft); font-size:15px; max-width:620px; margin:0 auto; line-height:1.6; }
+
+    .rekap-wrapper { text-align:center; padding:24px 0 8px; animation:fadeInUp .7s cubic-bezier(.2,.9,.3,1) .3s forwards; opacity:0; }
+    .btn-rekap { display:inline-flex; align-items:center; gap:10px; padding:14px 32px; background:#16A34A; color:#fff; font-family:'Inter',sans-serif; font-size:15px; font-weight:700; border-radius:50px; border:none; cursor:pointer; text-decoration:none; transition:all .3s cubic-bezier(.2,.9,.3,1); box-shadow:0 4px 16px rgba(22,163,74,.25); }
+    .btn-rekap:hover { background:#15803D; transform:translateY(-3px); box-shadow:0 10px 28px rgba(22,163,74,.35); }
+    .btn-rekap i { font-size:15px; transition:transform .3s; }
+    .btn-rekap:hover i { transform:scale(1.15); }
+    .btn-rekap.disabled { opacity:.5; pointer-events:none; }
+
+    .main-section { flex:1; padding:24px 0 100px; }
+    .opd-list { display:flex; flex-direction:column; gap:16px; }
+
+    .loading-state { text-align:center; padding:80px 20px; color:var(--ink-soft); font-size:15px; }
+    .loading-state i { display:block; font-size:32px; color:var(--ledger); margin-bottom:16px; animation:spin 1s linear infinite; }
+
+    .opd-row { background:#fff; border:1px solid #e8e1d6; border-radius:14px; padding:18px 24px; display:flex; align-items:center; gap:20px; box-shadow:0 2px 10px rgba(0,0,0,.02); transition:all .3s cubic-bezier(.2,.9,.3,1); animation:fadeInUp .5s cubic-bezier(.2,.9,.3,1) forwards; opacity:0; }
+    .opd-row:hover { box-shadow:0 8px 24px rgba(0,0,0,.06); border-color:#cbd5e1; }
+    .opd-number { width:40px; height:40px; border-radius:10px; background:#F1F5F9; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:#475569; transition:background .3s, color .3s; }
+    .opd-row:hover .opd-number { background:#2a4b3a; color:#fff; }
+    .opd-name { flex:1; font-size:14px; font-weight:600; color:var(--ink); line-height:1.4; min-width:0; }
+    .form-group { display:flex; flex-direction:column; gap:6px; min-width:200px; flex-shrink:0; }
+    .form-group-label { font-size:10px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:#94A3B8; text-align:center; }
+    .form-badges { display:flex; gap:6px; justify-content:center; }
+
+    .btn-aksi { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; letter-spacing:.3px; padding:6px 12px; border-radius:20px; white-space:nowrap; transition:all .3s; text-decoration:none; cursor:pointer; border:1px solid transparent; min-width:64px; justify-content:center; }
+    .btn-aksi i { font-size:10px; }
+    .btn-aksi:hover { transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.15); }
+    .btn-aksi.rhas { background:#FEF3C7; color:#92400E; border-color:#FDE68A; }
+    .btn-aksi.rhas:hover { background:#FDE68A; border-color:#F59E0B; }
+    .btn-aksi.final { background:#D1FAE5; color:#065F46; border-color:#A7F3D0; }
+    .btn-aksi.final:hover { background:#A7F3D0; border-color:#10B981; }
+    .btn-aksi.bukti { background:#DBEAFE; color:#1E40AF; border-color:#BFDBFE; }
+    .btn-aksi.bukti:hover { background:#BFDBFE; border-color:#3B82F6; }
+    .btn-aksi.disabled { opacity:.35; cursor:not-allowed; pointer-events:none; }
+
+    footer { border-top:1px solid #e2dbd0; padding:36px 0; background:#fcfaf7; margin-top:auto; animation:fadeInUp .8s cubic-bezier(.2,.9,.3,1) .6s forwards; opacity:0; }
+    .footer-content { display:flex; justify-content:space-between; align-items:center; font-size:14px; color:var(--ink-soft); flex-wrap:wrap; gap:12px; }
+    .footer-content strong { color:var(--ink); font-family:'Newsreader',serif; font-size:16px; font-weight:600; transition:color .3s; }
+    .footer-content strong:hover { color:var(--ledger); }
+
+    @media (max-width:960px) {
+      .container, .container-narrow { padding:0 24px; }
+      .page-header h2 { font-size:26px; }
+      .nav-content { height:68px; }
+      .logo-text span { display:none; }
+      .opd-row { flex-wrap:wrap; gap:14px; padding:16px 18px; }
+      .opd-name { flex-basis:calc(100% - 60px); }
+      .form-group { flex-basis:calc(50% - 7px); min-width:0; }
+      .nav-toggle { display:flex; }
+      .nav-links { position:absolute; top:68px; left:0; right:0; flex-direction:column; gap:0; background:#f6f4f0; border-bottom:1px solid #e2dbd0; max-height:0; overflow:hidden; transition:max-height .3s; }
+      .nav-links.open { max-height:260px; }
+      .nav-links a { padding:16px 24px; border-bottom:1px solid #e8e1d6; }
+      .nav-links a::after { display:none; }
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    .container-narrow {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideDown {
-      0% { opacity: 0; transform: translateY(-10px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .animate-on-load {
-      opacity: 0;
-      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-    }
-    .animate-delay-1 { animation-delay: 0.15s; }
-    .animate-delay-2 { animation-delay: 0.3s; }
-    .animate-delay-3 { animation-delay: 0.45s; }
-
-    /* ===== NAVBAR ===== */
-    .navbar {
-      background: rgba(246, 244, 240, 0.92);
-      border-bottom: 1px solid #e2dbd0;
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      backdrop-filter: blur(6px);
-      animation: slideDown 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-    }
-
-    .nav-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
-    }
-
-    .logo { display: flex; align-items: center; gap: 16px; }
-
-    .logo-seal {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
-    }
-
-    .logo:hover .logo-seal { transform: rotate(-8deg) scale(1.05); }
-
-    .logo-text { display: flex; flex-direction: column; gap: 0px; line-height: 1.1; }
-
-    .logo-text h1 {
-      font-family: 'Newsreader', serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      line-height: 1.1;
-      transition: color 0.3s ease;
-    }
-
-    .logo:hover .logo-text h1 { color: var(--ledger); }
-
-    .logo-text span {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      letter-spacing: 0.3px;
-      margin-top: -1px;
-      line-height: 1.2;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      font-size: 15px;
-      font-weight: 500;
-      color: #2e3d4b;
-    }
-
-    .nav-links a {
-      position: relative;
-      padding-bottom: 4px;
-      transition: color 0.2s;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--seal);
-      transition: width 0.2s;
-    }
-
-    .nav-links a:hover { color: #0f1a24; }
-    .nav-links a:hover::after { width: 100%; }
-
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-      z-index: 40;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: #0f1a24;
-      border-radius: 2px;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-toggle.active span:nth-child(2) { opacity: 0; }
-    .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* ===== TOMBOL KEMBALI ===== */
-    .back-wrapper {
-      padding: 32px 0 0;
-      animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-      opacity: 0;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      border-bottom: 2px solid transparent;
-      padding-bottom: 3px;
-      transition: color 0.2s, border-color 0.2s, transform 0.2s;
-    }
-
-    .back-link:hover {
-      color: var(--ink);
-      border-color: var(--ink);
-      transform: translateX(-3px);
-    }
-
-    .back-link i { transition: transform 0.2s; }
-    .back-link:hover i { transform: translateX(-4px); }
-
-    /* ===== PAGE HEADER ===== */
-    .page-header {
-      padding: 40px 0 24px;
-      text-align: center;
-    }
-
-    .page-header .label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #2a4b3a;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border: 1px solid #2a4b3a;
-      padding: 5px 16px;
-      border-radius: 40px;
-      margin-bottom: 16px;
-      background: #F0FDF4;
-    }
-
-    .page-header h2 {
-      font-family: 'Newsreader', serif;
-      font-size: 32px;
-      line-height: 1.1;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .page-header p {
-      color: var(--ink-soft);
-      font-size: 15px;
-      max-width: 620px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* ===== TOMBOL REKAP ===== */
-    .rekap-wrapper {
-      text-align: center;
-      padding: 24px 0 8px;
-      animation: fadeInUp 0.7s cubic-bezier(0.2, 0.9, 0.3, 1) 0.3s forwards;
-      opacity: 0;
-    }
-
-    .btn-rekap {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 32px;
-      background: #16A34A;
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      box-shadow: 0 4px 16px rgba(22, 163, 74, 0.25);
-    }
-
-    .btn-rekap:hover {
-      background: #15803D;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 28px rgba(22, 163, 74, 0.35);
-    }
-
-    .btn-rekap i {
-      font-size: 15px;
-      transition: transform 0.3s ease;
-    }
-
-    .btn-rekap:hover i { transform: scale(1.15); }
-
-    /* ===== DAFTAR OPD ===== */
-    .main-section {
-      flex: 1;
-      padding: 24px 0 100px;
-    }
-
-    .opd-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .opd-row {
-      background: #ffffff;
-      border: 1px solid #e8e1d6;
-      border-radius: 14px;
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      animation: fadeInUp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-      opacity: 0;
-    }
-
-    .opd-row:hover {
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      border-color: #cbd5e1;
-    }
-
-    .opd-number {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: #F1F5F9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: #475569;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    .opd-row:hover .opd-number {
-      background: #2a4b3a;
-      color: #ffffff;
-    }
-
-    .opd-name {
-      flex: 1;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
-      line-height: 1.4;
-      min-width: 0;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width: 200px;
-      flex-shrink: 0;
-    }
-
-    .form-group-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: #94A3B8;
-      text-align: center;
-    }
-
-    .form-badges {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-    }
-
-    .btn-aksi {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      padding: 6px 12px;
-      border-radius: 20px;
-      white-space: nowrap;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      cursor: pointer;
-      border: 1px solid transparent;
-      min-width: 64px;
-      justify-content: center;
-    }
-
-    .btn-aksi i { font-size: 10px; }
-
-    .btn-aksi:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-
-    .btn-aksi.rhas {
-      background: #FEF3C7;
-      color: #92400E;
-      border-color: #FDE68A;
-    }
-    .btn-aksi.rhas:hover {
-      background: #FDE68A;
-      border-color: #F59E0B;
-    }
-
-    .btn-aksi.final {
-      background: #D1FAE5;
-      color: #065F46;
-      border-color: #A7F3D0;
-    }
-    .btn-aksi.final:hover {
-      background: #A7F3D0;
-      border-color: #10B981;
-    }
-
-    .btn-aksi.bukti {
-      background: #DBEAFE;
-      color: #1E40AF;
-      border-color: #BFDBFE;
-    }
-    .btn-aksi.bukti:hover {
-      background: #BFDBFE;
-      border-color: #3B82F6;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      border-top: 1px solid #e2dbd0;
-      padding: 36px 0;
-      background: #fcfaf7;
-      margin-top: auto;
-      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.6s forwards;
-      opacity: 0;
-    }
-
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 14px;
-      color: var(--ink-soft);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-content strong {
-      color: var(--ink);
-      font-family: 'Newsreader', serif;
-      font-size: 16px;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    .footer-content strong:hover { color: var(--ledger); }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 960px) {
-      .container, .container-narrow { padding: 0 24px; }
-      .page-header h2 { font-size: 26px; }
-      .nav-content { height: 68px; }
-      .logo-text span { display: none; }
-
-      .opd-row {
-        flex-wrap: wrap;
-        gap: 14px;
-        padding: 16px 18px;
-      }
-
-      .opd-name { flex-basis: calc(100% - 60px); }
-
-      .form-group {
-        flex-basis: calc(50% - 7px);
-        min-width: 0;
-      }
-
-      .nav-toggle { display: flex; }
-      .nav-links {
-        position: absolute;
-        top: 68px;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        gap: 0;
-        background: #f6f4f0;
-        border-bottom: 1px solid #e2dbd0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-      }
-      .nav-links.open { max-height: 260px; }
-      .nav-links a { padding: 16px 24px; border-bottom: 1px solid #e8e1d6; }
-      .nav-links a::after { display: none; }
-    }
-
-    @media (max-width: 480px) {
-      .container, .container-narrow { padding: 0 18px; }
-      .page-header { padding: 24px 0 16px; }
-      .page-header h2 { font-size: 20px; }
-      .page-header p { font-size: 13px; }
-      .main-section { padding: 16px 0 60px; }
-      .opd-row { padding: 14px 16px; gap: 10px; }
-      .opd-number { width: 34px; height: 34px; font-size: 12px; }
-      .opd-name { font-size: 13px; flex-basis: calc(100% - 48px); }
-      .form-group-label { font-size: 9px; }
-      .btn-aksi { font-size: 9px; padding: 5px 8px; min-width: 56px; }
-      .btn-rekap { font-size: 13px; padding: 12px 24px; }
-      .footer-content { flex-direction: column; align-items: flex-start; gap: 8px; }
+    @media (max-width:480px) {
+      .container, .container-narrow { padding:0 18px; }
+      .page-header { padding:24px 0 16px; }
+      .page-header h2 { font-size:20px; }
+      .page-header p { font-size:13px; }
+      .main-section { padding:16px 0 60px; }
+      .opd-row { padding:14px 16px; gap:10px; }
+      .opd-number { width:34px; height:34px; font-size:12px; }
+      .opd-name { font-size:13px; flex-basis:calc(100% - 48px); }
+      .form-group-label { font-size:9px; }
+      .btn-aksi { font-size:9px; padding:5px 8px; min-width:56px; }
+      .btn-rekap { font-size:13px; padding:12px 24px; }
+      .footer-content { flex-direction:column; align-items:flex-start; gap:8px; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- ===== NAVBAR ===== -->
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="logo">
-        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi" />
+        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SEPAKAT" />
         <div class="logo-text">
-          <h1>SAKTi</h1>
+          <h1>SEPAKAT</h1>
           <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
         </div>
       </a>
@@ -534,188 +144,175 @@
   </header>
 
   <main>
-
-    <!-- ===== TOMBOL KEMBALI ===== -->
     <div class="container-narrow back-wrapper">
       <a href="pilih-tim.html" class="back-link">
         <i class="fas fa-arrow-left"></i> Kembali ke Direktori Tim
       </a>
     </div>
 
-    <!-- ===== PAGE HEADER ===== -->
     <section class="page-header">
       <div class="container-narrow">
-        <span class="label animate-on-load animate-delay-1" id="labelTim">
+        <span class="label animate-on-load" id="labelTim">
           <i class="fas fa-users"></i> TIM PENGAWAS 1
         </span>
-        <h2 class="animate-on-load animate-delay-2">Direktori Perangkat Daerah</h2>
-        <p class="animate-on-load animate-delay-3" id="infoOpd">
-          Daftar instansi yang diawasi oleh Tim 1. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.
-        </p>
+        <h2>Direktori Perangkat Daerah</h2>
+        <p id="infoOpd">Memuat data...</p>
       </div>
     </section>
 
-    <!-- ===== TOMBOL REKAP ===== -->
     <div class="container-narrow rekap-wrapper">
-      <a href="#" class="btn-rekap" target="_blank" rel="noopener">
-        <i class="fas fa-clipboard-list"></i>
-        Buka Rekap Progres Verifikasi
+      <a href="#" id="btnRekap" class="btn-rekap" target="_blank" rel="noopener">
+        <i class="fas fa-clipboard-list"></i> Buka Rekap Progres Verifikasi
       </a>
     </div>
 
-    <!-- ===== DAFTAR OPD ===== -->
     <section class="main-section">
       <div class="container-narrow">
         <div class="opd-list" id="opdList">
-          <!-- Konten akan diisi oleh JavaScript -->
+          <div class="loading-state">
+            <i class="fas fa-circle-notch"></i>
+            Memuat data OPD dari server...
+          </div>
         </div>
       </div>
     </section>
-
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer>
     <div class="container footer-content">
       <div>
-        <strong>SAKTi</strong> — Sistem Pengawasan Kearsipan Terintegrasi
+        <strong>SEPAKAT</strong> — Sistem Pengawasan Kearsipan Terintegrasi
       </div>
-      <div>© 2025 SAKTi</div>
+      <div>© 2026 SEPAKAT</div>
     </div>
   </footer>
 
-  <!-- ===== JAVASCRIPT ===== -->
   <script>
     // =====================================================
-    // 1. LINK TUJUAN TOMBOL (sementara kosong)
+    // KONFIGURASI
     // =====================================================
-    const linkRhas  = "#";
-    const linkFinal = "#";
-    const linkBukti = "#";
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxjFgFQLZxSCw_8xG0EqXypdzDQQ8TE1i4rQ6jJ0Bh8ZGnLbblFQv0eRz-2aLN8KCJj/exec';
+
+    // Link Dashboard (Apps Script)
+    const LINK_REKAP_PROGRES = 'https://script.google.com/macros/s/AKfycbxJBkahFYs51DMTPEpcc45eAbDyOo3CIWOQQyPdmsjYU1msBeSvm73kXBaihQKL_Y8H/exec';
 
     // =====================================================
-    // 2. DATA OPD PER TIM (37 OPD dari Drive)
-    // =====================================================
-    // Pembagian:
-    //   Tim 1: 10 OPD
-    //   Tim 2: 9 OPD
-    //   Tim 3: 9 OPD
-    //   Tim 4: 9 OPD
-    // =====================================================
-    const opdPerTim = {
-      "1": [
-        "Badan Kepegawaian dan Pengembangan Sumberdaya Manusia (BKPSDM)",
-        "Badan Kesatuan Bangsa dan Politik",
-        "Badan Penanggulangan Bencana Daerah",
-        "Badan Pengelolaan Keuangan, Pendapatan dan Aset Daerah",
-        "Badan Perencanaan Pembangunan Daerah",
-        "Bagian Hukum",
-        "Bagian Kesejahteraan Rakyat",
-        "Bagian Organisasi",
-        "Bagian Pengadaan Barang dan Jasa",
-        "Bagian Perekonomian, Pembangunan dan Sumberdaya Alam"
-      ],
-      "2": [
-        "Bagian Perencanaan dan Keuangan",
-        "Bagian Tata Pemerintahan",
-        "Bagian Umum dan Protokol",
-        "Dinas Kelautan dan Perikanan",
-        "Dinas Kesehatan",
-        "Dinas Koperasi, Usaha Kecil dan Menengah, Perindustrian dan Perdagangan",
-        "Dinas Pemberdayaan Perempuan dan Perlindungan Anak, Pengendalian Penduduk dan KB",
-        "Dinas Perpustakaan dan Kearsipan",
-        "Dinas Kebudayaan (Kundha Kabudayan)"
-      ],
-      "3": [
-        "Dinas Kependudukan dan Pencatatan Sipil",
-        "Dinas Ketahanan Pangan dan Pertanian",
-        "Dinas Komunikasi dan Informatika",
-        "Dinas Lingkungan Hidup",
-        "Dinas Pariwisata",
-        "Dinas Pekerjaan Umum Perumahan dan Kawasan Pemukiman",
-        "Dinas Pemberdayaan Masyarakat dan Kalurahan",
-        "Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu",
-        "Dinas Pendidikan Kepemudaan dan Olahraga"
-      ],
-      "4": [
-        "Dinas Perhubungan",
-        "Dinas Pertanahan dan Tata Ruang (Kundha Niti Mandala sarta Tata Sasana)",
-        "Dinas Sosial",
-        "Dinas Tenaga Kerja Dan Transmigrasi",
-        "Inspektorat Daerah",
-        "RSUD Panembahan Senopati",
-        "RSUD Saras Adyatma",
-        "Satuan Polisi Pamong Praja",
-        "Sekretaris Dewan Perwakilan Rakyat"
-      ]
-    };
-
-    // =====================================================
-    // 3. BACA PARAMETER URL
+    // BACA PARAMETER URL
     // =====================================================
     const urlParams = new URLSearchParams(window.location.search);
     const timParam = urlParams.get('tim') || '1';
     const tahunParam = urlParams.get('tahun') || '2026';
     const jenisParam = urlParams.get('jenis') || 'internal';
 
-    // Update label & info
     document.getElementById('labelTim').innerHTML =
       '<i class="fas fa-users"></i> TIM PENGAWAS ' + timParam;
 
-    const opdList = opdPerTim[timParam] || [];
-    const jumlahOpd = opdList.length;
-
-    document.getElementById('infoOpd').textContent =
-      'Daftar ' + jumlahOpd + ' instansi yang diawasi oleh Tim ' + timParam +
-      '. Klik ikon dokumen untuk membuka Form atau Bukti Dukung di tab baru.';
-
-    // =====================================================
-    // 4. RENDER TOMBOL (RHAS, Final, Bukti)
-    // =====================================================
-    function renderTombol() {
-      return `
-        <a href="${linkRhas}" class="btn-aksi rhas" target="_blank" rel="noopener" title="Buka Form RHAS">
-          <i class="fas fa-clock"></i> RHAS
-        </a>
-        <a href="${linkFinal}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Final">
-          <i class="fas fa-check"></i> Final
-        </a>
-        <a href="${linkBukti}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Bukti Dukung">
-          <i class="fas fa-folder"></i> Bukti
-        </a>
-      `;
+    // Set link Rekap
+    if (LINK_REKAP_PROGRES && LINK_REKAP_PROGRES !== '#') {
+      document.getElementById('btnRekap').href = LINK_REKAP_PROGRES;
+    } else {
+      document.getElementById('btnRekap').classList.add('disabled');
+      document.getElementById('btnRekap').addEventListener('click', e => e.preventDefault());
     }
 
     // =====================================================
-    // 5. RENDER DAFTAR OPD
+    // HELPER: Set link ke elemen
     // =====================================================
-    const opdListContainer = document.getElementById('opdList');
-
-    opdList.forEach((nama, index) => {
-      const row = document.createElement('div');
-      row.className = 'opd-row';
-      row.style.animationDelay = (index * 0.05) + 's';
-
-      const no = String(index + 1).padStart(2, '0');
-
-      row.innerHTML = `
-        <div class="opd-number">${no}</div>
-        <div class="opd-name">${nama}</div>
-        <div class="form-group">
-          <div class="form-group-label">Kearsipan</div>
-          <div class="form-badges">${renderTombol()}</div>
-        </div>
-        <div class="form-group">
-          <div class="form-group-label">Pengolah</div>
-          <div class="form-badges">${renderTombol()}</div>
-        </div>
-      `;
-
-      opdListContainer.appendChild(row);
-    });
+    function setLink(el, url) {
+      if (url && url !== '#' && url.trim() !== '') {
+        el.href = url;
+        el.classList.remove('disabled');
+      } else {
+        el.href = '#';
+        el.classList.add('disabled');
+        el.addEventListener('click', e => e.preventDefault());
+      }
+    }
 
     // =====================================================
-    // 6. HAMBURGER MENU
+    // FETCH DATA DARI API
+    // =====================================================
+    async function loadData() {
+      const opdListEl = document.getElementById('opdList');
+      const infoOpd = document.getElementById('infoOpd');
+
+      try {
+        const res = await fetch(API_URL + '?action=links');
+        const linksRes = await res.json();
+
+        if (!Array.isArray(linksRes)) throw new Error('Data tidak valid');
+
+        // Filter OPD sesuai Tim
+        const opdTim = linksRes.filter(item => String(item.Tim) === String(timParam));
+
+        infoOpd.textContent = 'Daftar ' + opdTim.length + ' instansi yang diawasi oleh Tim ' + timParam +
+          '. Klik tombol untuk membuka Form atau Bukti Dukung di tab baru.';
+
+        if (opdTim.length === 0) {
+          opdListEl.innerHTML = '<div class="loading-state">Tidak ada OPD untuk Tim ini.</div>';
+          return;
+        }
+
+        // Render
+        opdListEl.innerHTML = '';
+        opdTim.forEach((opd, index) => {
+          const row = document.createElement('div');
+          row.className = 'opd-row';
+          row.style.animationDelay = (index * 0.05) + 's';
+
+          const no = String(index + 1).padStart(2, '0');
+
+          row.innerHTML = `
+            <div class="opd-number">${no}</div>
+            <div class="opd-name">${opd['Nama OPD']}</div>
+            <div class="form-group">
+              <div class="form-group-label">Kearsipan</div>
+              <div class="form-badges">
+                <a href="#" class="btn-aksi rhas" data-link="${opd['Link RHAS'] || ''}" target="_blank" rel="noopener">
+                  <i class="fas fa-clock"></i> RHAS
+                </a>
+                <a href="#" class="btn-aksi final" data-link="${opd['Link Final'] || ''}" target="_blank" rel="noopener">
+                  <i class="fas fa-check"></i> Final
+                </a>
+                <a href="#" class="btn-aksi bukti" data-link="${opd['Link Bukti UK'] || ''}" target="_blank" rel="noopener">
+                  <i class="fas fa-folder"></i> Bukti
+                </a>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-group-label">Pengolah</div>
+              <div class="form-badges">
+                <a href="#" class="btn-aksi rhas" data-link="${opd['Link RHAS'] || ''}" target="_blank" rel="noopener">
+                  <i class="fas fa-clock"></i> RHAS
+                </a>
+                <a href="#" class="btn-aksi final" data-link="${opd['Link Final'] || ''}" target="_blank" rel="noopener">
+                  <i class="fas fa-check"></i> Final
+                </a>
+                <a href="#" class="btn-aksi bukti" data-link="${opd['Link Bukti UP'] || ''}" target="_blank" rel="noopener">
+                  <i class="fas fa-folder"></i> Bukti
+                </a>
+              </div>
+            </div>
+          `;
+
+          opdListEl.appendChild(row);
+        });
+
+        // Set semua link tombol
+        document.querySelectorAll('.btn-aksi').forEach(el => {
+          setLink(el, el.dataset.link);
+        });
+
+      } catch (err) {
+        console.error(err);
+        opdListEl.innerHTML = '<div class="loading-state" style="color:#991b1b;">Gagal memuat data: ' + err.message + '</div>';
+      }
+    }
+
+    loadData();
+
+    // =====================================================
+    // HAMBURGER MENU
     // =====================================================
     (function() {
       const navToggle = document.getElementById('navToggle');
