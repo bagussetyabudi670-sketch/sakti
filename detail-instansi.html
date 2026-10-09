@@ -40,7 +40,8 @@
     .cards-wrapper { width:100%; max-width:900px; display:grid; grid-template-columns:repeat(2,1fr); gap:32px; }
     .card { display:flex; flex-direction:column; overflow:hidden; background:#fff; border:1px solid rgba(26,38,50,.12); border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,.03); }
     .card-header { padding:14px 24px; color:#fff; text-align:center; font-size:13px; font-weight:700; letter-spacing:1px; }
-    .card-header.blue { background:#1976D2; } .card-header.green { background:var(--ledger); }
+    .card-header.blue { background:#1976D2; }
+    .card-header.green { background:var(--ledger); }
     .card-body { flex:1; display:flex; flex-direction:column; padding:28px 24px 32px; }
     .card-body h3 { margin-bottom:12px; font-size:20px; }
     .card-body p { flex:1; margin-bottom:28px; color:var(--ink-soft); font-size:14px; }
@@ -163,106 +164,62 @@
 
   <script>
     // =====================================================
-    // 1. KONFIGURASI API
+    // KONFIGURASI API
     // =====================================================
     const API_URL = 'https://script.google.com/macros/s/AKfycbxjFgFQLZxSCw_8xG0EqXypdzDQQ8TE1i4rQ6jJ0Bh8ZGnLbblFQv0eRz-2aLN8KCJj/exec';
 
     // =====================================================
-    // 2. AMBIL NAMA OPD DARI URL
+    // AMBIL NAMA OPD DARI URL
     // =====================================================
     const urlParams = new URLSearchParams(window.location.search);
     const namaOpd = urlParams.get('opd') ? decodeURIComponent(urlParams.get('opd')) : '';
 
-    // Update judul
     if (namaOpd) {
       document.getElementById('namaInstansi').textContent = namaOpd;
       document.title = namaOpd + ' · SEPAKAT';
+      document.getElementById('statusBadge').style.display = 'none';
     } else {
       document.getElementById('namaInstansi').textContent = 'Detail Instansi';
+      document.getElementById('statusBadge').textContent = 'Nama OPD tidak valid';
+      document.getElementById('statusBadge').className = 'error-badge';
+      return;
     }
 
     // =====================================================
-    // 3. SET LINK TOMBOL
+    // SET LINK TOMBOL KE ENDPOINT create-file
     // =====================================================
-    function setLink(elementId, url) {
-      const el = document.getElementById(elementId);
-      if (!el) return;
-
-      if (url && url !== '#' && url !== '') {
-        el.href = url;
-        el.classList.remove('disabled');
-        el.title = 'Buka link';
-      } else {
-        el.href = '#';
-        el.classList.add('disabled');
-        el.title = 'Link belum tersedia';
-        el.addEventListener('click', (e) => e.preventDefault());
-      }
+    function buildUrl(unit, type) {
+      return API_URL + '?action=create-file' +
+        '&opd=' + encodeURIComponent(namaOpd) +
+        '&unit=' + encodeURIComponent(unit) +
+        '&type=' + type;
     }
 
-    // =====================================================
-    // 4. FETCH DATA DARI API
-    // =====================================================
-    async function loadData() {
-      const statusBadge = document.getElementById('statusBadge');
-
-      if (!namaOpd) {
-        statusBadge.textContent = 'Nama OPD tidak valid';
-        statusBadge.className = 'error-badge';
-        return;
-      }
-
-      try {
-        const response = await fetch(API_URL + '?action=opd&nama=' + encodeURIComponent(namaOpd));
-        const data = await response.json();
-
-        if (data.error) throw new Error(data.error);
-
-        if (!data.link) {
-          statusBadge.textContent = 'OPD tidak ditemukan di database';
-          statusBadge.className = 'error-badge';
-          return;
-        }
-
-        const link = data.link;
-
-        // Set link ke 4 tombol
-        setLink('btnFormUP',  link['Link Form UP']);
-        setLink('btnBuktiUP', link['Link Bukti UP']);
-        setLink('btnFormUK',  link['Link Form UK']);
-        setLink('btnBuktiUK', link['Link Bukti UK']);
-
-        statusBadge.style.display = 'none';
-
-      } catch (err) {
-        console.error(err);
-        statusBadge.textContent = 'Gagal memuat data: ' + err.message;
-        statusBadge.className = 'error-badge';
-      }
-    }
+    document.getElementById('btnFormUP').href = buildUrl('Unit Pengolah', 'form');
+    document.getElementById('btnBuktiUP').href = buildUrl('Unit Pengolah', 'bukti');
+    document.getElementById('btnFormUK').href = buildUrl('Unit Kearsipan', 'form');
+    document.getElementById('btnBuktiUK').href = buildUrl('Unit Kearsipan', 'bukti');
 
     // =====================================================
-    // 5. JALANKAN
+    // HAMBURGER MENU
     // =====================================================
-    loadData();
+    (function() {
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+      if (!navToggle || !navLinks) return;
 
-    // =====================================================
-    // 6. HAMBURGER MENU
-    // =====================================================
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-
-    navToggle.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', String(open));
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', String(isOpen));
       });
-    });
+
+      navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
   </script>
 </body>
 </html>
