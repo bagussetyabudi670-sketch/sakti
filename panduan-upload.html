@@ -255,10 +255,7 @@
 
   <script>
     (function() {
-      // =====================================================
-      // KONFIGURASI API
-      // =====================================================
-      const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
+      const API_URL = 'https://script.google.com/macros/s/AKfycbzzlRy96TfUnhB-x-9dwd1w7VU3ADUDcqToGeheZgOALoUKD6LtyXic91XiJQ_wQamIiw/exec';
 
       const urlParams = new URLSearchParams(window.location.search);
       const namaOpd = urlParams.get('opd') ? decodeURIComponent(urlParams.get('opd')) : '';
@@ -275,9 +272,6 @@
         backLink.href = 'portal.html';
       }
 
-      // =====================================================
-      // TOMBOL: Buka Folder Drive
-      // =====================================================
       const btnOpen = document.getElementById('btnOpenFolder');
 
       if (!namaOpd || !unit) {
@@ -285,20 +279,36 @@
         return;
       }
 
-      // Build URL API
-      const apiUrl = API_URL + '?action=create-file' +
-        '&opd=' + encodeURIComponent(namaOpd) +
-        '&unit=' + encodeURIComponent(unit) +
-        '&type=bukti';
+      btnOpen.addEventListener('click', async () => {
+        const originalHTML = btnOpen.innerHTML;
+        btnOpen.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memuat folder...';
+        btnOpen.classList.add('disabled');
 
-      // Klik tombol → buka URL API di tab baru
-      btnOpen.addEventListener('click', () => {
-        window.open(apiUrl, '_blank');
+        try {
+          const apiUrl = API_URL + '?action=create-file' +
+            '&opd=' + encodeURIComponent(namaOpd) +
+            '&unit=' + encodeURIComponent(unit) +
+            '&type=bukti';
+
+          const res = await fetch(apiUrl);
+          const data = await res.json();
+
+          if (data.success && data.url) {
+            window.open(data.url, '_blank');
+            btnOpen.innerHTML = originalHTML;
+            btnOpen.classList.remove('disabled');
+          } else {
+            alert('⚠ Gagal membuka folder\n\n' + (data.error || 'Unknown error') + '\n\nPastikan Anda sudah login Google dengan 1 akun saja.');
+            btnOpen.innerHTML = originalHTML;
+            btnOpen.classList.remove('disabled');
+          }
+        } catch (err) {
+          alert('⚠ Error: ' + err.message);
+          btnOpen.innerHTML = originalHTML;
+          btnOpen.classList.remove('disabled');
+        }
       });
 
-      // =====================================================
-      // HAMBURGER MENU
-      // =====================================================
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
       if (navToggle && navLinks) {
