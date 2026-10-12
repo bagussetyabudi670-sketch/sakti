@@ -194,9 +194,9 @@
 
       if (namaOpd) {
         document.getElementById('btnFormUP').href = buildUrl('Unit Pengolah', 'form');
-        document.getElementById('btnBuktiUP').href = buildUrl('Unit Pengolah', 'bukti');
+        document.getElementById('btnBuktiUP').href = 'panduan-upload.html?opd=' + encodeURIComponent(namaOpd) + '&unit=Unit Pengolah';
         document.getElementById('btnFormUK').href = buildUrl('Unit Kearsipan', 'form');
-        document.getElementById('btnBuktiUK').href = buildUrl('Unit Kearsipan', 'bukti');
+        document.getElementById('btnBuktiUK').href = 'panduan-upload.html?opd=' + encodeURIComponent(namaOpd) + '&unit=Unit Kearsipan';
       }
 
       // =====================================================
