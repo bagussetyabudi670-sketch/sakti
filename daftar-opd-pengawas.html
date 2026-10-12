@@ -182,10 +182,7 @@
     </div>
   </footer>
 
-  <script>
-    // =====================================================
-    // KONFIGURASI
-    // =====================================================
+    <script>
     const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
     const LINK_REKAP_PROGRES = 'https://script.google.com/macros/s/AKfycbxJBkahFYs51DMTPEpcc45eAbDyOo3CIWOQQyPdmsjYU1msBeSvm73kXBaihQKL_Y8H/exec';
 
@@ -195,27 +192,12 @@
     document.getElementById('labelTim').innerHTML = '<i class="fas fa-users"></i> TIM PENGAWAS ' + timParam;
     if (LINK_REKAP_PROGRES) document.getElementById('btnRekap').href = LINK_REKAP_PROGRES;
 
-    // =====================================================
-    // HELPER: Build URL
-    // =====================================================
-    // RHAS & Final → buka Form ASKI
     function buildOpenFormUrl(opdName, unit) {
       return API_URL + '?action=open-form' +
         '&opd=' + encodeURIComponent(opdName) +
         '&unit=' + encodeURIComponent(unit);
     }
 
-    // Bukti → langsung buka folder Drive via API
-    function buildBuktiUrl(opdName, unit) {
-      return API_URL + '?action=create-file' +
-        '&opd=' + encodeURIComponent(opdName) +
-        '&unit=' + encodeURIComponent(unit) +
-        '&type=bukti';
-    }
-
-    // =====================================================
-    // FETCH DATA
-    // =====================================================
     async function loadData() {
       const opdListEl = document.getElementById('opdList');
       const infoOpd = document.getElementById('infoOpd');
@@ -228,7 +210,7 @@
 
         const opdTim = linksRes.filter(item => String(item.Tim) === String(timParam));
 
-        infoOpd.textContent = 'Daftar ' + opdTim.length + ' instansi yang diawasi oleh Tim ' + timParam + '. Klik tombol untuk membuka Form atau Bukti Dukung di tab baru.';
+        infoOpd.textContent = 'Daftar ' + opdTim.length + ' instansi yang diawasi oleh Tim ' + timParam + '.';
 
         opdListEl.innerHTML = '';
         opdTim.forEach((opd, index) => {
@@ -239,13 +221,15 @@
           const no = String(index + 1).padStart(2, '0');
           const namaOpd = opd['Nama OPD'];
 
+          // RHAS & Final → Form ASKI
           const urlRhasUK  = buildOpenFormUrl(namaOpd, 'Unit Kearsipan');
           const urlFinalUK = buildOpenFormUrl(namaOpd, 'Unit Kearsipan');
-          const urlBuktiUK = buildBuktiUrl(namaOpd, 'Unit Kearsipan');
-
           const urlRhasUP  = buildOpenFormUrl(namaOpd, 'Unit Pengolah');
           const urlFinalUP = buildOpenFormUrl(namaOpd, 'Unit Pengolah');
-          const urlBuktiUP = buildBuktiUrl(namaOpd, 'Unit Pengolah');
+
+          // Bukti → langsung dari Spreadsheet (URL folder Drive)
+          const urlBuktiUK = opd['Link Bukti UK'] || '#';
+          const urlBuktiUP = opd['Link Bukti UP'] || '#';
 
           row.innerHTML = `
             <div class="opd-number">${no}</div>
@@ -253,17 +237,17 @@
             <div class="form-group">
               <div class="form-group-label">Kearsipan</div>
               <div class="form-badges">
-                <a href="${urlRhasUK}" class="btn-aksi rhas" target="_blank" rel="noopener" title="Buka Form ASKI RHAS UK"><i class="fas fa-clock"></i> RHAS</a>
-                <a href="${urlFinalUK}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Form ASKI Final UK"><i class="fas fa-check"></i> Final</a>
-                <a href="${urlBuktiUK}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Folder Bukti Dukung UK"><i class="fas fa-folder"></i> Bukti</a>
+                <a href="${urlRhasUK}" class="btn-aksi rhas" target="_blank" rel="noopener"><i class="fas fa-clock"></i> RHAS</a>
+                <a href="${urlFinalUK}" class="btn-aksi final" target="_blank" rel="noopener"><i class="fas fa-check"></i> Final</a>
+                <a href="${urlBuktiUK}" class="btn-aksi bukti" target="_blank" rel="noopener"><i class="fas fa-folder"></i> Bukti</a>
               </div>
             </div>
             <div class="form-group">
               <div class="form-group-label">Pengolah</div>
               <div class="form-badges">
-                <a href="${urlRhasUP}" class="btn-aksi rhas" target="_blank" rel="noopener" title="Buka Form ASKI RHAS UP"><i class="fas fa-clock"></i> RHAS</a>
-                <a href="${urlFinalUP}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Form ASKI Final UP"><i class="fas fa-check"></i> Final</a>
-                <a href="${urlBuktiUP}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Folder Bukti Dukung UP"><i class="fas fa-folder"></i> Bukti</a>
+                <a href="${urlRhasUP}" class="btn-aksi rhas" target="_blank" rel="noopener"><i class="fas fa-clock"></i> RHAS</a>
+                <a href="${urlFinalUP}" class="btn-aksi final" target="_blank" rel="noopener"><i class="fas fa-check"></i> Final</a>
+                <a href="${urlBuktiUP}" class="btn-aksi bukti" target="_blank" rel="noopener"><i class="fas fa-folder"></i> Bukti</a>
               </div>
             </div>
           `;
@@ -278,7 +262,6 @@
 
     loadData();
 
-    // Hamburger
     (function() {
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
@@ -295,6 +278,5 @@
       });
     })();
   </script>
-
 </body>
 </html>
