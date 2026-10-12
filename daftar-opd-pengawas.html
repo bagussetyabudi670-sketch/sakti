@@ -58,7 +58,6 @@
     .btn-rekap:hover { background:#15803D; transform:translateY(-3px); box-shadow:0 10px 28px rgba(22,163,74,.35); }
     .btn-rekap i { font-size:15px; transition:transform .3s; }
     .btn-rekap:hover i { transform:scale(1.15); }
-    .btn-rekap.disabled { opacity:.5; pointer-events:none; }
 
     .main-section { flex:1; padding:24px 0 100px; }
     .opd-list { display:flex; flex-direction:column; gap:16px; }
@@ -152,7 +151,7 @@
 
     <section class="page-header">
       <div class="container-narrow">
-        <span class="label animate-on-load" id="labelTim">
+        <span class="label" id="labelTim">
           <i class="fas fa-users"></i> TIM PENGAWAS 1
         </span>
         <h2>Direktori Perangkat Daerah</h2>
@@ -192,8 +191,6 @@
     // KONFIGURASI
     // =====================================================
     const API_URL = 'https://script.google.com/macros/s/AKfycbzzlRy96TfUnhB-x-9dwd1w7VU3ADUDcqToGeheZgOALoUKD6LtyXic91XiJQ_wQamIiw/exec';
-    
-    // Link Dashboard (Apps Script)
     const LINK_REKAP_PROGRES = 'https://script.google.com/macros/s/AKfycbxJBkahFYs51DMTPEpcc45eAbDyOo3CIWOQQyPdmsjYU1msBeSvm73kXBaihQKL_Y8H/exec';
 
     // =====================================================
@@ -202,31 +199,28 @@
     const urlParams = new URLSearchParams(window.location.search);
     const timParam = urlParams.get('tim') || '1';
     const tahunParam = urlParams.get('tahun') || '2026';
-    const jenisParam = urlParams.get('jenis') || 'internal';
 
     document.getElementById('labelTim').innerHTML =
       '<i class="fas fa-users"></i> TIM PENGAWAS ' + timParam;
 
-    // Set link Rekap
     if (LINK_REKAP_PROGRES && LINK_REKAP_PROGRES !== '#') {
       document.getElementById('btnRekap').href = LINK_REKAP_PROGRES;
-    } else {
-      document.getElementById('btnRekap').classList.add('disabled');
-      document.getElementById('btnRekap').addEventListener('click', e => e.preventDefault());
     }
 
     // =====================================================
-    // HELPER: Set link ke elemen
+    // HELPER: Build URL untuk endpoint
     // =====================================================
-    function setLink(el, url) {
-      if (url && url !== '#' && url.trim() !== '') {
-        el.href = url;
-        el.classList.remove('disabled');
-      } else {
-        el.href = '#';
-        el.classList.add('disabled');
-        el.addEventListener('click', e => e.preventDefault());
-      }
+    function buildCreateUrl(opdName, unit, type) {
+      return API_URL + '?action=create-file' +
+        '&opd=' + encodeURIComponent(opdName) +
+        '&unit=' + encodeURIComponent(unit) +
+        '&type=' + type;
+    }
+
+    function buildOpenFormUrl(opdName, unit) {
+      return API_URL + '?action=open-form' +
+        '&opd=' + encodeURIComponent(opdName) +
+        '&unit=' + encodeURIComponent(unit);
     }
 
     // =====================================================
@@ -242,7 +236,6 @@
 
         if (!Array.isArray(linksRes)) throw new Error('Data tidak valid');
 
-        // Filter OPD sesuai Tim
         const opdTim = linksRes.filter(item => String(item.Tim) === String(timParam));
 
         infoOpd.textContent = 'Daftar ' + opdTim.length + ' instansi yang diawasi oleh Tim ' + timParam +
@@ -253,7 +246,6 @@
           return;
         }
 
-        // Render
         opdListEl.innerHTML = '';
         opdTim.forEach((opd, index) => {
           const row = document.createElement('div');
@@ -261,20 +253,30 @@
           row.style.animationDelay = (index * 0.05) + 's';
 
           const no = String(index + 1).padStart(2, '0');
+          const namaOpd = opd['Nama OPD'];
+
+          // Endpoint: RHAS & Final → open-form; Bukti → create-file (bukti)
+          const urlRhasUK   = buildOpenFormUrl(namaOpd, 'Unit Kearsipan');
+          const urlFinalUK  = buildOpenFormUrl(namaOpd, 'Unit Kearsipan');
+          const urlBuktiUK  = buildCreateUrl(namaOpd, 'Unit Kearsipan', 'bukti');
+
+          const urlRhasUP   = buildOpenFormUrl(namaOpd, 'Unit Pengolah');
+          const urlFinalUP  = buildOpenFormUrl(namaOpd, 'Unit Pengolah');
+          const urlBuktiUP  = buildCreateUrl(namaOpd, 'Unit Pengolah', 'bukti');
 
           row.innerHTML = `
             <div class="opd-number">${no}</div>
-            <div class="opd-name">${opd['Nama OPD']}</div>
+            <div class="opd-name">${namaOpd}</div>
             <div class="form-group">
               <div class="form-group-label">Kearsipan</div>
               <div class="form-badges">
-                <a href="#" class="btn-aksi rhas" data-link="${opd['Link RHAS'] || ''}" target="_blank" rel="noopener">
+                <a href="${urlRhasUK}" class="btn-aksi rhas" target="_blank" rel="noopener" title="Buka Form ASKI - RHAS UK">
                   <i class="fas fa-clock"></i> RHAS
                 </a>
-                <a href="#" class="btn-aksi final" data-link="${opd['Link Final'] || ''}" target="_blank" rel="noopener">
+                <a href="${urlFinalUK}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Form ASKI - Final UK">
                   <i class="fas fa-check"></i> Final
                 </a>
-                <a href="#" class="btn-aksi bukti" data-link="${opd['Link Bukti UK'] || ''}" target="_blank" rel="noopener">
+                <a href="${urlBuktiUK}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Folder Bukti Dukung UK">
                   <i class="fas fa-folder"></i> Bukti
                 </a>
               </div>
@@ -282,13 +284,13 @@
             <div class="form-group">
               <div class="form-group-label">Pengolah</div>
               <div class="form-badges">
-                <a href="#" class="btn-aksi rhas" data-link="${opd['Link RHAS'] || ''}" target="_blank" rel="noopener">
+                <a href="${urlRhasUP}" class="btn-aksi rhas" target="_blank" rel="noopener" title="Buka Form ASKI - RHAS UP">
                   <i class="fas fa-clock"></i> RHAS
                 </a>
-                <a href="#" class="btn-aksi final" data-link="${opd['Link Final'] || ''}" target="_blank" rel="noopener">
+                <a href="${urlFinalUP}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Form ASKI - Final UP">
                   <i class="fas fa-check"></i> Final
                 </a>
-                <a href="#" class="btn-aksi bukti" data-link="${opd['Link Bukti UP'] || ''}" target="_blank" rel="noopener">
+                <a href="${urlBuktiUP}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Folder Bukti Dukung UP">
                   <i class="fas fa-folder"></i> Bukti
                 </a>
               </div>
@@ -296,11 +298,6 @@
           `;
 
           opdListEl.appendChild(row);
-        });
-
-        // Set semua link tombol
-        document.querySelectorAll('.btn-aksi').forEach(el => {
-          setLink(el, el.dataset.link);
         });
 
       } catch (err) {
