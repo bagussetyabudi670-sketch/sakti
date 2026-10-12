@@ -52,6 +52,7 @@
     .btn-primary.green:hover { background:#1d3a2c; box-shadow:0 8px 20px rgba(42,75,58,.4); }
     .btn-secondary { background:#fff; border:1px solid rgba(26,38,50,.12); }
     .btn-secondary:hover { color:var(--ledger); border-color:var(--ledger); }
+    .btn-card.disabled { opacity:.5; cursor:not-allowed; pointer-events:none; }
     footer { border-top:1px solid #e2dbd0; padding:36px 0; background:#fcfaf7; }
     .footer-content { display:flex; justify-content:space-between; align-items:center; font-size:14px; color:var(--ink-soft); flex-wrap:wrap; gap:12px; }
     .footer-content strong { color:var(--ink); font:600 16px 'Newsreader',serif; }
@@ -62,6 +63,7 @@
   </style>
 </head>
 <body>
+
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="logo">
@@ -144,6 +146,7 @@
   <script>
     (function() {
       const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
+
       const urlParams = new URLSearchParams(window.location.search);
       const namaOpd = urlParams.get('opd') ? decodeURIComponent(urlParams.get('opd')) : '';
 
@@ -158,25 +161,54 @@
       }
 
       // =====================================================
-      // URL TOMBOL
+      // Tombol Form ASKI → fetch API, lalu buka URL file
       // =====================================================
-      // Form ASKI → endpoint open-form (auto-redirect ke file)
-      function buildFormUrl(unit) {
-        return API_URL + '?action=create-file' +
+      function openForm(unit, btnEl) {
+        const originalHTML = btnEl.innerHTML;
+        btnEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memuat Form...';
+        btnEl.classList.add('disabled');
+
+        const url = API_URL + '?action=create-file' +
           '&opd=' + encodeURIComponent(namaOpd) +
-          '&unit=' + encodeURIComponent(unit);
+          '&unit=' + encodeURIComponent(unit) +
+          '&type=form';
+
+        fetch(url)
+          .then(r => r.json())
+          .then(data => {
+            if (data.success && data.url) {
+              window.open(data.url, '_blank');
+            } else {
+              alert('⚠ Gagal membuka Form ASKI\n\n' + (data.error || 'Unknown error'));
+            }
+            btnEl.innerHTML = originalHTML;
+            btnEl.classList.remove('disabled');
+          })
+          .catch(err => {
+            alert('⚠ Error: ' + err.message);
+            btnEl.innerHTML = originalHTML;
+            btnEl.classList.remove('disabled');
+          });
       }
 
-      // Bukti → halaman panduan-upload.html
+      // =====================================================
+      // Tombol Bukti → halaman panduan-upload.html
+      // =====================================================
       function buildBuktiUrl(unit) {
         return 'panduan-upload.html?opd=' + encodeURIComponent(namaOpd) + '&unit=' + encodeURIComponent(unit);
       }
 
       if (namaOpd) {
-        document.getElementById('btnFormUP').href = buildFormUrl('Unit Pengolah');
-        document.getElementById('btnBuktiUP').href = buildBuktiUrl('Unit Pengolah');
-        document.getElementById('btnFormUK').href = buildFormUrl('Unit Kearsipan');
-        document.getElementById('btnBuktiUK').href = buildBuktiUrl('Unit Kearsipan');
+        const btnFormUP = document.getElementById('btnFormUP');
+        const btnFormUK = document.getElementById('btnFormUK');
+        const btnBuktiUP = document.getElementById('btnBuktiUP');
+        const btnBuktiUK = document.getElementById('btnBuktiUK');
+
+        btnFormUP.addEventListener('click', (e) => { e.preventDefault(); openForm('Unit Pengolah', btnFormUP); });
+        btnFormUK.addEventListener('click', (e) => { e.preventDefault(); openForm('Unit Kearsipan', btnFormUK); });
+
+        btnBuktiUP.href = buildBuktiUrl('Unit Pengolah');
+        btnBuktiUK.href = buildBuktiUrl('Unit Kearsipan');
       }
 
       // Hamburger
