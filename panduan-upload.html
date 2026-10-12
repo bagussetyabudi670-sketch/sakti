@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panduan Unggah Bukti · SEPAKAT</title>
+  <link rel="icon" type="image/png" href="assets/img/logoAS.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --paper:#f6f4f0; --ink:#1a2632; --ink-soft:#4a5a68; --line:#e2dbd0; --ledger:#2a4b3a; --warning:#d97706; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { min-height:100vh; display:flex; flex-direction:column; background:var(--paper); color:var(--ink); font-family:'Inter',system-ui,sans-serif; line-height:1.6; }
+    a { color:inherit; text-decoration:none; }
+    .container { max-width:1200px; margin:0 auto; padding:0 32px; }
+    .container-narrow { max-width:800px; margin:0 auto; padding:0 32px; }
+
+    /* NAVBAR */
+    .navbar { background:rgba(246,244,240,.92); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:30; backdrop-filter:blur(6px); }
+    .nav-content { height:80px; display:flex; align-items:center; justify-content:space-between; }
+    .logo { display:flex; align-items:center; gap:16px; }
+    .logo-seal { width:48px; height:48px; object-fit:contain; border-radius:8px; }
+    .logo-text { display:flex; flex-direction:column; line-height:1.1; }
+    .logo-text h1 { font:600 22px/1.1 'Newsreader',serif; }
+    .logo-text span { display:block; margin-top:-1px; color:var(--ink-soft); font-size:12px; font-weight:500; letter-spacing:.3px; }
+    .nav-links { display:flex; gap:40px; color:#2e3d4b; font-size:15px; font-weight:500; }
+    .nav-links a:hover { color:var(--ledger); }
+    .nav-toggle { display:none; background:none; border:0; cursor:pointer; padding:8px; }
+    .nav-toggle span { display:block; width:24px; height:2px; margin:5px 0; background:#0f1a24; }
+
+    main { flex:1; padding:40px 0 80px; }
+    .back-wrapper { padding-top:16px; margin-bottom:24px; }
+    .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--ink-soft); font-size:14px; font-weight:500; }
+    .back-link:hover { color:var(--ink); }
+
+    /* HEADER */
+    .page-header { text-align:center; margin-bottom:32px; }
+    .page-header h2 { font:600 32px/1.15 'Newsreader',serif; margin-bottom:8px; }
+    .page-header p { color:var(--ink-soft); font-size:15px; }
+    .page-header .opd-name { font-weight:700; color:var(--ledger); }
+
+    /* WARNING BOX */
+    .warning-box {
+      background:#fff7ed;
+      border:2px solid #fed7aa;
+      border-left:6px solid var(--warning);
+      border-radius:12px;
+      padding:20px 24px;
+      margin-bottom:28px;
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+    }
+    .warning-box i {
+      font-size:24px;
+      color:var(--warning);
+      flex-shrink:0;
+      margin-top:2px;
+    }
+    .warning-box h3 {
+      font-size:16px;
+      font-weight:700;
+      color:#92400e;
+      margin-bottom:6px;
+    }
+    .warning-box p {
+      font-size:14px;
+      color:#78350f;
+      line-height:1.6;
+    }
+
+    /* STEP LIST */
+    .steps-title {
+      font:600 20px/1.2 'Newsreader',serif;
+      margin-bottom:20px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .steps-title i { color:var(--ledger); }
+
+    .step-list {
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      margin-bottom:32px;
+    }
+    .step-item {
+      display:flex;
+      gap:16px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:20px 22px;
+      align-items:flex-start;
+    }
+    .step-number {
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      background:var(--ledger);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:15px;
+      flex-shrink:0;
+    }
+    .step-content { flex:1; }
+    .step-content h4 {
+      font-size:15px;
+      font-weight:700;
+      color:var(--ink);
+      margin-bottom:4px;
+    }
+    .step-content p {
+      font-size:14px;
+      color:var(--ink-soft);
+      line-height:1.6;
+    }
+    .step-content code {
+      background:#f1f5f9;
+      padding:2px 6px;
+      border-radius:4px;
+      font-size:13px;
+      color:#334155;
+      font-family:Consolas,monospace;
+    }
+
+    /* INFO BOX */
+    .info-box {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:12px;
+      padding:16px 20px;
+      margin-bottom:24px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .info-box i {
+      color:#2563eb;
+      font-size:18px;
+      flex-shrink:0;
+      margin-top:2px;
+    }
+    .info-box p {
+      font-size:14px;
+      color:#1e40af;
+      line-height:1.6;
+    }
+
+    /* BUTTON */
+    .btn-wrapper {
+      text-align:center;
+      margin-top:32px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+    }
+    .btn-open {
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      padding:16px 40px;
+      background:var(--ledger);
+      color:#fff;
+      font-size:16px;
+      font-weight:700;
+      border-radius:50px;
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      transition:all .3s;
+      box-shadow:0 4px 16px rgba(42,75,58,.25);
+    }
+    .btn-open:hover {
+      background:#1d3a2c;
+      transform:translateY(-3px);
+      box-shadow:0 10px 28px rgba(42,75,58,.35);
+    }
+    .btn-open i { font-size:16px; }
+    .btn-open.disabled {
+      opacity:.5;
+      cursor:not-allowed;
+      pointer-events:none;
+    }
+    .btn-note {
+      font-size:13px;
+      color:var(--ink-soft);
+      max-width:500px;
+    }
+
+    /* FAQ */
+    .faq-section {
+      margin-top:40px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:24px;
+    }
+    .faq-section h3 {
+      font-size:16px;
+      font-weight:700;
+      margin-bottom:16px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .faq-section h3 i { color:var(--ledger); }
+    .faq-item {
+      padding:12px 0;
+      border-bottom:1px solid #f1f5f9;
+    }
+    .faq-item:last-child { border-bottom:none; }
+    .faq-q {
+      font-size:14px;
+      font-weight:600;
+      color:var(--ink);
+      margin-bottom:4px;
+    }
+    .faq-a {
+      font-size:13px;
+      color:var(--ink-soft);
+      line-height:1.6;
+    }
+
+    /* FOOTER */
+    footer { border-top:1px solid var(--line); padding:36px 0; background:#fcfaf7; }
+    .footer-content { display:flex; justify-content:space-between; align-items:center; font-size:14px; color:var(--ink-soft); flex-wrap:wrap; gap:12px; }
+    .footer-content strong { color:var(--ink); font:600 16px 'Newsreader',serif; }
+
+    @media (max-width:860px) {
+      .container, .container-narrow { padding:0 24px; }
+      .nav-content { height:68px; }
+      .logo-text span { display:none; }
+      .nav-toggle { display:block; }
+      .nav-links { position:absolute; top:68px; left:0; right:0; display:flex; flex-direction:column; gap:0; max-height:0; overflow:hidden; background:var(--paper); border-bottom:1px solid var(--line); transition:max-height .3s; }
+      .nav-links.open { max-height:260px; }
+      .nav-links a { padding:16px 24px; border-bottom:1px solid #e8e1d6; }
+    }
+    @media (max-width:480px) {
+      .container, .container-narrow { padding:0 18px; }
+      .page-header h2 { font-size:24px; }
+      .step-item { padding:16px; gap:12px; }
+      .step-number { width:30px; height:30px; font-size:13px; }
+      .btn-open { font-size:15px; padding:14px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SEPAKAT" />
+        <div class="logo-text">
+          <h1>SEPAKAT</h1>
+          <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
+        </div>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html#beranda">Beranda</a>
+        <a href="index.html#tentang">Tentang</a>
+        <a href="portal.html">Portal</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container-narrow">
+      <div class="back-wrapper">
+        <a href="#" id="backLink" class="back-link">
+          <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+      </div>
+
+      <div class="page-header">
+        <h2>Panduan Unggah Bukti Dukung</h2>
+        <p>Untuk: <span class="opd-name" id="opdName">...</span> — <span id="unitName">...</span></p>
+      </div>
+
+      <!-- WARNING -->
+      <div class="warning-box">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>
+          <h3>⚠ PENTING: Harus Login Google Dulu</h3>
+          <p>Sebelum membuka folder, pastikan Anda <strong>sudah login Google</strong> dengan akun yang benar. Kalau belum login, folder tidak bisa dibuka.</p>
+        </div>
+      </div>
+
+      <!-- STEPS -->
+      <div class="steps-title">
+        <i class="fas fa-list-ol"></i> Langkah-Langkah
+      </div>
+
+      <div class="step-list">
+
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Cek Login Google</h4>
+            <p>Buka <code>gmail.com</code> di browser Anda. Pastikan <strong>sudah login</strong> dengan akun yang benar.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Hanya 1 Akun Google</h4>
+            <p>Kalau Anda login dengan <strong>lebih dari 1 akun Google</strong> (misal akun pribadi + akun kantor), logout dulu semuanya. Sisakan <strong>1 akun saja</strong>. Kalau tidak, folder bisa gagal terbuka.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Klik Tombol di Bawah</h4>
+            <p>Setelah login 1 akun, klik tombol hijau <strong>"Buka Folder Bukti Dukung"</strong> di bawah. Folder akan terbuka di tab baru.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>Upload File</h4>
+            <p>Di dalam folder, klik <strong>"+ New"</strong> atau <strong>drag-and-drop</strong> file dari komputer ke folder. File akan otomatis tersimpan.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h4>Selesai</h4>
+            <p>Tutup tab folder Drive. Bukti dukung sudah terunggah ke folder yang benar.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- INFO -->
+      <div class="info-box">
+        <i class="fas fa-info-circle"></i>
+        <p><strong>Format file yang diperbolehkan:</strong> PDF, Gambar (JPG/PNG), Excel. Maksimal 5 MB per file.</p>
+      </div>
+
+      <!-- BUTTON -->
+      <div class="btn-wrapper">
+        <a href="#" id="btnOpenFolder" class="btn-open">
+          <i class="fas fa-folder-open"></i> Buka Folder Bukti Dukung
+        </a>
+        <p class="btn-note">Tombol akan membuka folder Google Drive di tab baru. Pastikan sudah login Google dulu.</p>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq-section">
+        <h3><i class="fas fa-circle-question"></i> Pertanyaan Umum</h3>
+
+        <div class="faq-item">
+          <div class="faq-q">Folder tidak bisa dibuka / muncul "You need access"?</div>
+          <div class="faq-a">Pastikan Anda sudah login Google. Kalau masih error, coba logout semua akun Google, login 1 akun saja, lalu klik tombol lagi.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Muncul tulisan "Login untuk menambahkan file"?</div>
+          <div class="faq-a">Klik "Login", login dengan akun Google Anda, lalu coba upload file lagi.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">File tidak muncul setelah diupload?</div>
+          <div class="faq-a">Tunggu 5-10 detik. File akan muncul di folder. Kalau tidak, coba refresh halaman (F5).</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">Ukuran file terlalu besar?</div>
+          <div class="faq-a">Maksimal 5 MB per file. Kalau lebih, kompres file terlebih dahulu, atau bagi jadi beberapa file.</div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div><strong>SEPAKAT</strong> — Sistem Pengawasan Kearsipan Terintegrasi</div>
+      <div>© 2026 SEPAKAT</div>
+    </div>
+  </footer>
+
+  <script>
+    // =====================================================
+    // KONFIGURASI
+    // =====================================================
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzzlRy96TfUnhB-x-9dwd1w7VU3ADUDcqToGeheZgOALoUKD6LtyXic91XiJQ_wQamIiw/exec';
+
+    // =====================================================
+    // BACA PARAMETER
+    // =====================================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const namaOpd = urlParams.get('opd') ? decodeURIComponent(urlParams.get('opd')) : '';
+    const unit = urlParams.get('unit') ? decodeURIComponent(urlParams.get('unit')) : 'Unit Kearsipan';
+
+    document.getElementById('opdName').textContent = namaOpd || 'Tidak diketahui';
+    document.getElementById('unitName').textContent = unit;
+
+    document.title = 'Panduan Unggah Bukti · ' + (namaOpd || 'SEPAKAT');
+
+    // =====================================================
+    // BACK LINK
+    // =====================================================
+    const backLink = document.getElementById('backLink');
+    if (namaOpd) {
+      backLink.href = 'detail-instansi.html?opd=' + encodeURIComponent(namaOpd);
+    } else {
+      backLink.href = 'portal.html';
+    }
+
+    // =====================================================
+    // URL BUKA FOLDER (endpoint create-file type bukti)
+    // =====================================================
+    const btnOpen = document.getElementById('btnOpenFolder');
+    if (namaOpd && unit) {
+      btnOpen.href = API_URL + '?action=create-file' +
+        '&opd=' + encodeURIComponent(namaOpd) +
+        '&unit=' + encodeURIComponent(unit) +
+        '&type=bukti';
+    } else {
+      btnOpen.classList.add('disabled');
+      btnOpen.addEventListener('click', e => e.preventDefault());
+    }
+
+    // =====================================================
+    // HAMBURGER MENU
+    // =====================================================
+    (function() {
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+      if (!navToggle || !navLinks) return;
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+      navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
