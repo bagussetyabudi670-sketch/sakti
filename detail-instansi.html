@@ -52,18 +52,12 @@
     .btn-primary.green:hover { background:#1d3a2c; box-shadow:0 8px 20px rgba(42,75,58,.4); }
     .btn-secondary { background:#fff; border:1px solid rgba(26,38,50,.12); }
     .btn-secondary:hover { color:var(--ledger); border-color:var(--ledger); }
-    footer { border-top:1px solid #e2dbd0; padding:44px 0 32px; background:#fcfaf7; }
-    .footer-inner { display:flex; flex-direction:column; gap:20px; }
-    .footer-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
-    .footer-brand { color:#0f1a24; font:600 18px 'Newsreader',serif; }
-    .footer-address { color:#4a5a68; font-size:14px; line-height:1.6; }
-    .footer-address a { color:#2a4b3a; font-weight:500; }
-    .footer-address a:hover { color:#a73b2e; }
-    .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-top:20px; border-top:1px solid #d6cec0; color:#4a5a68; font-size:14px; }
+    footer { border-top:1px solid #e2dbd0; padding:36px 0; background:#fcfaf7; }
+    .footer-content { display:flex; justify-content:space-between; align-items:center; font-size:14px; color:var(--ink-soft); flex-wrap:wrap; gap:12px; }
+    .footer-content strong { color:var(--ink); font:600 16px 'Newsreader',serif; }
     .loading-badge { display:inline-block; padding:6px 14px; border-radius:20px; background:#dbeafe; color:#1e40af; font-size:13px; font-weight:600; margin-bottom:16px; }
     .error-badge { display:inline-block; padding:6px 14px; border-radius:20px; background:#fee2e2; color:#991b1b; font-size:13px; font-weight:600; margin-bottom:16px; }
     @media (max-width:860px) { .container,.container-narrow { padding:0 24px; } .nav-content { height:68px; } .logo-text span { display:none; } .nav-toggle { display:block; } .nav-links { position:absolute; top:68px; left:0; right:0; display:flex; flex-direction:column; gap:0; max-height:0; overflow:hidden; background:var(--paper); border-bottom:1px solid var(--line); transition:max-height .3s; } .nav-links.open { max-height:260px; } .nav-links a { padding:16px 24px; border-bottom:1px solid #e8e1d6; } .cards-wrapper { grid-template-columns:1fr; max-width:420px; } }
-    @media (max-width:680px) { .footer-row,.footer-bottom { flex-direction:column; align-items:flex-start; } }
     @media (max-width:480px) { .container,.container-narrow { padding:0 18px; } .page-header h2 { font-size:28px; } }
   </style>
 </head>
@@ -141,34 +135,16 @@
   </main>
 
   <footer>
-    <div class="container footer-inner">
-      <div class="footer-row">
-        <div>
-          <span class="footer-brand">SEPAKAT</span>
-          <span style="color:#4a5a68; margin-left:8px;">— Sistem Pengawasan Kearsipan Terintegrasi</span>
-        </div>
-        <div class="footer-address">
-          Dinas Perpustakaan dan Arsip Daerah D.I. Yogyakarta<br />
-          Jl. Janti, Banguntapan, Bantul, DIY 55198
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div>
-        <div>© 2026 SEPAKAT — Sistem Pengawasan Kearsipan Terintegrasi</div>
-      </div>
+    <div class="container footer-content">
+      <div><strong>SEPAKAT</strong> — Sistem Pengawasan Kearsipan Terintegrasi</div>
+      <div>© 2026 SEPAKAT</div>
     </div>
   </footer>
 
   <script>
     (function() {
-      // =====================================================
-      // KONFIGURASI API — URL BARU
-      // =====================================================
       const API_URL = 'https://script.google.com/macros/s/AKfycbzzlRy96TfUnhB-x-9dwd1w7VU3ADUDcqToGeheZgOALoUKD6LtyXic91XiJQ_wQamIiw/exec';
 
-      // =====================================================
-      // AMBIL NAMA OPD DARI URL
-      // =====================================================
       const urlParams = new URLSearchParams(window.location.search);
       const namaOpd = urlParams.get('opd') ? decodeURIComponent(urlParams.get('opd')) : '';
 
@@ -183,25 +159,28 @@
       }
 
       // =====================================================
-      // SET LINK TOMBOL KE ENDPOINT create-file
+      // URL TOMBOL
       // =====================================================
-      function buildUrl(unit, type) {
-        return API_URL + '?action=create-file' +
+      // Form ASKI → endpoint open-form (auto-redirect ke file)
+      function buildFormUrl(unit) {
+        return API_URL + '?action=open-form' +
           '&opd=' + encodeURIComponent(namaOpd) +
-          '&unit=' + encodeURIComponent(unit) +
-          '&type=' + type;
+          '&unit=' + encodeURIComponent(unit);
+      }
+
+      // Bukti → halaman panduan-upload.html
+      function buildBuktiUrl(unit) {
+        return 'panduan-upload.html?opd=' + encodeURIComponent(namaOpd) + '&unit=' + encodeURIComponent(unit);
       }
 
       if (namaOpd) {
-        document.getElementById('btnFormUP').href = buildUrl('Unit Pengolah', 'form');
-        document.getElementById('btnBuktiUP').href = 'panduan-upload.html?opd=' + encodeURIComponent(namaOpd) + '&unit=Unit Pengolah';
-        document.getElementById('btnFormUK').href = buildUrl('Unit Kearsipan', 'form');
-        document.getElementById('btnBuktiUK').href = 'panduan-upload.html?opd=' + encodeURIComponent(namaOpd) + '&unit=Unit Kearsipan';
+        document.getElementById('btnFormUP').href = buildFormUrl('Unit Pengolah');
+        document.getElementById('btnBuktiUP').href = buildBuktiUrl('Unit Pengolah');
+        document.getElementById('btnFormUK').href = buildFormUrl('Unit Kearsipan');
+        document.getElementById('btnBuktiUK').href = buildBuktiUrl('Unit Kearsipan');
       }
 
-      // =====================================================
-      // HAMBURGER MENU
-      // =====================================================
+      // Hamburger
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
       if (navToggle && navLinks) {
@@ -209,7 +188,6 @@
           const isOpen = navLinks.classList.toggle('open');
           navToggle.setAttribute('aria-expanded', String(isOpen));
         });
-
         navLinks.querySelectorAll('a').forEach((link) => {
           link.addEventListener('click', () => {
             navLinks.classList.remove('open');
