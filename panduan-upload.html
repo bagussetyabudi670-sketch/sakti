@@ -72,7 +72,7 @@
     .info-box p { font-size:14px; color:#1e40af; line-height:1.6; }
 
     .btn-wrapper { text-align:center; margin-top:32px; display:flex; flex-direction:column; gap:12px; align-items:center; }
-    .btn-open { display:inline-flex; align-items:center; gap:12px; padding:18px 44px; background:var(--ledger); color:#fff; font-size:17px; font-weight:700; border-radius:50px; border:none; cursor:pointer; transition:all .3s; box-shadow:0 4px 16px rgba(42,75,58,.22); font-family:'Inter',sans-serif; }
+    .btn-open { display:inline-flex; align-items:center; gap:12px; padding:18px 44px; background:var(--ledger); color:#fff; font-size:17px; font-weight:700; border-radius:50px; border:none; cursor:pointer; transition:all .3s; box-shadow:0 4px 16px rgba(42,75,58,.22); font-family:'Inter',sans-serif; text-decoration:none; }
     .btn-open:hover { background:#1d3a2c; transform:translateY(-3px); box-shadow:0 12px 32px rgba(42,75,58,.3); }
     .btn-open i { font-size:16px; }
     .btn-open.disabled { opacity:.5; cursor:not-allowed; pointer-events:none; }
@@ -210,9 +210,9 @@
           </div>
 
           <div class="btn-wrapper">
-            <button id="btnOpenFolder" class="btn-open">
+            <a id="btnOpenFolder" class="btn-open disabled" href="#" target="_blank" rel="noopener">
               <i class="fas fa-folder-open"></i> Buka Folder Bukti Dukung
-            </button>
+            </a>
             <p class="btn-note">Tombol akan membuka folder Google Drive di tab baru. Pastikan sudah login Google dulu.</p>
           </div>
 
@@ -255,7 +255,10 @@
 
   <script>
     (function() {
-      const API_URL = 'https://script.google.com/macros/s/AKfycbzzlRy96TfUnhB-x-9dwd1w7VU3ADUDcqToGeheZgOALoUKD6LtyXic91XiJQ_wQamIiw/exec';
+      // =====================================================
+      // KONFIGURASI API — URL BARU
+      // =====================================================
+      const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
 
       const urlParams = new URLSearchParams(window.location.search);
       const namaOpd = urlParams.get('opd') ? decodeURIComponent(urlParams.get('opd')) : '';
@@ -279,36 +282,21 @@
         return;
       }
 
-      btnOpen.addEventListener('click', async () => {
-        const originalHTML = btnOpen.innerHTML;
-        btnOpen.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memuat folder...';
-        btnOpen.classList.add('disabled');
+      // =====================================================
+      // SET HREF TOMBOL (langsung ke endpoint create-file)
+      // =====================================================
+      // Tidak pakai fetch, karena endpoint return HTML (redirect).
+      // Cukup pasang URL di href → browser buka di tab baru.
+      // =====================================================
+      const apiUrl = API_URL + '?action=create-file' +
+        '&opd=' + encodeURIComponent(namaOpd) +
+        '&unit=' + encodeURIComponent(unit) +
+        '&type=bukti';
 
-        try {
-          const apiUrl = API_URL + '?action=create-file' +
-            '&opd=' + encodeURIComponent(namaOpd) +
-            '&unit=' + encodeURIComponent(unit) +
-            '&type=bukti';
+      btnOpen.href = apiUrl;
+      btnOpen.classList.remove('disabled');
 
-          const res = await fetch(apiUrl);
-          const data = await res.json();
-
-          if (data.success && data.url) {
-            window.open(data.url, '_blank');
-            btnOpen.innerHTML = originalHTML;
-            btnOpen.classList.remove('disabled');
-          } else {
-            alert('⚠ Gagal membuka folder\n\n' + (data.error || 'Unknown error') + '\n\nPastikan Anda sudah login Google dengan 1 akun saja.');
-            btnOpen.innerHTML = originalHTML;
-            btnOpen.classList.remove('disabled');
-          }
-        } catch (err) {
-          alert('⚠ Error: ' + err.message);
-          btnOpen.innerHTML = originalHTML;
-          btnOpen.classList.remove('disabled');
-        }
-      });
-
+      // Hamburger menu
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
       if (navToggle && navLinks) {
