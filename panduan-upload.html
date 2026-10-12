@@ -72,7 +72,7 @@
     .info-box p { font-size:14px; color:#1e40af; line-height:1.6; }
 
     .btn-wrapper { text-align:center; margin-top:32px; display:flex; flex-direction:column; gap:12px; align-items:center; }
-    .btn-open { display:inline-flex; align-items:center; gap:12px; padding:18px 44px; background:var(--ledger); color:#fff; font-size:17px; font-weight:700; border-radius:50px; border:none; cursor:pointer; transition:all .3s; box-shadow:0 4px 16px rgba(42,75,58,.22); font-family:'Inter',sans-serif; text-decoration:none; }
+    .btn-open { display:inline-flex; align-items:center; gap:12px; padding:18px 44px; background:var(--ledger); color:#fff; font-size:17px; font-weight:700; border-radius:50px; border:none; cursor:pointer; transition:all .3s; box-shadow:0 4px 16px rgba(42,75,58,.22); font-family:'Inter',sans-serif; }
     .btn-open:hover { background:#1d3a2c; transform:translateY(-3px); box-shadow:0 12px 32px rgba(42,75,58,.3); }
     .btn-open i { font-size:16px; }
     .btn-open.disabled { opacity:.5; cursor:not-allowed; pointer-events:none; }
@@ -210,9 +210,9 @@
           </div>
 
           <div class="btn-wrapper">
-            <a id="btnOpenFolder" class="btn-open disabled" href="#" target="_blank" rel="noopener">
+            <button id="btnOpenFolder" class="btn-open">
               <i class="fas fa-folder-open"></i> Buka Folder Bukti Dukung
-            </a>
+            </button>
             <p class="btn-note">Tombol akan membuka folder Google Drive di tab baru. Pastikan sudah login Google dulu.</p>
           </div>
 
@@ -256,7 +256,7 @@
   <script>
     (function() {
       // =====================================================
-      // KONFIGURASI API — URL BARU
+      // KONFIGURASI API
       // =====================================================
       const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
 
@@ -275,6 +275,9 @@
         backLink.href = 'portal.html';
       }
 
+      // =====================================================
+      // TOMBOL: Buka Folder Drive
+      // =====================================================
       const btnOpen = document.getElementById('btnOpenFolder');
 
       if (!namaOpd || !unit) {
@@ -282,21 +285,20 @@
         return;
       }
 
-      // =====================================================
-      // SET HREF TOMBOL (langsung ke endpoint create-file)
-      // =====================================================
-      // Tidak pakai fetch, karena endpoint return HTML (redirect).
-      // Cukup pasang URL di href → browser buka di tab baru.
-      // =====================================================
+      // Build URL API
       const apiUrl = API_URL + '?action=create-file' +
         '&opd=' + encodeURIComponent(namaOpd) +
         '&unit=' + encodeURIComponent(unit) +
         '&type=bukti';
 
-      btnOpen.href = apiUrl;
-      btnOpen.classList.remove('disabled');
+      // Klik tombol → buka URL API di tab baru
+      btnOpen.addEventListener('click', () => {
+        window.open(apiUrl, '_blank');
+      });
 
-      // Hamburger menu
+      // =====================================================
+      // HAMBURGER MENU
+      // =====================================================
       const navToggle = document.getElementById('navToggle');
       const navLinks = document.getElementById('navLinks');
       if (navToggle && navLinks) {
