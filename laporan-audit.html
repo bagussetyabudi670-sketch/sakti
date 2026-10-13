@@ -18,8 +18,11 @@
     .container { max-width:1200px; margin:0 auto; padding:0 32px; }
     .container-narrow { max-width:1100px; margin:0 auto; padding:0 32px; }
 
-    /* NAVBAR */
-    .navbar { background:rgba(246,244,240,.92); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:30; backdrop-filter:blur(6px); }
+    @keyframes fadeInUp { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+    @keyframes slideDown { 0%{opacity:0;transform:translateY(-10px)} 100%{opacity:1;transform:translateY(0)} }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .navbar { background:rgba(246,244,240,.92); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:30; backdrop-filter:blur(6px); animation:slideDown .6s cubic-bezier(.2,.9,.3,1) forwards; }
     .nav-content { height:80px; display:flex; align-items:center; justify-content:space-between; }
     .logo { display:flex; align-items:center; gap:16px; }
     .logo-seal { width:48px; height:48px; object-fit:contain; border-radius:8px; }
@@ -37,128 +40,50 @@
     .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--ink-soft); font-size:14px; font-weight:500; }
     .back-link:hover { color:var(--ink); }
 
-    /* PAGE HEADER */
-    .page-header { padding:40px 0 32px; text-align:center; }
-    .page-header h2 { margin-bottom:8px; font:600 36px/1.1 'Newsreader',serif; }
-    .page-header p { max-width:620px; margin:auto; color:var(--ink-soft); font-size:15px; }
+    .page-header { padding:40px 0 24px; text-align:center; }
+    .page-header .label { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; color:#2a4b3a; text-transform:uppercase; letter-spacing:1px; border:1px solid #2a4b3a; padding:5px 16px; border-radius:40px; margin-bottom:16px; background:#F0FDF4; }
+    .page-header h2 { font-family:'Newsreader',serif; font-size:32px; line-height:1.1; font-weight:600; margin-bottom:8px; }
+    .page-header p { color:var(--ink-soft); font-size:15px; max-width:620px; margin:0 auto; }
 
-    /* YEAR GRID */
-    .main-section { padding:24px 0 100px; }
-    .year-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:900px; margin:0 auto; }
+    .main-section { flex:1; padding:24px 0 100px; }
+    .opd-list { display:flex; flex-direction:column; gap:14px; }
 
-    .year-card {
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:0 4px 16px rgba(0,0,0,.03);
-      display:flex;
-      flex-direction:column;
+    .loading-state { text-align:center; padding:80px 20px; color:var(--ink-soft); font-size:15px; }
+    .loading-state i { display:block; font-size:32px; color:var(--ledger); margin-bottom:16px; animation:spin 1s linear infinite; }
+
+    .opd-row {
+      background:#fff; border:1px solid #e8e1d6; border-radius:14px;
+      padding:16px 22px; display:grid;
+      grid-template-columns: 1fr 180px 180px;
+      align-items:center; gap:16px;
+      box-shadow:0 2px 10px rgba(0,0,0,.02);
       transition:all .3s;
+      animation:fadeInUp .5s cubic-bezier(.2,.9,.3,1) forwards;
+      opacity:0;
     }
-    .year-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,.08); }
-    .year-card.disabled { opacity:.5; cursor:not-allowed; }
-    .year-card.disabled:hover { transform:none; box-shadow:0 4px 16px rgba(0,0,0,.03); }
+    .opd-row:hover { box-shadow:0 8px 24px rgba(0,0,0,.06); border-color:#cbd5e1; }
 
-    /* Year header */
-    .year-header {
-      padding:28px 24px 24px;
-      text-align:center;
-      border-bottom:1px solid var(--line);
-    }
-    .year-number {
-      font-family:'Newsreader',serif;
-      font-size:42px;
-      font-weight:700;
-      line-height:1;
-      margin-bottom:12px;
-    }
-    .year-number.active { color:#EA580C; }
-    .year-number.archive { color:#16A34A; }
-    .year-number.locked { color:#94A3B8; }
+    .opd-left { display:flex; align-items:center; gap:14px; min-width:0; }
+    .opd-number { width:38px; height:38px; border-radius:10px; background:#F1F5F9; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:13px; font-weight:700; color:#475569; transition:background .3s, color .3s; }
+    .opd-row:hover .opd-number { background:#2a4b3a; color:#fff; }
+    .opd-name { font-size:14px; font-weight:600; color:var(--ink); line-height:1.4; min-width:0; }
 
-    .year-status {
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:5px 14px;
-      border-radius:20px;
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:.5px;
-      text-transform:uppercase;
-    }
-    .year-status.active { background:#FFF7ED; color:#EA580C; border:1px solid #FED7AA; }
-    .year-status.archive { background:#F0FDF4; color:#16A34A; border:1px solid #BBF7D0; }
-    .year-status.locked { background:#F1F5F9; color:#94A3B8; border:1px solid #E2E8F0; }
-
-    .year-status .dot {
-      width:7px;
-      height:7px;
-      border-radius:50%;
-    }
-    .year-status.active .dot { background:#EA580C; animation:pulse 2s infinite; }
-    .year-status.archive .dot { background:#16A34A; }
-    .year-status.locked .dot { background:#94A3B8; }
-
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-
-    /* Year body */
-    .year-body {
-      padding:24px 24px 28px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      flex:1;
-      justify-content:center;
-    }
-
-    .report-btn {
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:14px 18px;
-      border-radius:12px;
-      font-size:14px;
-      font-weight:600;
+    .btn-lap {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 16px; border-radius:10px;
+      font-size:13px; font-weight:700;
+      text-decoration:none; cursor:pointer;
       transition:all .3s;
-      cursor:pointer;
-      text-decoration:none;
-      color:inherit;
       border:1px solid transparent;
     }
-    .report-btn i {
-      font-size:16px;
-      flex-shrink:0;
-      width:22px;
-      text-align:center;
-    }
-    .report-btn:hover { transform:translateX(4px); }
+    .btn-lap.uk { background:#D1FAE5; color:#065F46; border-color:#A7F3D0; }
+    .btn-lap.uk:hover { background:#A7F3D0; border-color:#10B981; transform:translateY(-2px); box-shadow:0 6px 16px rgba(16,185,129,.25); }
+    .btn-lap.up { background:#DBEAFE; color:#1E40AF; border-color:#BFDBFE; }
+    .btn-lap.up:hover { background:#BFDBFE; border-color:#3B82F6; transform:translateY(-2px); box-shadow:0 6px 16px rgba(59,130,246,.25); }
 
-    /* Green (LAKI Pemda) */
-    .report-btn.green { background:#D1FAE5; color:#065F46; border-color:#A7F3D0; }
-    .report-btn.green:hover { background:#A7F3D0; border-color:#10B981; }
+    .btn-lap i { font-size:14px; }
 
-    /* Disabled */
-    .report-btn.disabled { opacity:.45; cursor:not-allowed; pointer-events:none; }
-
-    /* Locked card */
-    .locked-content {
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      padding:40px 24px;
-      text-align:center;
-      gap:12px;
-      color:#94A3B8;
-    }
-    .locked-content i { font-size:40px; }
-    .locked-content p { font-size:14px; font-weight:700; letter-spacing:1px; }
-
-    /* FOOTER */
-    footer { border-top:1px solid #e2dbd0; padding:44px 0 32px; background:#fcfaf7; }
+    footer { border-top:1px solid #e2dbd0; padding:44px 0 32px; background:#fcfaf7; margin-top:auto; animation:fadeInUp .8s cubic-bezier(.2,.9,.3,1) .6s forwards; opacity:0; }
     .footer-inner { display:flex; flex-direction:column; gap:20px; }
     .footer-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
     .footer-brand { color:#0f1a24; font:600 18px 'Newsreader',serif; }
@@ -167,22 +92,23 @@
     .footer-address a:hover { color:#a73b2e; }
     .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-top:20px; border-top:1px solid #d6cec0; color:#4a5a68; font-size:14px; }
 
-    /* RESPONSIVE */
     @media (max-width:960px) {
       .container,.container-narrow { padding:0 24px; }
+      .page-header h2 { font-size:26px; }
       .nav-content { height:68px; }
       .logo-text span { display:none; }
       .nav-toggle { display:block; }
       .nav-links { position:absolute; top:68px; left:0; right:0; display:flex; flex-direction:column; gap:0; max-height:0; overflow:hidden; background:var(--paper); border-bottom:1px solid var(--line); transition:max-height .3s; }
       .nav-links.open { max-height:260px; }
       .nav-links a { padding:16px 24px; border-bottom:1px solid #e8e1d6; }
-      .year-grid { grid-template-columns:1fr; max-width:400px; }
+      .opd-row { grid-template-columns: 1fr; gap:12px; padding:14px 16px; }
     }
     @media (max-width:680px) { .footer-row,.footer-bottom { flex-direction:column; align-items:flex-start; } }
     @media (max-width:480px) {
       .container,.container-narrow { padding:0 18px; }
-      .page-header h2 { font-size:26px; }
-      .year-number { font-size:36px; }
+      .page-header h2 { font-size:22px; }
+      .opd-number { width:32px; height:32px; font-size:12px; }
+      .opd-name { font-size:13px; }
     }
   </style>
 </head>
@@ -209,7 +135,6 @@
   </header>
 
   <main>
-
     <div class="container-narrow back-wrapper">
       <a href="pengawas.html" class="back-link">
         <i class="fas fa-arrow-left"></i> Kembali ke Dashboard Pengawas
@@ -218,63 +143,24 @@
 
     <section class="page-header">
       <div class="container-narrow">
-        <h2>Laporan Audit</h2>
-        <p>Silakan pilih tahun untuk melihat Laporan Kinerja Pengawasan Kearsipan (LAKI) Internal Pemda DIY.</p>
+        <span class="label">
+          <i class="fas fa-file-word"></i> LAPORAN AUDIT
+        </span>
+        <h2>Laporan Kinerja Pengawasan Kearsipan</h2>
+        <p>Silakan pilih unit kerja (UK / UP) untuk melihat dan mengunduh dokumen LAKI.</p>
       </div>
     </section>
 
     <section class="main-section">
       <div class="container-narrow">
-        <div class="year-grid">
-
-          <!-- TAHUN 2025 -->
-          <div class="year-card">
-            <div class="year-header">
-              <div class="year-number archive">2025</div>
-              <span class="year-status archive">
-                <span class="dot"></span> Arsip / Selesai
-              </span>
-            </div>
-            <div class="year-body">
-              <a href="#" class="report-btn green" data-link="laki-2025">
-                <i class="fas fa-file-alt"></i> LAKI Pemda DIY 2025
-              </a>
-            </div>
+        <div class="opd-list" id="opdList">
+          <div class="loading-state">
+            <i class="fas fa-circle-notch"></i>
+            Memuat data OPD dari server...
           </div>
-
-          <!-- TAHUN 2026 -->
-          <div class="year-card">
-            <div class="year-header">
-              <div class="year-number active">2026</div>
-              <span class="year-status active">
-                <span class="dot"></span> Sedang Berjalan
-              </span>
-            </div>
-            <div class="year-body">
-              <a href="#" class="report-btn green" data-link="laki-2026">
-                <i class="fas fa-file-alt"></i> LAKI Pemda DIY 2026
-              </a>
-            </div>
-          </div>
-
-          <!-- TAHUN 2027 -->
-          <div class="year-card disabled">
-            <div class="year-header">
-              <div class="year-number locked">2027</div>
-              <span class="year-status locked">
-                <span class="dot"></span> Persiapan
-              </span>
-            </div>
-            <div class="locked-content">
-              <i class="fas fa-lock"></i>
-              <p>BELUM TERSEDIA</p>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
-
   </main>
 
   <footer>
@@ -297,44 +183,66 @@
   </footer>
 
   <script>
-    // =====================================================
-    // LINK LAKI (sementara kosong)
-    // Ganti "#" dengan link asli dari owner
-    // =====================================================
-    const LINK_LAKI = {
-  'laki-2025': 'https://script.google.com/macros/s/AKfycbwaJk8hZ2kuIo4MMXzIaEBUkCKUGE47SWJ0ProFKsxxf8ZjCYs9Wv27c9reVDSjj0QP/exec?page=laki',
-  'laki-2026': 'https://script.google.com/macros/s/AKfycbwaJk8hZ2kuIo4MMXzIaEBUkCKUGE47SWJ0ProFKsxxf8ZjCYs9Wv27c9reVDSjj0QP/exec?page=laki'
-};
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
 
-    document.querySelectorAll('.report-btn[data-link]').forEach(btn => {
-      const key = btn.dataset.link;
-      const url = LINK_LAKI[key];
-      if (url && url !== '#') {
-        btn.href = url;
-        btn.target = '_blank';
-        btn.rel = 'noopener';
-      } else {
-        btn.href = '#';
-        btn.classList.add('disabled');
-        btn.addEventListener('click', e => e.preventDefault());
+    async function loadData() {
+      const opdListEl = document.getElementById('opdList');
+
+      try {
+        const res = await fetch(API_URL + '?action=links');
+        const linksRes = await res.json();
+
+        if (!Array.isArray(linksRes)) throw new Error('Data tidak valid');
+
+        opdListEl.innerHTML = '';
+        linksRes.forEach((opd, index) => {
+          const row = document.createElement('div');
+          row.className = 'opd-row';
+          row.style.animationDelay = (index * 0.03) + 's';
+
+          const no = String(index + 1).padStart(2, '0');
+          const namaOpd = opd['Nama OPD'];
+
+          const urlUK = 'laporan-opd.html?opd=' + encodeURIComponent(namaOpd) + '&unit=Unit%20Kearsipan';
+          const urlUP = 'laporan-opd.html?opd=' + encodeURIComponent(namaOpd) + '&unit=Unit%20Pengolah';
+
+          row.innerHTML = `
+            <div class="opd-left">
+              <div class="opd-number">${no}</div>
+              <div class="opd-name">${namaOpd}</div>
+            </div>
+            <a href="${urlUK}" class="btn-lap uk">
+              <i class="fas fa-archive"></i> Laporan UK
+            </a>
+            <a href="${urlUP}" class="btn-lap up">
+              <i class="fas fa-building"></i> Laporan UP
+            </a>
+          `;
+
+          opdListEl.appendChild(row);
+        });
+
+      } catch (err) {
+        opdListEl.innerHTML = '<div class="loading-state" style="color:#991b1b;">Gagal memuat: ' + err.message + '</div>';
       }
-    });
+    }
 
-    // Hamburger menu
+    loadData();
+
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
-
-    navToggle.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', String(open));
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', String(open));
       });
-    });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
   </script>
 
 </body>
