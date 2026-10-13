@@ -234,11 +234,6 @@
     .menu-card:hover .menu-icon.green { background:#059669; }
     .menu-card:hover .menu-icon.green i { color:#fff; }
 
-    .menu-icon.blue { background:#DBEAFE; }
-    .menu-icon.blue i { color:#1E40AF; }
-    .menu-card:hover .menu-icon.blue { background:#1E40AF; }
-    .menu-card:hover .menu-icon.blue i { color:#fff; }
-
     .menu-card h3 {
       font-family:'Inter',sans-serif;
       font-size:18px;
@@ -277,52 +272,6 @@
     }
     .menu-btn i { font-size:12px; transition:transform .3s; }
     .menu-card:hover .menu-btn i { transform:translateX(4px); }
-
-    /* APLIKASI PENDUKUNG */
-    .support-section { text-align:center; padding:40px 0 80px; }
-    .support-label {
-      display:inline-block;
-      position:relative;
-      font-size:12px;
-      font-weight:700;
-      color:var(--ink-soft);
-      letter-spacing:3px;
-      text-transform:uppercase;
-      margin-bottom:32px;
-    }
-    .support-label::before, .support-label::after {
-      content:'';
-      position:absolute;
-      top:50%;
-      width:60px;
-      height:1px;
-      background:var(--line);
-    }
-    .support-label::before { right:100%; margin-right:16px; }
-    .support-label::after { left:100%; margin-left:16px; }
-    .support-icon {
-      width:80px;
-      height:80px;
-      border-radius:50%;
-      background:#E3F2FD;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin:0 auto 20px;
-      transition:all .3s;
-      cursor:pointer;
-    }
-    .support-icon i { font-size:32px; color:#1976D2; transition:all .3s; }
-    .support-icon:hover { background:#1976D2; transform:scale(1.08); }
-    .support-icon:hover i { color:#fff; }
-    .support-title {
-      font-family:'Inter',sans-serif;
-      font-size:16px;
-      font-weight:800;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      color:var(--ink);
-    }
 
     /* FOOTER */
     footer { border-top:1px solid #e2dbd0; padding:44px 0 32px; background:#fcfaf7; }
@@ -489,17 +438,6 @@
       </div>
     </section>
 
-    <!-- APLIKASI PENDUKUNG -->
-    <section class="support-section">
-      <div class="container-narrow">
-        <div class="support-label">Aplikasi Pendukung</div>
-        <a href="#" class="support-icon" title="Monev Triwulanan">
-          <i class="fas fa-chart-line"></i>
-        </a>
-        <div class="support-title">Monev Triwulanan</div>
-      </div>
-    </section>
-
   </main>
 
   <footer>
@@ -522,7 +460,6 @@
   </footer>
 
   <script>
-    // Hamburger menu
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
 
