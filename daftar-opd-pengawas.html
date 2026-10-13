@@ -65,16 +65,29 @@
     .loading-state { text-align:center; padding:80px 20px; color:var(--ink-soft); font-size:15px; }
     .loading-state i { display:block; font-size:32px; color:var(--ledger); margin-bottom:16px; animation:spin 1s linear infinite; }
 
-    .opd-row { background:#fff; border:1px solid #e8e1d6; border-radius:14px; padding:18px 24px; display:flex; align-items:center; gap:20px; box-shadow:0 2px 10px rgba(0,0,0,.02); transition:all .3s; animation:fadeInUp .5s cubic-bezier(.2,.9,.3,1) forwards; opacity:0; }
+    /* Kartu OPD — 2 kolom aksi */
+    .opd-row {
+      background:#fff; border:1px solid #e8e1d6; border-radius:14px;
+      padding:18px 24px; display:grid;
+      grid-template-columns: 1fr 220px 220px;
+      align-items:center; gap:20px;
+      box-shadow:0 2px 10px rgba(0,0,0,.02);
+      transition:all .3s;
+      animation:fadeInUp .5s cubic-bezier(.2,.9,.3,1) forwards;
+      opacity:0;
+    }
     .opd-row:hover { box-shadow:0 8px 24px rgba(0,0,0,.06); border-color:#cbd5e1; }
+
+    .opd-left { display:flex; align-items:center; gap:16px; min-width:0; }
     .opd-number { width:40px; height:40px; border-radius:10px; background:#F1F5F9; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:14px; font-weight:700; color:#475569; transition:background .3s, color .3s; }
     .opd-row:hover .opd-number { background:#2a4b3a; color:#fff; }
-    .opd-name { flex:1; font-size:14px; font-weight:600; color:var(--ink); line-height:1.4; min-width:0; }
-    .form-group { display:flex; flex-direction:column; gap:6px; min-width:200px; flex-shrink:0; }
+    .opd-name { font-size:14px; font-weight:600; color:var(--ink); line-height:1.4; min-width:0; }
+
+    .form-group { display:flex; flex-direction:column; gap:6px; min-width:0; }
     .form-group-label { font-size:10px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:#94A3B8; text-align:center; }
     .form-badges { display:flex; gap:6px; justify-content:center; }
 
-    .btn-aksi { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; letter-spacing:.3px; padding:6px 12px; border-radius:20px; white-space:nowrap; transition:all .3s; text-decoration:none; cursor:pointer; border:1px solid transparent; min-width:64px; justify-content:center; }
+    .btn-aksi { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; letter-spacing:.3px; padding:6px 10px; border-radius:20px; white-space:nowrap; transition:all .3s; text-decoration:none; cursor:pointer; border:1px solid transparent; min-width:58px; justify-content:center; }
     .btn-aksi i { font-size:10px; }
     .btn-aksi:hover { transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.15); }
     .btn-aksi.rhas { background:#FEF3C7; color:#92400E; border-color:#FDE68A; }
@@ -84,9 +97,13 @@
     .btn-aksi.bukti { background:#DBEAFE; color:#1E40AF; border-color:#BFDBFE; }
     .btn-aksi.bukti:hover { background:#BFDBFE; border-color:#3B82F6; }
 
+    /* Warna label unit */
+    .form-group.unit-uk .form-group-label { color:#065F46; }
+    .form-group.unit-up .form-group-label { color:#1976D2; }
+
     footer { border-top:1px solid #e2dbd0; padding:36px 0; background:#fcfaf7; margin-top:auto; animation:fadeInUp .8s cubic-bezier(.2,.9,.3,1) .6s forwards; opacity:0; }
     .footer-content { display:flex; justify-content:space-between; align-items:center; font-size:14px; color:var(--ink-soft); flex-wrap:wrap; gap:12px; }
-    .footer-content strong { color:var(--ink); font-family:'Newsreader',serif; font-size:16px; font-weight:600; transition:color .3s; }
+    .footer-content strong { color:var(--ink); font-family:'Newsreader',serif; font-size:16px; font-weight:600; }
     .footer-content strong:hover { color:var(--ledger); }
 
     @media (max-width:960px) {
@@ -94,9 +111,10 @@
       .page-header h2 { font-size:26px; }
       .nav-content { height:68px; }
       .logo-text span { display:none; }
-      .opd-row { flex-wrap:wrap; gap:14px; padding:16px 18px; }
-      .opd-name { flex-basis:calc(100% - 60px); }
-      .form-group { flex-basis:calc(50% - 7px); min-width:0; }
+
+      .opd-row { grid-template-columns:1fr; gap:14px; padding:16px 18px; }
+      .opd-left { flex-wrap:wrap; }
+
       .nav-toggle { display:flex; }
       .nav-links { position:absolute; top:68px; left:0; right:0; flex-direction:column; gap:0; background:#f6f4f0; border-bottom:1px solid #e2dbd0; max-height:0; overflow:hidden; transition:max-height .3s; }
       .nav-links.open { max-height:260px; }
@@ -110,9 +128,9 @@
       .main-section { padding:16px 0 60px; }
       .opd-row { padding:14px 16px; gap:10px; }
       .opd-number { width:34px; height:34px; font-size:12px; }
-      .opd-name { font-size:13px; flex-basis:calc(100% - 48px); }
+      .opd-name { font-size:13px; }
       .form-group-label { font-size:9px; }
-      .btn-aksi { font-size:9px; padding:5px 8px; min-width:56px; }
+      .btn-aksi { font-size:9px; padding:5px 8px; min-width:50px; }
       .btn-rekap { font-size:13px; padding:12px 24px; }
       .footer-content { flex-direction:column; align-items:flex-start; gap:8px; }
     }
@@ -182,7 +200,7 @@
     </div>
   </footer>
 
-      <script>
+  <script>
     const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
     const LINK_REKAP_PROGRES = 'https://script.google.com/macros/s/AKfycbwaJk8hZ2kuIo4MMXzIaEBUkCKUGE47SWJ0ProFKsxxf8ZjCYs9Wv27c9reVDSjj0QP/exec';
 
@@ -192,20 +210,11 @@
     document.getElementById('labelTim').innerHTML = '<i class="fas fa-users"></i> TIM PENGAWAS ' + timParam;
     if (LINK_REKAP_PROGRES) document.getElementById('btnRekap').href = LINK_REKAP_PROGRES;
 
-    // Build URL untuk buka Form ASKI
+    // Build URL buka Form ASKI (via API)
     function buildOpenFormUrl(opdName, unit) {
       return API_URL + '?action=open-form' +
         '&opd=' + encodeURIComponent(opdName) +
         '&unit=' + encodeURIComponent(unit);
-    }
-
-    // Build URL ke halaman pilih-unit
-    function buildPilihUnitUrl(opdName, action, upUrl, ukUrl) {
-      return 'pilih-unit.html' +
-        '?opd=' + encodeURIComponent(opdName) +
-        '&action=' + action +
-        '&upUrl=' + encodeURIComponent(upUrl) +
-        '&ukUrl=' + encodeURIComponent(ukUrl);
     }
 
     async function loadData() {
@@ -220,7 +229,7 @@
 
         const opdTim = linksRes.filter(item => String(item.Tim) === String(timParam));
 
-        infoOpd.textContent = 'Daftar ' + opdTim.length + ' instansi yang diawasi oleh Tim ' + timParam + '.';
+        infoOpd.textContent = 'Daftar ' + opdTim.length + ' instansi yang diawasi oleh Tim ' + timParam + '. Pilih UK atau UP sesuai unit kerja.';
 
         opdListEl.innerHTML = '';
         opdTim.forEach((opd, index) => {
@@ -231,28 +240,47 @@
           const no = String(index + 1).padStart(2, '0');
           const namaOpd = opd['Nama OPD'];
 
-          // Link Form ASKI UP & UK (via API)
+          // === Link Form ASKI (via API) ===
           const formUP = buildOpenFormUrl(namaOpd, 'Unit Pengolah');
           const formUK = buildOpenFormUrl(namaOpd, 'Unit Kearsipan');
 
-          // Link Folder Bukti UP & UK (dari Spreadsheet)
+          // === Link Folder Bukti (dari Spreadsheet) ===
           const buktiUP = opd['Link Bukti UP'] || '#';
           const buktiUK = opd['Link Bukti UK'] || '#';
 
-          // Link ke halaman pilih-unit
-          const urlRhas  = buildPilihUnitUrl(namaOpd, 'rhas',  formUP, formUK);
-          const urlFinal = buildPilihUnitUrl(namaOpd, 'final', formUP, formUK);
-          const urlBukti = buildPilihUnitUrl(namaOpd, 'bukti', buktiUP, buktiUK);
-
           row.innerHTML = `
-            <div class="opd-number">${no}</div>
-            <div class="opd-name">${namaOpd}</div>
-            <div class="form-group">
-              <div class="form-group-label">Aksi</div>
+            <div class="opd-left">
+              <div class="opd-number">${no}</div>
+              <div class="opd-name">${namaOpd}</div>
+            </div>
+
+            <div class="form-group unit-uk">
+              <div class="form-group-label">Kearsipan (UK)</div>
               <div class="form-badges">
-                <a href="${urlRhas}" class="btn-aksi rhas"><i class="fas fa-clock"></i> RHAS</a>
-                <a href="${urlFinal}" class="btn-aksi final"><i class="fas fa-check"></i> Final</a>
-                <a href="${urlBukti}" class="btn-aksi bukti"><i class="fas fa-folder"></i> Bukti</a>
+                <a href="${formUK}" class="btn-aksi rhas" target="_blank" rel="noopener" title="Buka Form ASKI RHAS UK">
+                  <i class="fas fa-clock"></i> RHAS
+                </a>
+                <a href="${formUK}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Form ASKI Final UK">
+                  <i class="fas fa-check"></i> Final
+                </a>
+                <a href="${buktiUK}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Folder Bukti Dukung UK">
+                  <i class="fas fa-folder"></i> Bukti
+                </a>
+              </div>
+            </div>
+
+            <div class="form-group unit-up">
+              <div class="form-group-label">Pengolah (UP)</div>
+              <div class="form-badges">
+                <a href="${formUP}" class="btn-aksi rhas" target="_blank" rel="noopener" title="Buka Form ASKI RHAS UP">
+                  <i class="fas fa-clock"></i> RHAS
+                </a>
+                <a href="${formUP}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Form ASKI Final UP">
+                  <i class="fas fa-check"></i> Final
+                </a>
+                <a href="${buktiUP}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Folder Bukti Dukung UP">
+                  <i class="fas fa-folder"></i> Bukti
+                </a>
               </div>
             </div>
           `;
