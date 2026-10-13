@@ -352,7 +352,7 @@
       </div>
     </section>
 
-    <!-- PENGUMUMAN PENTING -->
+    <!-- PENGUMUMAN PENTING (DINAMIS) -->
     <section class="container-narrow announcement-wrapper">
       <div class="announcement-box">
         <div class="announcement-header">
@@ -362,47 +362,10 @@
             <p>Timeline Pengawasan Kearsipan</p>
           </div>
         </div>
-        <div class="announcement-list">
-
-          <div class="announcement-item urgent">
-            <div class="announcement-date urgent">
-              <div class="day">25</div>
-              <div class="month">Apr 26</div>
-            </div>
-            <div class="announcement-body">
-              <p>Proses verifikasi pengawasan eksternal Kabupaten/Kota sudah dapat diakses dan dimulai.</p>
-              <span class="announcement-tag urgent">
-                <i class="fas fa-play-circle"></i> Mulai Hari Ini
-              </span>
-            </div>
+        <div class="announcement-list" id="announcementList">
+          <div style="padding:24px;text-align:center;color:#94a3b8;font-size:14px;">
+            <i class="fas fa-circle-notch fa-spin"></i> Memuat pengumuman...
           </div>
-
-          <div class="announcement-item neutral">
-            <div class="announcement-date neutral">
-              <div class="day">24</div>
-              <div class="month">Apr 26</div>
-            </div>
-            <div class="announcement-body">
-              <p>Penutupan akses pengawasan Kabupaten/Kota pada pukul 16.00 WIB.</p>
-              <span class="announcement-tag neutral">
-                <i class="fas fa-clock"></i> Batas Waktu
-              </span>
-            </div>
-          </div>
-
-          <div class="announcement-item info">
-            <div class="announcement-date info">
-              <div class="day">23</div>
-              <div class="month">Apr 26</div>
-            </div>
-            <div class="announcement-body">
-              <p>Pelaksanaan verifikasi pengawasan internal untuk Perangkat Daerah Pemda DIY.</p>
-              <span class="announcement-tag info">
-                <i class="fas fa-check-circle"></i> Pelaksanaan
-              </span>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
@@ -460,6 +423,74 @@
   </footer>
 
   <script>
+    // =====================================================
+    // KONFIGURASI API
+    // =====================================================
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
+
+    // =====================================================
+    // LOAD PENGUMUMAN DARI SPREADSHEET
+    // =====================================================
+    async function loadPengumuman() {
+      const container = document.getElementById('announcementList');
+      if (!container) return;
+
+      try {
+        const res = await fetch(API_URL + '?action=pengumuman');
+        const data = await res.json();
+
+        if (!Array.isArray(data) || data.length === 0) {
+          container.innerHTML = '<div style="padding:24px;text-align:center;color:#94a3b8;font-size:14px;">Belum ada pengumuman.</div>';
+          return;
+        }
+
+        // Urutkan berdasarkan Tanggal (terbaru di atas)
+        data.sort((a, b) => {
+          const da = new Date(a['Tanggal'].split('/').reverse().join('-'));
+          const db = new Date(b['Tanggal'].split('/').reverse().join('-'));
+          return db - da;
+        });
+
+        container.innerHTML = data.map(item => {
+          const kategori = (item['Kategori'] || 'neutral').toLowerCase();
+          const hari = item['Hari'] || '';
+          const bulan = item['Bulan'] || '';
+          const isi = item['Isi'] || '';
+
+          // Icon & tag per kategori
+          let icon = 'fa-info-circle';
+          let tagText = 'Informasi';
+          if (kategori === 'urgent') { icon = 'fa-play-circle'; tagText = 'Mulai Hari Ini'; }
+          else if (kategori === 'neutral') { icon = 'fa-clock'; tagText = 'Batas Waktu'; }
+          else if (kategori === 'info') { icon = 'fa-check-circle'; tagText = 'Pelaksanaan'; }
+
+          return `
+            <div class="announcement-item ${kategori}">
+              <div class="announcement-date ${kategori}">
+                <div class="day">${hari}</div>
+                <div class="month">${bulan}</div>
+              </div>
+              <div class="announcement-body">
+                <p>${isi}</p>
+                <span class="announcement-tag ${kategori}">
+                  <i class="fas ${icon}"></i> ${tagText}
+                </span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        container.innerHTML = '<div style="padding:24px;text-align:center;color:#991b1b;font-size:14px;">Gagal memuat pengumuman.</div>';
+        console.error(err);
+      }
+    }
+
+    loadPengumuman();
+
+    // =====================================================
+    // HAMBURGER MENU
+    // =====================================================
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
 
