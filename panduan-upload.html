@@ -41,10 +41,11 @@
     .content-section { padding:40px 0 80px; }
     .content-wrapper { max-width:800px; margin:0 auto; }
 
-    .warning-box {
-      background:#fff7ed;
-      border:2px solid #fed7aa;
-      border-left:6px solid #d97706;
+    /* Info box ramah (bukan warning) */
+    .welcome-box {
+      background:#ecfdf5;
+      border:1px solid #a7f3d0;
+      border-left:6px solid #059669;
       border-radius:12px;
       padding:20px 24px;
       margin-bottom:28px;
@@ -52,9 +53,9 @@
       gap:16px;
       align-items:flex-start;
     }
-    .warning-box i { font-size:24px; color:#d97706; flex-shrink:0; margin-top:2px; }
-    .warning-box h3 { font-size:16px; font-weight:700; color:#92400e; margin-bottom:6px; }
-    .warning-box p { font-size:14px; color:#78350f; line-height:1.6; }
+    .welcome-box i { font-size:24px; color:#059669; flex-shrink:0; margin-top:2px; }
+    .welcome-box h3 { font-size:16px; font-weight:700; color:#065f46; margin-bottom:6px; }
+    .welcome-box p { font-size:14px; color:#065f46; line-height:1.6; }
 
     .steps-title { font:600 20px/1.2 'Newsreader',serif; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
     .steps-title i { color:var(--ledger); }
@@ -81,6 +82,7 @@
     .faq-section { margin-top:40px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:24px; }
     .faq-section h3 { font:600 20px/1.2 'Newsreader',serif; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
     .faq-section h3 i { color:var(--ledger); }
+    .faq-intro { font-size:13px; color:var(--ink-soft); margin-bottom:12px; font-style:italic; }
     .faq-item { padding:12px 0; border-bottom:1px solid #f1f5f9; }
     .faq-item:last-child { border-bottom:none; }
     .faq-q { font-size:14px; font-weight:600; color:var(--ink); margin-bottom:4px; }
@@ -139,7 +141,7 @@
 
     <section class="page-header">
       <div class="container-narrow">
-        <h2>Panduan Unggah Bukti Dukung</h2>
+        <h2>Unggah Bukti Dukung</h2>
         <p>Untuk: <span class="opd-name" id="opdName">...</span> — <span id="unitName">...</span></p>
       </div>
     </section>
@@ -148,11 +150,11 @@
       <div class="container-narrow">
         <div class="content-wrapper">
 
-          <div class="warning-box">
-            <i class="fas fa-exclamation-triangle"></i>
+          <div class="welcome-box">
+            <i class="fas fa-check-circle"></i>
             <div>
-              <h3>⚠ PENTING: Harus Login Google Dulu</h3>
-              <p>Sebelum membuka folder, pastikan Anda <strong>sudah login Google</strong> dengan akun yang benar. Kalau belum login, folder tidak bisa dibuka.</p>
+              <h3>Siap Upload</h3>
+              <p>Klik tombol di bawah untuk membuka folder penyimpanan bukti dukung. Setelah folder terbuka, Anda bisa langsung mengunggah file.</p>
             </div>
           </div>
 
@@ -165,37 +167,21 @@
             <div class="step-item">
               <div class="step-number">1</div>
               <div class="step-content">
-                <h4>Cek Login Google</h4>
-                <p>Buka <code>gmail.com</code> di browser Anda. Pastikan <strong>sudah login</strong> dengan akun yang benar.</p>
+                <h4>Klik Tombol di Bawah</h4>
+                <p>Klik tombol hijau <strong>"Buka Folder Bukti Dukung"</strong>. Folder akan terbuka di tab baru.</p>
               </div>
             </div>
 
             <div class="step-item">
               <div class="step-number">2</div>
               <div class="step-content">
-                <h4>Hanya 1 Akun Google</h4>
-                <p>Kalau Anda login dengan <strong>lebih dari 1 akun Google</strong>, logout dulu semuanya. Sisakan <strong>1 akun saja</strong>.</p>
+                <h4>Upload File</h4>
+                <p>Di dalam folder, klik <strong>"+ Baru"</strong> → <strong>Upload File</strong>, atau <strong>drag-and-drop</strong> file dari komputer ke folder.</p>
               </div>
             </div>
 
             <div class="step-item">
               <div class="step-number">3</div>
-              <div class="step-content">
-                <h4>Klik Tombol di Bawah</h4>
-                <p>Setelah login 1 akun, klik tombol hijau <strong>"Buka Folder Bukti Dukung"</strong> di bawah. Folder akan terbuka di tab baru.</p>
-              </div>
-            </div>
-
-            <div class="step-item">
-              <div class="step-number">4</div>
-              <div class="step-content">
-                <h4>Upload File</h4>
-                <p>Di dalam folder, klik <strong>"+ New"</strong> atau <strong>drag-and-drop</strong> file dari komputer ke folder.</p>
-              </div>
-            </div>
-
-            <div class="step-item">
-              <div class="step-number">5</div>
               <div class="step-content">
                 <h4>Selesai</h4>
                 <p>Tutup tab folder Drive. Bukti dukung sudah terunggah ke folder yang benar.</p>
@@ -206,37 +192,33 @@
 
           <div class="info-box">
             <i class="fas fa-info-circle"></i>
-            <p><strong>Format file yang diperbolehkan:</strong> PDF, Gambar (JPG/PNG), Excel. Maksimal 5 MB per file.</p>
+            <p><strong>Format file yang diperbolehkan:</strong> PDF, Gambar (JPG/PNG), Excel, Word. Pastikan ukuran file tidak melebihi kuota Google Drive.</p>
           </div>
 
           <div class="btn-wrapper">
             <button id="btnOpenFolder" class="btn-open">
               <i class="fas fa-folder-open"></i> Buka Folder Bukti Dukung
             </button>
-            <p class="btn-note">Tombol akan membuka folder Google Drive di tab baru. Pastikan sudah login Google dulu.</p>
+            <p class="btn-note">Folder akan terbuka di tab baru.</p>
           </div>
 
           <div class="faq-section">
-            <h3><i class="fas fa-circle-question"></i> Pertanyaan Umum</h3>
+            <h3><i class="fas fa-circle-question"></i> Jika Mengalami Kendala</h3>
+            <p class="faq-intro">Bagian ini hanya referensi. Kalau tidak ada masalah, tidak perlu dibaca.</p>
 
             <div class="faq-item">
               <div class="faq-q">Folder tidak bisa dibuka / muncul "You need access"?</div>
-              <div class="faq-a">Pastikan Anda sudah login Google. Kalau masih error, coba logout semua akun Google, login 1 akun saja, lalu klik tombol lagi.</div>
+              <div class="faq-a">Coba klik tombol lagi. Kalau masih tidak bisa, logout dari akun Google lain (sisakan 1 akun saja), lalu klik tombol lagi.</div>
             </div>
 
             <div class="faq-item">
-              <div class="faq-q">Muncul tulisan "Login untuk menambahkan file"?</div>
-              <div class="faq-a">Klik "Login", login dengan akun Google Anda, lalu coba upload file lagi.</div>
+              <div class="faq-q">Tidak bisa upload / file tidak muncul setelah diupload?</div>
+              <div class="faq-a">Pastikan sudah login Google. Kalau muncul tombol "Login", klik dan pilih akun Anda. Tunggu 5-10 detik, lalu refresh halaman (F5).</div>
             </div>
 
             <div class="faq-item">
-              <div class="faq-q">File tidak muncul setelah diupload?</div>
-              <div class="faq-a">Tunggu 5-10 detik. File akan muncul di folder. Kalau tidak, coba refresh halaman (F5).</div>
-            </div>
-
-            <div class="faq-item">
-              <div class="faq-q">Ukuran file terlalu besar?</div>
-              <div class="faq-a">Maksimal 5 MB per file. Kalau lebih, kompres file terlebih dahulu, atau bagi jadi beberapa file.</div>
+              <div class="faq-q">Klik tombol tapi folder tidak terbuka?</div>
+              <div class="faq-a">Cek apakah browser memblokir pop-up. Kalau iya, izinkan pop-up dari situs ini, lalu klik tombol lagi.</div>
             </div>
 
           </div>
@@ -263,7 +245,7 @@
 
       document.getElementById('opdName').textContent = namaOpd || 'Tidak diketahui';
       document.getElementById('unitName').textContent = unit;
-      document.title = 'Panduan Unggah Bukti · ' + (namaOpd || 'SEPAKAT');
+      document.title = 'Unggah Bukti · ' + (namaOpd || 'SEPAKAT');
 
       const backLink = document.getElementById('backLink');
       if (namaOpd) {
@@ -298,7 +280,7 @@
             btnOpen.innerHTML = originalHTML;
             btnOpen.classList.remove('disabled');
           } else {
-            alert('⚠ Gagal membuka folder\n\n' + (data.error || 'Unknown error') + '\n\nPastikan Anda sudah login Google dengan 1 akun saja.');
+            alert('⚠ Gagal membuka folder\n\n' + (data.error || 'Unknown error'));
             btnOpen.innerHTML = originalHTML;
             btnOpen.classList.remove('disabled');
           }
