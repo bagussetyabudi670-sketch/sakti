@@ -6,10 +6,8 @@
   <title>Pilih Tim Audit · SAKTi</title>
   <link rel="icon" type="image/png" href="assets/img/logoAS.png" />
 
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
@@ -45,19 +43,9 @@
 
     a { color: inherit; text-decoration: none; }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .container-narrow { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
 
-    .container-narrow {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    /* ===== ANIMATIONS ===== */
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -70,6 +58,9 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(1.2); }
     }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
     .animate-on-load {
       opacity: 0;
@@ -79,7 +70,6 @@
     .animate-delay-2 { animation-delay: 0.3s; }
     .animate-delay-3 { animation-delay: 0.45s; }
 
-    /* ===== NAVBAR ===== */
     .navbar {
       background: rgba(246, 244, 240, 0.92);
       border-bottom: 1px solid #e2dbd0;
@@ -90,20 +80,12 @@
       animation: slideDown 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
     }
 
-    .nav-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
-    }
+    .nav-content { display: flex; align-items: center; justify-content: space-between; height: 80px; }
 
     .logo { display: flex; align-items: center; gap: 16px; }
 
     .logo-seal {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      border-radius: 8px;
+      width: 48px; height: 48px; object-fit: contain; border-radius: 8px;
       transition: transform 0.3s ease;
     }
 
@@ -113,10 +95,8 @@
 
     .logo-text h1 {
       font-family: 'Newsreader', serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      line-height: 1.1;
+      font-size: 22px; font-weight: 600;
+      letter-spacing: -0.3px; line-height: 1.1;
       transition: color 0.3s ease;
     }
 
@@ -124,19 +104,15 @@
 
     .logo-text span {
       display: block;
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 12px; font-weight: 500;
       color: var(--ink-soft);
       letter-spacing: 0.3px;
-      margin-top: -1px;
-      line-height: 1.2;
+      margin-top: -1px; line-height: 1.2;
     }
 
     .nav-links {
-      display: flex;
-      gap: 40px;
-      font-size: 15px;
-      font-weight: 500;
+      display: flex; gap: 40px;
+      font-size: 15px; font-weight: 500;
       color: #2e3d4b;
     }
 
@@ -149,10 +125,8 @@
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
       background: var(--seal);
       transition: width 0.2s;
     }
@@ -165,17 +139,14 @@
       flex-direction: column;
       justify-content: center;
       gap: 5px;
-      background: none;
-      border: none;
+      background: none; border: none;
       cursor: pointer;
-      padding: 8px;
-      z-index: 40;
+      padding: 8px; z-index: 40;
     }
 
     .nav-toggle span {
       display: block;
-      width: 24px;
-      height: 2px;
+      width: 24px; height: 2px;
       background: #0f1a24;
       border-radius: 2px;
       transition: transform 0.2s ease, opacity 0.2s ease;
@@ -185,7 +156,6 @@
     .nav-toggle.active span:nth-child(2) { opacity: 0; }
     .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ===== TOMBOL KEMBALI ===== */
     .back-wrapper {
       padding: 32px 0 0;
       animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
@@ -193,11 +163,8 @@
     }
 
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 500;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500;
       color: var(--ink-soft);
       border-bottom: 2px solid transparent;
       padding-bottom: 3px;
@@ -213,18 +180,11 @@
     .back-link i { transition: transform 0.2s; }
     .back-link:hover i { transform: translateX(-4px); }
 
-    /* ===== PAGE HEADER ===== */
-    .page-header {
-      padding: 40px 0 24px;
-      text-align: center;
-    }
+    .page-header { padding: 40px 0 24px; text-align: center; }
 
     .page-header .label {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 700;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 700;
       color: var(--ledger);
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -241,15 +201,12 @@
 
     .page-header h2 {
       font-family: 'Newsreader', serif;
-      font-size: 36px;
-      line-height: 1.08;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-size: 36px; line-height: 1.08;
+      font-weight: 600; margin-bottom: 8px;
     }
 
     .page-header .line {
-      width: 60px;
-      height: 3px;
+      width: 60px; height: 3px;
       background: #EA580C;
       border-radius: 2px;
       margin: 16px auto 0;
@@ -263,7 +220,6 @@
       line-height: 1.6;
     }
 
-    /* ===== GRID 4 TIM ===== */
     .main-section {
       flex: 1;
       display: flex;
@@ -281,10 +237,24 @@
       margin: 0 auto;
     }
 
+    .loading-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .loading-state i {
+      display: block;
+      font-size: 28px;
+      color: var(--ledger);
+      margin-bottom: 12px;
+      animation: spin 1s linear infinite;
+    }
+
     .team-card {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+      display: flex; align-items: center; gap: 16px;
       background: #ffffff;
       border: 1px solid #e8e1d6;
       border-radius: 14px;
@@ -297,11 +267,6 @@
       color: inherit;
     }
 
-    .team-card:nth-child(1) { animation-delay: 0.15s; }
-    .team-card:nth-child(2) { animation-delay: 0.25s; }
-    .team-card:nth-child(3) { animation-delay: 0.35s; }
-    .team-card:nth-child(4) { animation-delay: 0.45s; }
-
     .team-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 32px rgba(0,0,0,0.08);
@@ -310,8 +275,7 @@
 
     .team-code {
       font-family: 'Newsreader', serif;
-      font-size: 32px;
-      font-weight: 700;
+      font-size: 32px; font-weight: 700;
       color: #EA580C;
       line-height: 1;
       flex-shrink: 0;
@@ -321,23 +285,18 @@
 
     .team-info {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      display: flex; flex-direction: column; gap: 4px;
       min-width: 0;
     }
 
     .team-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display: flex; align-items: center; gap: 8px;
       flex-wrap: wrap;
     }
 
     .team-info h3 {
       font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 800;
+      font-size: 14px; font-weight: 800;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       color: var(--ink);
@@ -345,11 +304,8 @@
     }
 
     .team-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 10px;
-      font-weight: 700;
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       color: #EA580C;
@@ -360,8 +316,7 @@
     }
 
     .team-status .dot {
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       background: #EA580C;
       animation: pulse 2s ease-in-out infinite;
@@ -377,37 +332,25 @@
     }
 
     .team-count {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 600;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600;
       color: var(--ink-soft);
       margin-top: 6px;
     }
 
-    .team-count i {
-      font-size: 11px;
-      color: #EA580C;
-    }
+    .team-count i { font-size: 11px; color: #EA580C; }
 
     .team-arrow {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       border-radius: 50%;
       background: #F0F0F0;
       color: var(--ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       transition: all 0.3s ease;
     }
 
-    .team-arrow i {
-      font-size: 13px;
-      transition: transform 0.3s ease;
-    }
+    .team-arrow i { font-size: 13px; transition: transform 0.3s ease; }
 
     .team-card:hover .team-arrow {
       background: #EA580C;
@@ -415,11 +358,8 @@
       transform: scale(1.1);
     }
 
-    .team-card:hover .team-arrow i {
-      transform: translateX(2px);
-    }
+    .team-card:hover .team-arrow i { transform: translateX(2px); }
 
-    /* ===== FOOTER ===== */
     footer {
       border-top: 1px solid #e2dbd0;
       padding: 36px 0;
@@ -442,14 +382,12 @@
     .footer-content strong {
       color: var(--ink);
       font-family: 'Newsreader', serif;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 16px; font-weight: 600;
       transition: color 0.3s ease;
     }
 
     .footer-content strong:hover { color: var(--ledger); }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 860px) {
       .container, .container-narrow { padding: 0 24px; }
       .page-header h2 { font-size: 28px; }
@@ -460,9 +398,7 @@
       .nav-toggle { display: flex; }
       .nav-links {
         position: absolute;
-        top: 68px;
-        left: 0;
-        right: 0;
+        top: 68px; left: 0; right: 0;
         flex-direction: column;
         gap: 0;
         background: #f6f4f0;
@@ -494,7 +430,6 @@
 
 <body>
 
-  <!-- ===== NAVBAR ===== -->
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="logo">
@@ -517,14 +452,12 @@
 
   <main>
 
-    <!-- ===== TOMBOL KEMBALI ===== -->
     <div class="container-narrow back-wrapper">
       <a href="pilih-tahun.html" class="back-link">
         <i class="fas fa-arrow-left"></i> Kembali ke Pilih Tahun
       </a>
     </div>
 
-    <!-- ===== PAGE HEADER ===== -->
     <section class="page-header">
       <div class="container-narrow">
         <span class="label animate-on-load animate-delay-1">
@@ -532,133 +465,126 @@
         </span>
         <h2 class="animate-on-load animate-delay-2">Direktori Tim Audit Internal</h2>
         <div class="line"></div>
-        <p class="animate-on-load animate-delay-3" id="infoTahun">Tahun Pelaksanaan 2026 mencakup 37 Perangkat Daerah.</p>
+        <p class="animate-on-load animate-delay-3" id="infoTahun">Memuat data...</p>
       </div>
     </section>
 
-    <!-- ===== GRID 4 TIM ===== -->
     <section class="main-section">
       <div class="container-narrow">
-        <div class="team-grid">
-
-          <!-- TIM 1 -->
-          <a href="daftar-opd-pengawas.html?tim=1" class="team-card" data-tim="1">
-            <div class="team-code">T1</div>
-            <div class="team-info">
-              <div class="team-header">
-                <h3>Tim 1</h3>
-                <span class="team-status">
-                  <span class="dot"></span> Sedang Berjalan
-                </span>
-              </div>
-              <p>Koordinator: Nur Amri Yahya, S.IP</p>
-              <div class="team-count">
-                <i class="fas fa-building"></i> 10 Perangkat Daerah
-              </div>
-            </div>
-            <div class="team-arrow">
-              <i class="fas fa-arrow-right"></i>
-            </div>
-          </a>
-
-          <!-- TIM 2 -->
-          <a href="daftar-opd-pengawas.html?tim=2" class="team-card" data-tim="2">
-            <div class="team-code">T2</div>
-            <div class="team-info">
-              <div class="team-header">
-                <h3>Tim 2</h3>
-                <span class="team-status">
-                  <span class="dot"></span> Sedang Berjalan
-                </span>
-              </div>
-              <p>Koordinator: Yunianti, S.S.T.Ars</p>
-              <div class="team-count">
-                <i class="fas fa-building"></i> 9 Perangkat Daerah
-              </div>
-            </div>
-            <div class="team-arrow">
-              <i class="fas fa-arrow-right"></i>
-            </div>
-          </a>
-
-          <!-- TIM 3 -->
-          <a href="daftar-opd-pengawas.html?tim=3" class="team-card" data-tim="3">
-            <div class="team-code">T3</div>
-            <div class="team-info">
-              <div class="team-header">
-                <h3>Tim 3</h3>
-                <span class="team-status">
-                  <span class="dot"></span> Sedang Berjalan
-                </span>
-              </div>
-              <p>Koordinator: Syamsiyah Pujiastuti, S.S, M.AP</p>
-              <div class="team-count">
-                <i class="fas fa-building"></i> 9 Perangkat Daerah
-              </div>
-            </div>
-            <div class="team-arrow">
-              <i class="fas fa-arrow-right"></i>
-            </div>
-          </a>
-
-          <!-- TIM 4 -->
-          <a href="daftar-opd-pengawas.html?tim=4" class="team-card" data-tim="4">
-            <div class="team-code">T4</div>
-            <div class="team-info">
-              <div class="team-header">
-                <h3>Tim 4</h3>
-                <span class="team-status">
-                  <span class="dot"></span> Sedang Berjalan
-                </span>
-              </div>
-              <p>Koordinator: Atik Widayati, S.S.T.Ars</p>
-              <div class="team-count">
-                <i class="fas fa-building"></i> 9 Perangkat Daerah
-              </div>
-            </div>
-            <div class="team-arrow">
-              <i class="fas fa-arrow-right"></i>
-            </div>
-          </a>
-
+        <div class="team-grid" id="teamGrid">
+          <div class="loading-state">
+            <i class="fas fa-circle-notch"></i>
+            Memuat data tim dari server...
+          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer>
     <div class="container footer-content">
       <div>
         <strong>SAKTi</strong> — Sistem Pengawasan Kearsipan Terintegrasi
       </div>
-      <div>© 2025 SAKTi</div>
+      <div>© 2026 SAKTi</div>
     </div>
   </footer>
 
-  <!-- ===== SCRIPT ===== -->
   <script>
-    // Baca parameter tahun & jenis dari URL
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
+
     const urlParams = new URLSearchParams(window.location.search);
     const tahun = urlParams.get('tahun');
     const jenis = urlParams.get('jenis');
 
-    // Update info tahun
-    if (tahun) {
-      const jenisLabel = jenis === 'eksternal' ? 'Eksternal' : 'Internal';
-      document.getElementById('infoTahun').textContent =
-        'Tahun Pelaksanaan ' + tahun + ' — Audit ' + jenisLabel + ' mencakup 37 Perangkat Daerah.';
+    const teamGrid = document.getElementById('teamGrid');
+
+    // =====================================================
+    // RENDER KARTU TIM DARI API
+    // =====================================================
+    function renderTeamCards(timList) {
+      if (!Array.isArray(timList) || timList.length === 0) {
+        teamGrid.innerHTML = '<div class="loading-state" style="color:#991b1b;">Data tim kosong.</div>';
+        return;
+      }
+
+      // Hitung total OPD untuk info header
+      const totalOpd = timList.reduce((sum, t) => sum + (Number(t.JumlahOPD) || 0), 0);
+
+      // Update info tahun di header
+      if (tahun) {
+        const jenisLabel = jenis === 'eksternal' ? 'Eksternal' : 'Internal';
+        document.getElementById('infoTahun').textContent =
+          'Tahun Pelaksanaan ' + tahun + ' — Audit ' + jenisLabel + ' mencakup ' + totalOpd + ' Perangkat Daerah.';
+      } else {
+        document.getElementById('infoTahun').textContent =
+          'Tahun Pelaksanaan ' + (new Date().getFullYear()) + ' mencakup ' + totalOpd + ' Perangkat Daerah.';
+      }
+
+      // Generate kartu
+      teamGrid.innerHTML = '';
+      timList.forEach((t, index) => {
+        const timNum = String(t.Tim || (index + 1)).trim();
+        const koor = t.Koordinator || '-';
+        const jumlah = Number(t.JumlahOPD) || 0;
+        const status = t.Status || 'Sedang Berjalan';
+
+        const card = document.createElement('a');
+        card.className = 'team-card';
+        card.dataset.tim = timNum;
+        card.style.animationDelay = (0.15 + index * 0.1) + 's';
+
+        // Build URL ke daftar-opd-pengawas
+        let url = 'daftar-opd-pengawas.html?tim=' + encodeURIComponent(timNum);
+        if (tahun) url += '&tahun=' + encodeURIComponent(tahun);
+        if (jenis) url += '&jenis=' + encodeURIComponent(jenis);
+        card.href = url;
+
+        card.innerHTML = `
+          <div class="team-code">T${timNum}</div>
+          <div class="team-info">
+            <div class="team-header">
+              <h3>Tim ${timNum}</h3>
+              <span class="team-status">
+                <span class="dot"></span> ${status}
+              </span>
+            </div>
+            <p>Koordinator: ${koor}</p>
+            <div class="team-count">
+              <i class="fas fa-building"></i> ${jumlah} Perangkat Daerah
+            </div>
+          </div>
+          <div class="team-arrow">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        `;
+
+        teamGrid.appendChild(card);
+      });
     }
 
-    // Teruskan parameter tahun & jenis ke setiap kartu tim
-    document.querySelectorAll('.team-card').forEach(card => {
-      const tim = card.dataset.tim;
-      let url = 'daftar-opd-pengawas.html?tim=' + tim;
-      if (tahun) url += '&tahun=' + tahun;
-      if (jenis) url += '&jenis=' + jenis;
-      card.href = url;
-    });
+    // =====================================================
+    // FETCH DATA TIM
+    // =====================================================
+    async function loadTim() {
+      try {
+        const res = await fetch(API_URL + '?action=tim');
+        const data = await res.json();
+
+        if (data.error) {
+          teamGrid.innerHTML = '<div class="loading-state" style="color:#991b1b;">Gagal: ' + data.error + '</div>';
+          return;
+        }
+
+        renderTeamCards(data);
+
+      } catch (err) {
+        teamGrid.innerHTML = '<div class="loading-state" style="color:#991b1b;">Gagal memuat: ' + err.message + '</div>';
+      }
+    }
+
+    loadTim();
 
     // Hamburger menu
     (function() {
