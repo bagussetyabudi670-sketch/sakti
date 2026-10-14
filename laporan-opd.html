@@ -60,11 +60,7 @@
     .page-header p { color:var(--ink-soft); font-size:15px; max-width:620px; margin:0 auto; }
 
     .main-section { flex:1; padding:32px 0 100px; }
-
-    .download-box {
-      max-width:600px; margin:0 auto;
-      text-align:center;
-    }
+    .download-box { max-width:600px; margin:0 auto; text-align:center; }
 
     .btn-download {
       display:inline-flex; align-items:center; justify-content:center; gap:14px;
@@ -81,19 +77,49 @@
       box-shadow:0 6px 20px rgba(42,75,58,.25);
       width:100%;
       max-width:400px;
-      margin:0 auto;
     }
-    .btn-download:hover {
+    .btn-download:hover:not(.loading) {
       background:#1d3a2c;
       transform:translateY(-3px);
       box-shadow:0 12px 28px rgba(42,75,58,.35);
     }
-    .btn-download.loading {
-      pointer-events:none;
-      opacity:.7;
+    .btn-download.loading { pointer-events:none; opacity:.7; }
+    .btn-download i { font-size:18px; }
+
+    /* PROGRESS BAR */
+    .progress-wrapper {
+      display:none;
+      max-width:400px;
+      margin:20px auto 0;
+      text-align:left;
     }
-    .btn-download i {
-      font-size:18px;
+    .progress-wrapper.active { display:block; }
+    .progress-label {
+      display:flex; justify-content:space-between;
+      font-size:13px; font-weight:600;
+      color:var(--ink-soft);
+      margin-bottom:8px;
+    }
+    .progress-label .pct { color:var(--ledger); font-weight:700; }
+    .progress-track {
+      width:100%;
+      height:10px;
+      background:#e8e1d6;
+      border-radius:10px;
+      overflow:hidden;
+    }
+    .progress-fill {
+      height:100%;
+      background:linear-gradient(90deg, #2a4b3a 0%, #3d7054 100%);
+      width:0%;
+      border-radius:10px;
+      transition:width .3s ease;
+    }
+    .progress-note {
+      margin-top:10px;
+      font-size:12px;
+      color:var(--ink-soft);
+      text-align:center;
     }
 
     .notice {
@@ -110,6 +136,10 @@
     .notice i { color:#D97706; font-size:16px; flex-shrink:0; margin-top:2px; }
     .notice.info { background:#DBEAFE; border-color:#BFDBFE; color:#1E40AF; }
     .notice.info i { color:#1E40AF; }
+    .notice.success { background:#D1FAE5; border-color:#A7F3D0; color:#065F46; }
+    .notice.success i { color:#065F46; }
+    .notice.error { background:#FEE2E2; border-color:#FECACA; color:#991B1B; }
+    .notice.error i { color:#991B1B; }
 
     footer { border-top:1px solid #e2dbd0; padding:44px 0 32px; background:#fcfaf7; margin-top:auto; }
     .footer-inner { display:flex; flex-direction:column; gap:20px; }
@@ -174,12 +204,9 @@
     <section class="main-section">
       <div class="container-narrow">
 
-        <div class="notice info">
+        <div class="notice info" id="noticeBox">
           <i class="fas fa-info-circle"></i>
-          <div>
-            Laporan dibuat otomatis dari template. Proses ~10–20 detik. 
-            Setelah selesai, file Word akan ter-download.
-          </div>
+          <div>Laporan dibuat otomatis dari template. Proses ~5–15 detik.</div>
         </div>
 
         <div class="download-box">
@@ -187,6 +214,17 @@
             <i class="fas fa-file-word"></i>
             <span>Download Laporan</span>
           </button>
+
+          <div class="progress-wrapper" id="progressWrapper">
+            <div class="progress-label">
+              <span id="progressStatus">Memproses...</span>
+              <span class="pct" id="progressPct">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-note">Mohon tunggu, jangan tutup halaman ini.</div>
+          </div>
         </div>
 
       </div>
@@ -231,8 +269,82 @@
     document.getElementById('namaOpd').textContent = namaOpd || 'Laporan Instansi';
     document.title = 'Laporan · ' + (namaOpd || 'SEPAKAT');
 
+    // =====================================================
+    // PROGRESS BAR
+    // =====================================================
+    const progressWrapper = document.getElementById('progressWrapper');
+    const progressFill = document.getElementById('progressFill');
+    const progressPct = document.getElementById('progressPct');
+    const progressStatus = document.getElementById('progressStatus');
+    const noticeBox = document.getElementById('noticeBox');
     const btn = document.getElementById('btnDownload');
 
+    let progressTimer = null;
+
+    // Simulasi progress: naik bertahap 0 → 90% dalam ~10 detik
+    // (kita tidak bisa tahu progress riil dari server, jadi di-fake)
+    function startProgress() {
+      let pct = 0;
+
+      const steps = [
+        { at: 0,  status: 'Menyiapkan template...' },
+        { at: 15, status: 'Mengambil data pejabat...' },
+        { at: 30, status: 'Membaca nilai dari Form ASKI...' },
+        { at: 55, status: 'Menyalin template...' },
+        { at: 75, status: 'Mengisi placeholder...' },
+        { at: 88, status: 'Menyimpan file Word...' },
+        { at: 95, status: 'Menyelesaikan...' }
+      ];
+
+      progressFill.style.width = '0%';
+      progressPct.textContent = '0%';
+      progressStatus.textContent = steps[0].status;
+      progressWrapper.classList.add('active');
+
+      progressTimer = setInterval(() => {
+        // Naik pelan-pelan; makin tinggi makin lambat (sampai maks 95%)
+        const remaining = 95 - pct;
+        const step = Math.max(0.3, remaining * 0.04);
+        pct = Math.min(95, pct + step);
+
+        progressFill.style.width = pct.toFixed(1) + '%';
+        progressPct.textContent = Math.round(pct) + '%';
+
+        // Ganti status sesuai milestone
+        for (let i = steps.length - 1; i >= 0; i--) {
+          if (pct >= steps[i].at) {
+            progressStatus.textContent = steps[i].status;
+            break;
+          }
+        }
+      }, 200);
+    }
+
+    function finishProgress(success, message) {
+      if (progressTimer) clearInterval(progressTimer);
+
+      if (success) {
+        progressFill.style.width = '100%';
+        progressPct.textContent = '100%';
+        progressStatus.textContent = 'Selesai!';
+
+        noticeBox.className = 'notice success';
+        noticeBox.innerHTML = '<i class="fas fa-check-circle"></i><div>' + message + '</div>';
+      } else {
+        progressStatus.textContent = 'Gagal';
+        noticeBox.className = 'notice error';
+        noticeBox.innerHTML = '<i class="fas fa-exclamation-circle"></i><div>' + message + '</div>';
+      }
+
+      setTimeout(() => {
+        progressWrapper.classList.remove('active');
+        progressFill.style.width = '0%';
+      }, 2500);
+    }
+
+    // =====================================================
+    // TOMBOL DOWNLOAD
+    // =====================================================
     btn.addEventListener('click', async () => {
       if (!namaOpd) {
         alert('Nama OPD tidak valid.');
@@ -241,7 +353,12 @@
 
       const original = btn.innerHTML;
       btn.classList.add('loading');
-      btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Membuat laporan...';
+      btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Sedang memproses...';
+
+      noticeBox.className = 'notice info';
+      noticeBox.innerHTML = '<i class="fas fa-info-circle"></i><div>Laporan sedang dibuat. Proses ~5–15 detik.</div>';
+
+      startProgress();
 
       try {
         const url = API_URL + '?action=generate-laporan' +
@@ -252,19 +369,14 @@
         const data = await res.json();
 
         if (data.success && data.url) {
+          finishProgress(true, 'Laporan berhasil dibuat. File Word sedang di-download...');
           window.open(data.url, '_blank');
-          btn.innerHTML = '<i class="fas fa-check"></i> Laporan berhasil dibuat';
-          setTimeout(() => {
-            btn.classList.remove('loading');
-            btn.innerHTML = original;
-          }, 2500);
         } else {
-          alert('⚠ Gagal membuat laporan:\n\n' + (data.error || 'Unknown error'));
-          btn.classList.remove('loading');
-          btn.innerHTML = original;
+          finishProgress(false, 'Gagal membuat laporan: ' + (data.error || 'Unknown error'));
         }
       } catch (err) {
-        alert('⚠ Error: ' + err.message);
+        finishProgress(false, 'Error: ' + err.message);
+      } finally {
         btn.classList.remove('loading');
         btn.innerHTML = original;
       }
