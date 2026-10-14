@@ -65,7 +65,6 @@
     .loading-state { text-align:center; padding:80px 20px; color:var(--ink-soft); font-size:15px; }
     .loading-state i { display:block; font-size:32px; color:var(--ledger); margin-bottom:16px; animation:spin 1s linear infinite; }
 
-    /* Kartu OPD — 2 kolom aksi */
     .opd-row {
       background:#fff; border:1px solid #e8e1d6; border-radius:14px;
       padding:18px 24px; display:grid;
@@ -97,7 +96,6 @@
     .btn-aksi.bukti { background:#DBEAFE; color:#1E40AF; border-color:#BFDBFE; }
     .btn-aksi.bukti:hover { background:#BFDBFE; border-color:#3B82F6; }
 
-    /* Warna label unit */
     .form-group.unit-uk .form-group-label { color:#065F46; }
     .form-group.unit-up .form-group-label { color:#1976D2; }
 
@@ -217,6 +215,38 @@
         '&unit=' + encodeURIComponent(unit);
     }
 
+    // Escape kutip tunggal untuk onclick
+    function esc(str) {
+      return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    }
+
+    // Buka folder Bukti via API (cari folder real-time)
+    window.openBukti = async function(opdName, unit, btnEl) {
+      const original = btnEl.innerHTML;
+      btnEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      btnEl.style.pointerEvents = 'none';
+
+      try {
+        const url = API_URL + '?action=get-bukti-link' +
+          '&opd=' + encodeURIComponent(opdName) +
+          '&unit=' + encodeURIComponent(unit);
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.success && data.url) {
+          window.open(data.url, '_blank');
+        } else {
+          alert('⚠ Folder Bukti belum tersedia untuk:\n\n' + opdName + ' — ' + unit + '\n\n' + (data.error || ''));
+        }
+      } catch (err) {
+        alert('⚠ Error: ' + err.message);
+      } finally {
+        btnEl.innerHTML = original;
+        btnEl.style.pointerEvents = '';
+      }
+    };
+
     async function loadData() {
       const opdListEl = document.getElementById('opdList');
       const infoOpd = document.getElementById('infoOpd');
@@ -239,14 +269,10 @@
 
           const no = String(index + 1).padStart(2, '0');
           const namaOpd = opd['Nama OPD'];
+          const namaEsc = esc(namaOpd);
 
-          // === Link Form ASKI (via API) ===
           const formUP = buildOpenFormUrl(namaOpd, 'Unit Pengolah');
           const formUK = buildOpenFormUrl(namaOpd, 'Unit Kearsipan');
-
-          // === Link Folder Bukti (dari Spreadsheet) ===
-          const buktiUP = opd['Link Bukti UP'] || '#';
-          const buktiUK = opd['Link Bukti UK'] || '#';
 
           row.innerHTML = `
             <div class="opd-left">
@@ -263,7 +289,7 @@
                 <a href="${formUK}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Form ASKI Final UK">
                   <i class="fas fa-check"></i> Final
                 </a>
-                <a href="${buktiUK}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Folder Bukti Dukung UK">
+                <a href="#" onclick="event.preventDefault(); openBukti('${namaEsc}', 'Unit Kearsipan', this);" class="btn-aksi bukti" title="Buka Folder Bukti Dukung UK">
                   <i class="fas fa-folder"></i> Bukti
                 </a>
               </div>
@@ -278,7 +304,7 @@
                 <a href="${formUP}" class="btn-aksi final" target="_blank" rel="noopener" title="Buka Form ASKI Final UP">
                   <i class="fas fa-check"></i> Final
                 </a>
-                <a href="${buktiUP}" class="btn-aksi bukti" target="_blank" rel="noopener" title="Buka Folder Bukti Dukung UP">
+                <a href="#" onclick="event.preventDefault(); openBukti('${namaEsc}', 'Unit Pengolah', this);" class="btn-aksi bukti" title="Buka Folder Bukti Dukung UP">
                   <i class="fas fa-folder"></i> Bukti
                 </a>
               </div>
