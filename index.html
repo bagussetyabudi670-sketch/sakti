@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SAKTi · Sistem Pengawasan Kearsipan Terintegrasi</title>
+  <title>SEPAKAT · Sistem Pengawasan Kearsipan Terintegrasi</title>
   <link rel="icon" type="image/png" href="assets/img/logoAS.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -194,11 +194,7 @@
     .alert-portal.info { background: #DBEAFE; color: #1E40AF; border: 1px solid #BFDBFE; }
     .alert-portal.success { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
 
-    /* Overlay GSI button di atas link kustom */
-    .btn-gsi-wrap {
-      position: relative;
-      display: inline-block;
-    }
+    .btn-gsi-wrap { position: relative; display: inline-block; }
     .gsi-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -238,9 +234,9 @@
   <header class="navbar">
     <div class="container nav-content">
       <div class="logo">
-        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SAKTi" />
+        <img class="logo-seal" src="assets/img/logoAS.png" alt="Logo SEPAKAT" />
         <div class="logo-text">
-          <h1>SAKTi</h1>
+          <h1>SEPAKAT</h1>
           <span>Sistem Pengawasan Kearsipan Terintegrasi</span>
         </div>
       </div>
@@ -261,7 +257,7 @@
         <div class="hero-text">
           <span class="tag hero-tag">Sistem resmi pengawasan kearsipan</span>
           <h2 class="hero-title">Satu portal untuk <br /><em>seluruh proses pengawasan</em>.</h2>
-          <p class="hero-desc">SAKTi menyatukan pengisian data, unggah bukti dukung, dan verifikasi lapangan dalam satu alur — dari lembaga kearsipan sampai tim pengawas.</p>
+          <p class="hero-desc">SEPAKAT menyatukan pengisian data, unggah bukti dukung, dan verifikasi lapangan dalam satu alur — dari lembaga kearsipan sampai tim pengawas.</p>
           <a href="portal.html" class="btn-primary hero-btn">
             Masuk ke Portal
             <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -273,7 +269,7 @@
 
     <section class="about" id="tentang">
       <div class="container about-grid">
-        <div class="ledger-label reveal">Tentang SAKTi</div>
+        <div class="ledger-label reveal">Tentang SEPAKAT</div>
         <div class="about-body">
           <h3 class="reveal">Pintu masuk bagi objek pengawasan dan tim pengawas.</h3>
           <p class="reveal">Setiap tahap pengawasan kearsipan — dari pengisian data mandiri, unggah bukti dukung, sampai verifikasi oleh tim pengawas — tercatat di satu tempat yang sama, sehingga statusnya bisa dipantau kedua belah pihak secara langsung.</p>
@@ -311,10 +307,8 @@
             <h3>Pengawas / Verifikator</h3>
             <p>Untuk tim pengawas dan verifikator yang menjalankan proses pengawasan dan memeriksa bukti dukung yang masuk.</p>
 
-            <!-- Alert verifikasi -->
             <div class="alert-portal" id="alertPengawas"></div>
 
-            <!-- Tombol kustom + overlay Google Sign-In -->
             <div class="btn-gsi-wrap">
               <button type="button" class="card-link" tabindex="-1">
                 Masuk sebagai Pengawas
@@ -333,7 +327,7 @@
     <div class="container footer-inner">
       <div class="footer-row">
         <div>
-          <span class="footer-brand">SAKTi</span>
+          <span class="footer-brand">SEPAKAT</span>
           <span style="color:#4a5a68; margin-left:8px;">— Sistem Pengawasan Kearsipan Terintegrasi</span>
         </div>
         <div class="footer-address">
@@ -343,14 +337,14 @@
       </div>
       <div class="footer-bottom">
         <div>Email: <a href="mailto:dpad@jogjaprov.go.id">dpad@jogjaprov.go.id</a></div>
-        <div>© 2025 SAKTi — Sistem Audit Kearsipan Terintegrasi</div>
+        <div>© 2025 SEPAKAT — Sistem Pengawasan Kearsipan Terintegrasi</div>
       </div>
     </div>
   </footer>
 
   <script>
     const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
-    const PENGAWAS_URL = 'pengawas.html';
+    const DASHBOARD_URL = 'https://script.google.com/macros/s/AKfycbwaJk8hZ2kuIo4MMXzIaEBUkCKUGE47SWJ0ProFKsxxf8ZjCYs9Wv27c9reVDSjj0QP/exec';
     const CLIENT_ID = '504446146694-ci4bct8omrj53ks3rsga39ouc053t6pa.apps.googleusercontent.com';
 
     const alertPengawas = document.getElementById('alertPengawas');
@@ -363,9 +357,6 @@
       alertPengawas.className = 'alert-portal';
     }
 
-    // =====================================================
-    // CALLBACK dari Google Sign-In
-    // =====================================================
     window.handleCredentialResponse = async function(response) {
       hideAlert();
       showAlert('info', '⏳ Memverifikasi akun...');
@@ -385,10 +376,9 @@
           return;
         }
 
-        // Sukses → redirect ke pengawas.html
         showAlert('success', '✅ Berhasil login sebagai <strong>' + (data.name || data.email) + '</strong>. Mengarahkan...');
         setTimeout(() => {
-          window.location.href = PENGAWAS_URL;
+          window.location.href = DASHBOARD_URL;
         }, 700);
 
       } catch (err) {
@@ -396,23 +386,14 @@
       }
     };
 
-    // =====================================================
-    // RENDER GSI BUTTON (di dalam overlay, disembunyikan)
-    // =====================================================
     window.addEventListener('load', () => {
       if (typeof google === 'undefined' || !google.accounts) {
-        // Fallback: kalau GSI gagal load, tombol jadi link langsung ke pengawas.html
-        // (masih akan diverifikasi di pengawas.html)
         const overlay = document.getElementById('gsiOverlay');
-        if (overlay) {
-          overlay.style.pointerEvents = 'none';
-        }
+        if (overlay) overlay.style.pointerEvents = 'none';
         const btn = document.querySelector('.btn-gsi-wrap .card-link');
         if (btn) {
           btn.style.pointerEvents = 'auto';
-          btn.addEventListener('click', () => {
-            window.location.href = PENGAWAS_URL;
-          });
+          btn.addEventListener('click', () => { window.location.href = DASHBOARD_URL; });
         }
         return;
       }
@@ -438,9 +419,6 @@
       );
     });
 
-    // =====================================================
-    // Scroll reveal + hamburger
-    // =====================================================
     (function() {
       const revealElements = document.querySelectorAll('.reveal');
       const revealObserver = new IntersectionObserver((entries) => {
