@@ -316,6 +316,42 @@
 </head>
 <body>
 
+  <!-- ===================================================== -->
+  <!-- PENJAGA: WAJIB LOGIN GOOGLE                            -->
+  <!-- ===================================================== -->
+  <script>
+    (function() {
+      const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
+
+      // Sembunyikan halaman sampai verifikasi selesai
+      document.documentElement.style.visibility = 'hidden';
+
+      const token = sessionStorage.getItem('sakti_id_token');
+
+      if (!token) {
+        window.location.replace('portal.html');
+        return;
+      }
+
+      // Verifikasi token ke API
+      fetch(API_URL + '?action=verify-token&token=' + encodeURIComponent(token))
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (!data.success || !data.allowed) {
+            sessionStorage.removeItem('sakti_id_token');
+            window.location.replace('portal.html');
+            return;
+          }
+          // Valid → tampilkan halaman
+          document.documentElement.style.visibility = 'visible';
+        })
+        .catch(function() {
+          sessionStorage.removeItem('sakti_id_token');
+          window.location.replace('portal.html');
+        });
+    })();
+  </script>
+
   <header class="navbar">
     <div class="container nav-content">
       <a href="index.html" class="logo">
