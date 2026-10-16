@@ -317,38 +317,23 @@
 <body>
 
   <!-- ===================================================== -->
-  <!-- PENJAGA: WAJIB LOGIN GOOGLE                            -->
+  <!-- PENJAGA: CEK SESSIONSTORAGE                            -->
+  <!-- Verifikasi sebenarnya dilakukan oleh Dashboard API     -->
   <!-- ===================================================== -->
   <script>
     (function() {
-      const API_URL = 'https://script.google.com/macros/s/AKfycbyskcCYiT8QS3KbOQYpfHUsZ4RsfEnUrDh1os8U1m1C9gmXsMaNtrb98sJRFDxvjNgsOw/exec';
-
-      // Sembunyikan halaman sampai verifikasi selesai
-      document.documentElement.style.visibility = 'hidden';
-
       const token = sessionStorage.getItem('sakti_id_token');
+      const email = sessionStorage.getItem('sakti_user_email');
 
-      if (!token) {
+      if (!token || !email) {
+        // Belum login → tendang ke portal
         window.location.replace('portal.html');
         return;
       }
 
-      // Verifikasi token ke API
-      fetch(API_URL + '?action=verify-token&token=' + encodeURIComponent(token))
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (!data.success || !data.allowed) {
-            sessionStorage.removeItem('sakti_id_token');
-            window.location.replace('portal.html');
-            return;
-          }
-          // Valid → tampilkan halaman
-          document.documentElement.style.visibility = 'visible';
-        })
-        .catch(function() {
-          sessionStorage.removeItem('sakti_id_token');
-          window.location.replace('portal.html');
-        });
+      // Sudah login → biarkan tampil.
+      // Verifikasi email TETAP dilakukan oleh Dashboard Apps Script
+      // saat user klik "Menu Audit" (fungsi isEmailAllowed).
     })();
   </script>
 
@@ -480,7 +465,6 @@
           return;
         }
 
-        // Urutkan berdasarkan Tanggal (terbaru di atas)
         data.sort((a, b) => {
           const da = new Date(a['Tanggal'].split('/').reverse().join('-'));
           const db = new Date(b['Tanggal'].split('/').reverse().join('-'));
@@ -493,7 +477,6 @@
           const bulan = item['Bulan'] || '';
           const isi = item['Isi'] || '';
 
-          // Icon & tag per kategori
           let icon = 'fa-info-circle';
           let tagText = 'Informasi';
           if (kategori === 'urgent') { icon = 'fa-play-circle'; tagText = 'Mulai Hari Ini'; }
